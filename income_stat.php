@@ -173,6 +173,14 @@
 								</select>
 						  </td>
 						  </tr>
+						   	<tr>
+							<td align="center" >类别</td>
+							<td><select class='field' name="type">
+									<option value="income">已赚</option>
+									<option value="all">收取</option>
+								</select>
+							</td>
+						</tr>
 					   <tr>
 							<td align="center" >口令:</td>
 							<td><input class='field' type="password" name="password"/></td>

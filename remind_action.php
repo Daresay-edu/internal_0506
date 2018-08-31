@@ -60,6 +60,7 @@ td
 							echo "<form name='remind' action='remind_action_makeup_finish.php' method='post' target='_blank'>";
 							echo "<input type='hidden' name='classid' id='classid' value='def'/>
 						<input type='hidden' name='engname' id='engname' value='def'/>
+						<input type='hidden' name='toclassid' id='toclassid' value='def'/>
 						<input type='hidden' name='ab_hour' id='ab_hour' value='def'/>";
 							require_once("database_opt/public.php");
 							if (strcmp($classid, "All")==0) {

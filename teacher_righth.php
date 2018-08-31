@@ -6,7 +6,7 @@
 <title>DareSay Education</title>
 <link rel="stylesheet" href="css/jquery.fancybox.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
-<script type="text/javascript" src="js/read_db.js"></script>
+<script type="text/javascript" src="js/daresay.js"></script>
 </head>
 <body>
 

@@ -84,36 +84,38 @@ height: 30px;
 				 $conn=db_conn("daresay_db");
 				$sql="SELECT * FROM students";
 				$result=mysql_query($sql,$conn);
-if (!$result)
-	die("SQL: {$sql}<br>Error:".mysql_error());
-	echo "<table>";
-	echo "<tr>";
-	echo "<td>ID</td>";
-	echo "<td>姓名</td>";
-	echo "<td>英文姓名</td>";
-	echo "<td>年龄</td>";
-	echo "<td>电话</td>";
-	echo "<td>所在学校</td>";
-	echo "<td>班级</td>";
-	echo "<td>缴费课时</td>";
-	echo "</tr>";
-	$i=1;
-	while ($row = mysql_fetch_assoc($result)) {
-		echo "<tr>";
-		echo "<td>".$i++."</td>";
-		echo "<td>".$row['name']."</td>";
-		echo "<td>".$row['engname']."</td>";
-		echo "<td>".$row['age']."</td>";
-		echo "<td>".$row['phone']."</td>";
-		echo "<td>".$row['school']."</td>";
-		echo "<td>".$row['classid']."</td>";
-		echo "<td>".$row['hour_begin']."至".$row['hour_end']."</td>";
-		echo "</tr>";
-	}
-echo "</table>";
-echo "<br/><br/>";
-
-?>
+                                if (!$result)
+                                	die("SQL: {$sql}<br>Error:".mysql_error());
+                                	echo "<table>";
+                                	echo "<tr>";
+                                	echo "<td>ID</td>";
+                                	echo "<td>姓名</td>";
+                                	echo "<td>英文姓名</td>";
+                                	echo "<td>年龄</td>";
+                                	echo "<td>电话</td>";
+                                	echo "<td>所在学校</td>";
+                                	echo "<td>班级</td>";
+                                	echo "<td>缴费课时</td>";
+                                	echo "<td>积分</td>";
+                                	echo "</tr>";
+                                	$i=1;
+                                	while ($row = mysql_fetch_assoc($result)) {
+                                		echo "<tr>";
+                                		echo "<td>".$i++."</td>";
+                                		echo "<td>".$row['name']."</td>";
+                                		echo "<td>".$row['engname']."</td>";
+                                		echo "<td>".$row['age']."</td>";
+                                		echo "<td>".$row['phone']."</td>";
+                                		echo "<td>".$row['school']."</td>";
+                                		echo "<td>".$row['classid']."</td>";
+                                		echo "<td>".$row['hour_begin']."至".$row['hour_end']."</td>";
+                                		echo "<td>".$row['credit']."</td>";
+                                		echo "</tr>";
+                                	}
+                                echo "</table>";
+                                echo "<br/><br/>";
+                                
+                                ?>
                     			   </table>
 
 					</div>

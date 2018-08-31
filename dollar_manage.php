@@ -112,6 +112,7 @@ height: 30px;
 								echo "<td>备注</td>";
 								echo "</tr>";
 								$i=1;
+								$j=0;
 								while ($row = mysql_fetch_assoc($result)) {
 									$tmp_date = $row['date'];
 									if (strtotime($tmp_date) < strtotime($datefrom) || strtotime($tmp_date) > strtotime($dateend))
@@ -125,8 +126,18 @@ height: 30px;
 										echo "<td>".$row['dollar_num']."</td>";
 										echo "<td>".$row['note']."</td>";
 									echo "</tr>";
+									$j+=$row['dollar_num'];
 								}
+								if ($j-8 < 0) {
+									$j = 3;
+								} else {
+									$j = $j-8+3;
+					
+								}
+								echo "<tr>";
+								//echo "<th  colspan='7'>本次发$j$</th>";
 								
+								echo "</tr>";
 								echo "<tr style=\"display:none\">
 											<td>
 											<input type='hidden' name='engname_hide' value='$engname' />
@@ -141,7 +152,8 @@ height: 30px;
 											<input type='hidden' name='dateend' value='$dateend' />
 											</td>
 											</tr>";
-								echo "<br/><br/><tr style='border:0'><td><input class='field'  style=\"background-color:#F9EBAE\" type='submit' value='取出'/></tr></td>";
+	
+								echo "<br/><br/><tr style='border:0'><td><B>本次发$j$</B></td><td><input class='field'  style=\"background-color:#F9EBAE\" type='submit' value='取出'/></td></tr>";
 								echo "</table></form>";
 								echo "<br/><br/>";
 

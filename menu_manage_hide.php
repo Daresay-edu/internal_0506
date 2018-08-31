@@ -9,10 +9,12 @@
 			<li><a href="attendance_index.php" target="">出勤表管理</a></li>
 			<li><a href="lesson_record_index.php" target="">已上课程记录</a></li>
 			<li><a href="students_index.php" target="">学生管理</a></li>
+			<li><a href="students_credit_index.php" target="">学生积分</a></li>
 			<li><a href="teacher_addh.php" target="">教师管理</a></li>
 			<li><a href="school_add.php" target="">校区管理</a></li>
 			<li><a href="remind_index.php" target="">提醒/通知</a></li>
 			<li><a href="income_stat.php" target="">收入</a></li>
+			<li><a href="https://www-k6.thinkcentral.com/ePCEval/evalLogin.do" target="">LA/SF Online</a></li>
 			
 		</ul>
 	</li>

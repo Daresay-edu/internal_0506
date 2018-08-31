@@ -6,7 +6,7 @@
 <title>DareSay Education</title>
 <link rel="stylesheet" href="css/jquery.fancybox.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
-<script type="text/javascript" src="js/read_db.js"></script>
+<script type="text/javascript" src="js/daresay.js"></script>
 </head>
 <body>
 
@@ -61,6 +61,7 @@
 </select>
 <br/>
 <input class='field'  style="background-color:#F9EBAE" type="button" onclick="form1.action='students_manage.php?action=modify';form1.submit();" value="Modify"/><span></span>
+<input class='field'  style="background-color:#F9EBAE" type="button" onclick="form1.action='students_manage.php?action=copy';form1.submit();" value="Copy"/><span></span>
 <input class='field'  style="background-color:#F9EBAE" type="button" onclick="form1.action='students_manage.php?action=delete';form1.submit();" value="Delete"/><span></span>
 <div class='cl'>&nbsp;</div>
 </div>

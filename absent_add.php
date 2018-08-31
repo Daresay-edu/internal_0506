@@ -6,7 +6,7 @@
 	<title>DareSay Education</title>
 	<link rel="stylesheet" href="css/jquery.fancybox.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
-	<script type="text/javascript" src="js/read_db.js"></script>
+	<script type="text/javascript" src="js/daresay.js"></script>
     <script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
 	<script type="text/javascript" src="js/flowplayer-3.1.1.min.js"></script>
 	<script type="text/javascript" src="js/jquery.fancybox-1.2.1.pack.js"></script>
@@ -140,22 +140,18 @@
 						</tr>
 						<tr>
 							<td align="center" >补课班级</td>
-							<td><select class='field' name="inclassid">
-							<?php
+							<td><select class='field' name="inclassid" id="inclassid">
+							     <?php
 								
-										require_once("database_opt/db_opt.php");
-										$conn=db_conn("daresay_db");
-										$sql="SELECT * FROM class";							
-										$result=mysql_query($sql,$conn);
-										if (!$result)
-											die("SQL: {$sql}<br>Error:".mysql_error());	
-										while ($row = mysql_fetch_assoc($result)) {
-											$tmp=$row['classid'];
+										require_once("database_opt/public.php");
+										$classes = get_running_class();
+										echo $classes;
+										for ($i=0;$i<count($classes);$i++) {
+								            $tmp = $classes[$i];
 											echo "<option value='$tmp'>".$tmp."</option>";	
-										}					
-										mysql_close($conn);
+										}	
 							
-							?>
+								?>
 							    </select>
 							</td>
 						</tr>
@@ -170,8 +166,10 @@
 
 					   	<tr>
 							<td align="center" >备注:</td>
-							<td><input class='field' type="text" name="note"/></td>
+							<td><input class='field' type="text" name="note" id="note"/></td>
 						</tr>
+		
+						
 						<tr>
 							<td align="right"><input class='field'  style="background-color:#F9EBAE" type="submit" name="add" value="添加"/></td>
 						</tr>

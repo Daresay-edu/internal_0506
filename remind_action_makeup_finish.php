@@ -42,6 +42,7 @@ td
 						$engname=$_POST["engname"];
 						$classid=$_POST["classid"];
 						$ab_hour=$_POST["ab_hour"];
+						$toclassid=$_POST["toclassid"];
 						$conn=db_conn("daresay_db");
 						$sql="SELECT * FROM absent WHERE engname='$engname' and classid='$classid' and ab_hour='$ab_hour'";
 						$result=mysql_query($sql,$conn);
@@ -49,7 +50,7 @@ td
 							die("SQL: {$sql}<br>Error:".mysql_error());	
 						$row = mysql_fetch_assoc($result);
 						$current_time=date('Y-m-d',time());
-						$sql="UPDATE absent SET finish='yes',note='$current_time' WHERE engname='$engname' and classid='$classid' and ab_hour='$ab_hour'";
+						$sql="UPDATE absent SET finish='yes',note='$current_time',in_classid='$toclassid' WHERE engname='$engname' and classid='$classid' and ab_hour='$ab_hour'";
 						$result=mysql_query($sql,$conn);
 						if (!$result)
 							die("SQL: {$sql}<br>Error:".mysql_error());	

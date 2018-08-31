@@ -165,17 +165,17 @@ height: 30px;
 									exit;
 
 								}
-								
-								include("attendance/attendance_array.php");
-								$cb=substr($classid,0,2);
-								$class_content=$cb."_class_content";
-								list($tmp_fir,$tmp_sec) = explode("-",$ab_hour);
-								foreach(${$class_content} as $K=>$V) {
-									list($tmp_a,$tmp_b) = explode("-",$K);
-									if ($tmp_a <= $tmp_fir && $tmp_sec <= $tmp_b) {
-										if (strncmp($V,"Math",4) == 0 || strncmp($V,"Science",7)==0) {
-											$tmp=$V;
-												break;
+								/*
+								//include("attendance/attendance_array.php");
+								//$cb=substr($classid,0,2);
+								//$class_content=$cb."_class_content";
+								//list($tmp_fir,$tmp_sec) = explode("-",$ab_hour);
+								//foreach(${$class_content} as $K=>$V) {
+									//list($tmp_a,$tmp_b) = explode("-",$K);
+									//if ($tmp_a <= $tmp_fir && $tmp_sec <= $tmp_b) {
+										//if (strncmp($V,"Math",4) == 0 || strncmp($V,"Science",7)==0) {
+											//$tmp=$V;
+												//break;
 										}
 
 										$l_num=($tmp_fir-$tmp_a)/2+1;
@@ -185,7 +185,7 @@ height: 30px;
 								}
 								
 								$note=$tmp." ".$note;
-								
+								*/
 								// insert into db
 								$sql="INSERT INTO $db_table(engname, classid, ab_hour, ab_date, in_classid, finish, note)
 								      VALUES ('$engname', '$classid', '$ab_hour', '$ab_date', '$inclassid', '$finish','$note');";

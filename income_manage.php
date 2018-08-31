@@ -97,6 +97,7 @@ height: 30px;
 								$monthend=$_POST["monthend"];
 								$dayend=$_POST["dayend"];
 								$password=$_POST["password"];
+								$type=$_POST["type"];
 								
 								$datefrom=$yearfrom."-".$monthfrom."-".$dayfrom;
 								$dateend=$yearend."-".$monthend."-".$dayend;
@@ -135,7 +136,11 @@ height: 30px;
 								} else {
 									$class_arr[$i]=$classid;
 								}
-								echo "<h2>".$datefrom."至".$dateend."的收入总计: </h2>";
+								if (strcmp($type, "income") == 0 ) {
+									echo "<h2>".$datefrom."至".$dateend."的收入总计: </h2>";
+								} else if (strcmp($type, "all") == 0) {
+									echo "<h2>从".$datefrom."至现在总共收取: </h2>";
+								}
 								echo "<br/><br/>";
 								echo "<table>";
 								echo "<tr>";
@@ -198,7 +203,12 @@ height: 30px;
 											$tmp_hour_begin = $hour_begin;
 										else 
 											$tmp_hour_begin = $row['hour_begin'];
-										$tmp_hour_end=($row['hour_end'] >= $hour_end ? $hour_end : $row['hour_end']);
+										//如果是计算收入则按照以上课时为准，如果是计算收取则终止课时按学员缴费截止课时为准
+										if (strcmp($type, "income") == 0 ) {
+											$tmp_hour_end=($row['hour_end'] >= $hour_end ? $hour_end : $row['hour_end']);
+										} else if (strcmp($type, "all") == 0) {
+											$tmp_hour_end = $row['hour_end'];
+										}
 										$earned=$charge_each_hour*($tmp_hour_end-$tmp_hour_begin);
 										echo "<tr>";
 										echo "<td>".$row['classid']."</td>";

@@ -3,13 +3,14 @@ function makeup_finish(str)
 
 	arr=str.split("&");
 	
-	var Url2=document.getElementById(arr[3]);
+	var Url2=document.getElementById(arr[4]);
 	Url2.select(); // 选择对象
 	document.execCommand("Copy"); // 执行浏览器复制命令
 
 	document.getElementById("classid").value = arr[0];
 	document.getElementById("engname").value = arr[1];
 	document.getElementById("ab_hour").value = arr[2];
+	document.getElementById("toclassid").value = arr[3];
 	document.remind.submit();
 	return true;
 
@@ -152,7 +153,7 @@ function dis_ab_getClassMem(classid) {
 					var str=xmlhttp1.responseText;
 					var strs=new Array();
 					strs=str.split(";");
-					document.getElementById("dis_engname").add(new Option("All","All"));
+					//document.getElementById("dis_engname").add(new Option("All","All"));
 					for(var i=0;i<strs.length;i++) {		 
 						document.getElementById("dis_engname").add(new Option(strs[i],strs[i]));
 					}
@@ -224,7 +225,14 @@ function getsomeoneAB() {
 				}  
 			}  
 }
+function getnextClassID(classid) {
+	var level = classid.substring(0,1);
+	var inclassid = parseInt(classid.substr(1)) + 1;
+	inclassid = level + inclassid;
+	document.getElementById("inclassid").add(new Option(inclassid,inclassid,true,true));
+}
  function addAbsent(classid) {
 	 getClassMem(classid);
 	 getClassnum1(classid);
+	 getnextClassID(classid);
  }

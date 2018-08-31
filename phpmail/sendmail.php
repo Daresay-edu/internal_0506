@@ -36,6 +36,7 @@ switch($_GET["action"]) {
 		$class_source = $_POST["class_source"];
 		$public_source = $_POST["public_source"];
 		$smtpemailto = $_POST["mail_address"];
+		$note = $_POST["note"];
 		
 		//需开启SMTP服务，在邮箱里面设置
 		// 163发送邮件出现报错现象，其他邮箱可用
@@ -110,7 +111,7 @@ switch($_GET["action"]) {
 		$week=$weekarray[date("w")];
 		$class_info=$print_lesson;
 		$absent="";
-		$note="";
+		//$note="";
 		mysql_query('BEGIN',$conn);
 		$sql="SELECT * FROM {$table_name} FOR UPDATE";
 		$result=mysql_query($sql,$conn);

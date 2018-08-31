@@ -70,6 +70,7 @@ font-size: 12px;
 						case "see":
 							$classid = $_POST["classid"];
 							$class_num = $_POST["begin_class"];
+							$note = $_POST["note"];
                             
 							if (strcmp($classid, 'def')==0 || strcmp($class_num, 'null') == 0) {
 								echo "<script>alert('请指定班级和课时！');window.history.go(-1);</script>";
@@ -138,6 +139,7 @@ font-size: 12px;
 							echo "<input type='hidden' name='class_source' value='$class_source'/>";
 							echo "<input type='hidden' name='public_source' value='$public_source'/>";
 							echo "<input type='hidden' name='mail_address' value='$mail'/>";
+							echo "<input type='hidden' name='note' value='$note'/>";
 							echo "<input class='submit' type='submit' name='send' value='发送课程内容'/>";
 								echo "</td>";
 								echo "</tr>";

@@ -17,6 +17,33 @@
 	     var swfplayer = videopath + "player/flowplayer-3.1.1.swf";
 
     </script>
+	<script>
+function CheckForm()
+{
+		var name=document.getElementById("name").value;
+		var engname=document.getElementById("engname").value;
+		var charge=document.getElementById("charge").value;
+		var school=document.getElementById("school").value;
+		if (name.length == 0 || 
+		    engname.length == 0 || 
+			charge.length == 0 ||
+			school.length == 0) {
+			alert("请输入中文名、英文名、年龄、学校、缴费金额，若没有英文名请输入中文名全拼！");
+			return false;
+		}
+        var phone=document.getElementById("phone").value;
+		if (phone.length != 11) {
+			alert("为了方便同家长联系，请输入11位电话号码！");
+			return false;
+		}
+		var classid=document.getElementById("classid").value;
+		if (classid == "def") {
+			alert("请选择班级！");
+			return false;
+		}
+}
+
+</script>
 </head>
 <body>
 <!-- Header -->
@@ -58,19 +85,29 @@
 					<div class="vidoes">
                       			<!-- Add Videos -->
                       			<br/>
-					<form action="students_manage.php?action=add" method="post">
+					<form action="students_manage.php?action=add" method="post" onsubmit="return CheckForm()">
 					   <table border="0" align="center" width="800">
 					   	<tr>
 							<td align="center" >姓名:</td>
-							<td><input class='field' type="text" name="name"/></td>
+							<td><input class='field' type="text" name="name" id="name"/></td>
 						</tr>
 					   	<tr>
 							<td align="center" >英文名:</td>
-							<td><input class='field' type="text" name="engname"/></td>
+							<td><input class='field' type="text" name="engname" id="engname"/></td>
 						</tr>
 					   	<tr>
 							<td align="center" >年龄:</td>
-							<td><input class='field' type="text" name="age"/></td>
+							<td><select class='field' name="age" id="age">
+							    <?php
+									$i=0;
+									$year=2;
+									for ($i;$i<19;$i++) {
+									echo "<option value='{$year}'>{$year}</option>";
+									$year++;
+								}
+								?>
+							   </select>
+							</td>
 						</tr>
 					   	<tr>
 							<td align="center" >性别:</td>
@@ -82,15 +119,15 @@
 						</tr>
 					   	<tr>
 							<td align="center" >电话:</td>
-							<td><input class='field' type="text" name="phone"/></td>
+							<td><input class='field' type="text" name="phone" id="phone"/></td>
 						</tr>
 					   	<tr>
 							<td align="center" >所在学校:</td>
-							<td><input class='field' type="text" name="school"/></td>
+							<td><input class='field' type="text" name="school" id="school"/></td>
 						</tr>
 					   	<tr>
 							<td align="center" >班级</td>
-							<td><select class='field' name="classid">
+							<td><select class='field' name="classid" id="classid">
 								<option value="def">请选择</option>
 							<?php
 								
@@ -154,7 +191,7 @@
 
 					   	<tr>
 							<td align="center" >缴费金额:</td>
-							<td><input class='field' type="text" name="charge"/></td>
+							<td><input class='field' type="text" name="charge" id="charge"/></td>
 						</tr>
 					   	<tr>
 							<td align="center" >课时:</td>
@@ -187,6 +224,10 @@
 							</select>
 							</td>
 
+						</tr>
+						<tr>
+							<td align="center" >积分:</td>
+							<td><input class='field' type="text" name="credit" defaultVal='0' value='0'/></td>
 						</tr>
 					   	<tr>
 							<td align="center" >备注:</td>

@@ -171,7 +171,7 @@ function print_remind_by_classid($classid) {
 				echo "<tr>";
 					$str="[补课通知]请".$aclassid."班".$engname."于".$makeup_tm."来".$classid."补第".$ab_hour."课时，收到请回复。如果当天不能来补课，请微信中通知我，谢谢您的配合！";
 					echo "<td>".$str."<input type='text' id='$i' value='$str'/></td>";
-					echo "<td><a href='#' target='_self' id='$aclassid&$engname&$ab_hour&$i' onClick='javascript:return makeup_finish(this.id);'>DONE</a></td>";
+					echo "<td><a href='#' target='_self' id='$aclassid&$engname&$ab_hour&$classid&$i' onClick='javascript:return makeup_finish(this.id);'>DONE</a></td>";
 				echo "</tr>";
 			}
 			$i++;

@@ -6,7 +6,7 @@
 	<title>DareSay Education</title>
 	<link rel="stylesheet" href="css/jquery.fancybox.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
-	<script type="text/javascript" src="js/read_db.js"></script>
+	<script type="text/javascript" src="js/daresay.js"></script>
     <script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
 	<script type="text/javascript" src="js/flowplayer-3.1.1.min.js"></script>
 	<script type="text/javascript" src="js/jquery.fancybox-1.2.1.pack.js"></script>
@@ -85,6 +85,13 @@
 								<option value="null">null</option>
 							    </select>
 								<a href='./lesson_record_index.php'>查看以往上课记录</a>
+							</td>
+							
+						</tr>
+						<tr>
+							<td align="right" >备注:</td>
+							<td><input class='field' type="text" name="note"/>
+							    
 							</td>
 						</tr>
 					   	<tr>

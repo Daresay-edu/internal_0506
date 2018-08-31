@@ -6,7 +6,7 @@
 <title>DareSay Education</title>
 <link rel="stylesheet" href="css/jquery.fancybox.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
-<script type="text/javascript" src="js/read_db.js"></script>
+<script type="text/javascript" src="js/daresay.js"></script>
 </head>
 <body>
 
@@ -127,6 +127,12 @@ require_once("database_opt/db_opt.php");
 								}
 								?>
 								</select>
+<br/><br/>
+<label>Type</label>
+<select class='field' name="type">
+	<option value="income">已赚</option>
+	<option value="all">收取</option>
+</select>
 <br/><br/>
 <label>Password</label>
 <input class='field' type='password' name='password'/>

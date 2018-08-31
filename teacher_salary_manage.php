@@ -293,7 +293,7 @@ height: 30px;
 
 								$row = mysql_fetch_assoc($result);
 								if ($row) {
-									echo "<script>alert('{$row['engname']}已经打卡，且授课角色选择了{$character}!请确认您是否选错了授课角色！');window.history.go(-1);</script>";
+								echo "<script>alert('{$row['engname']}已经打卡{$row['classid']}班{$row['hour']}课时，且授课角色选择了{$character}!请确认您是否选错了授课角色！');window.history.go(-1);</script>";
 									exit;
 
 								}
