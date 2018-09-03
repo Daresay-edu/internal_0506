@@ -51,7 +51,7 @@ function CheckForm()
 		
 		<!-- Small Nav -->
 		<div class="small-nav">
-			<a href="#">添加学生</a>
+			<a href="#">添加积分</a>
 		</div>
 		<!-- End Small Nav -->
 		

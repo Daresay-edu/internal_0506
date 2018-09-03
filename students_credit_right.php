@@ -37,7 +37,7 @@
 <option value="null">null</option>
 </select>
 <br/>
-<input class='field'  style="background-color:#F9EBAE" type="button" onclick="form1.action='students_credit_manage.php?action=display';form1.submit();" value="Display"/><span></span>
+<input class='field'  style="background-color:#F9EBAE" type="button" onclick="form1.action='students_credit_index.php?action=display';form1.submit();" value="Display"/><span></span>
 <div class='cl'>&nbsp;</div>
 </div>
 </form>

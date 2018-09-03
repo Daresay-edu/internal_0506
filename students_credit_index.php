@@ -15,6 +15,12 @@
 
 	     var videopath = "../teach_source/";
 	     var swfplayer = videopath + "player/flowplayer-3.1.1.swf";
+    function foo(){
+        if(confirm("确认删除吗？")){
+	    return true;
+        }
+        return false;
+   }  
 
     </script>
     <style type="text/css">
@@ -35,6 +41,9 @@ td
 {
 height: 30px;
 }
+a{ 
+ text-decoration:none
+ } 
 </style>
 </head>
 <body>
@@ -94,6 +103,7 @@ height: 30px;
                                         echo "<td>积分缘由</td>";
                                 	echo "<td>日期</td>";
                                 	echo "<td>积分</td>";
+                                	echo "<td>操作</td>";
                                 	echo "</tr>";
                                 	$i=1;
                                 	while ($row = mysql_fetch_assoc($result)) {
@@ -104,6 +114,10 @@ height: 30px;
                                 		echo "<td>".$row['reason']."</td>";
                                 		echo "<td>".$row['date']."</td>";
                                 		echo "<td>".$row['credit']."</td>";
+                                		echo "<td>";
+						echo "<a href=students_credit_manage.php?action=modify&classid=".$row['classid']."&engname=".$row['engname']."&reason=".$row['reason']."&date=".$row['date']."&credit=".$row['credit']."&note=".$row['note']."><input class='field'  style='background-color:#F9EBAE' type='button' value='Modify'></a><br/>";
+						echo "<a onclick='return foo();' href=students_credit_manage.php?action=delete&classid=".$row['classid']."&engname=".$row['engname']."&reason=".$row['reason']."&date=".$row['date']."&credit=".$row['credit']."&note=".$row['note']."><input class='field'  style='background-color:#F9EBAE' type='button' value='Delete'></a>";
+						echo"</td>";
                                 		echo "</tr>";
                                 	}
                                 echo "</table>";
