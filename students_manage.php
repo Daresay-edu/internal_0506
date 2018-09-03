@@ -234,6 +234,7 @@ height: 30px;
 								echo "</table>";
 								echo '<br/>';
 								echo "Success!";
+								echo "Daresay Online用户信息:".$classid." ".$engname." ".$tmp_ascii;
 								mysql_close($conn);
 								$where = "888";
                                 send_mail("18020023616@163.com", "New Student From ".$where, $name."-".$age."岁-".$school."-".$phone);
