@@ -80,39 +80,13 @@ height: 30px;
                       			<br/>
 					<?php
 					include "phpmail/mail_array.php";
+				        require_once("database_opt/public.php");
 
 					switch($_GET["action"]) {
 						case "see":
 							$classid = $_POST["classid"];
 							
-							require_once("database_opt/db_opt.php");
-							$conn=db_conn("daresay_db");
-							$table_name="class_info_record";
-							$sql="SELECT * FROM {$table_name} where classid='$classid' order by id desc";
-							$result=mysql_query($sql,$conn);
-							if (!$result)
-								die("SQL: {$sql}<br>Error:".mysql_error());
-							echo $classid."班课程记录"."<br/><br/>";
-							echo "<table border='1' width='700' border-collapse='collapse'>";
-							echo "<tr>";
-								echo "<td>课时</td>";
-								echo "<td>课程内容</td>";
-								echo "<td>上课时间</td>";
-								echo "<td>缺勤学生</td>";
-								echo "<td>备注</td>";
-							echo "</tr>";
-							$i=1;
-							while ($row = mysql_fetch_assoc($result)) {
-								echo "<tr>";
-								echo "<td>".$row['hour']."</td>";
-								echo "<td>".$row['class_info']."</td>";
-								echo "<td>".$row['date'].$row['week']."</td>";
-								echo "<td>".$row['absent']."</td>";
-								echo "<td>".$row['note']."</td>";
-								echo "</tr>";
-							}
-							echo "</table>";
-							echo "<br/><br/>";
+							print_class_record_info($classid);
 							
 							break;
 					  }

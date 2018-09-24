@@ -236,3 +236,10 @@ function getnextClassID(classid) {
 	 getClassnum1(classid);
 	 getnextClassID(classid);
  }
+ 
+function makesure(){
+    if (confirm("¿¿¿¿¿¿¿")) {
+        return true; 
+    }
+    return false;
+}

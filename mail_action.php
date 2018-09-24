@@ -11,17 +11,38 @@
 	<script type="text/javascript" src="js/jquery.fancybox-1.2.1.pack.js"></script>
 	<script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
 	<script type="text/javascript" src="js/fancyplayer.js"></script>
+	<script type="text/javascript" src="js/daresay.js"></script>
     <script type="text/javascript">
 
 	     var videopath = "../teach_source/";
 	     var swfplayer = videopath + "player/flowplayer-3.1.1.swf";
+function makesure(){
+    if (confirm("确认此操作么？")) {
+        return true; 
+    }
+    return false;
+}
 
     </script>
+
     <style type="text/css">
+    table
+{
+width: 720px;
+margin: 0 auto;
+	border-collapse:collapse;
+	font-size: 15px;
+}
 table, tr, td
 {
-font-size: 12px;
+border: 1px solid;
+	text-align:left;
 }
+td
+{
+height: 30px;
+}
+.content{text-indent:2em;letter-spacing:8px;line-height:30px;font-family:"Arial";}
 </style>
 </head>
 <body>
@@ -89,7 +110,7 @@ font-size: 12px;
 							$class_source=$row['source1'];
 							$public_source=$row['source2'];
 							
-							$mailcontent = "Dear Parents:"."<br>"."<br>";
+							$mailcontent = "<div class='content'>";
 
 							/* get content */
 
@@ -102,7 +123,7 @@ font-size: 12px;
 							while(!feof($myfile)) {
 								$read_line = fgets($myfile);
 								if ($class_num == "1-192") {
-									$mailcontent .=  $read_line."<br>";
+									$mailcontent .=  $read_line;
 								} else {
 									if ($find_begin == 0 && strncmp("$read_line", "$class_num", strlen("$class_num"))==0) {
 										$find_begin = 1;
@@ -117,21 +138,22 @@ font-size: 12px;
 								}
 
 							}
+							$mailcontent .= "</div>";
 							fclose($myfile);
 							
-							//video and pic path on 360yun
-							$mailcontent .= "<br>"."班级视频及照片地址: ".$class_source."<br>"."课后学习资源地址: ".$public_source."<br>";
-
-							$mailcontent.="<br>"."<br>"."Thank you for your understanding and support!"."<br>"."Daresay Education"."<br>";
-		
-							echo "<form action='phpmail/sendmail.php?action=send' method='post'>";
+							//echo "<form action='phpmail/sendmail.php?action=send' method='post'>";
+							echo "<form action='mail_action.php?action=record' method='post'>";
 							echo "<table>";
-							echo "<tr>";
-								echo "<td>";
-								echo "上课班级: ".$classid.'<br/>';
-								echo "课时: ".$class_num.'<br/>';
-								echo "课程内容如下: ".'<br/><br/>';
-								echo $mailcontent;
+						            echo "<tr>";
+								echo "<td width='20%'>上课班级: </td><td width='80%'>".$classid."</td>";
+							    echo "</tr>";
+						            
+						            echo "<tr>";
+								echo "<td>课时: </td><td>".$class_num."</td>";
+							    echo "</tr>";
+						            echo "<tr>";
+								echo "<td>课程内容如下: </td><td>".$mailcontent."</td>";
+							    echo "</tr>";
 							//echo iconv('GB2312', 'UTF-8', $mailcontent);
 							echo "<br/><br/>";
 							echo "<input type='hidden' name='classid' value='$classid'/>";
@@ -140,10 +162,9 @@ font-size: 12px;
 							echo "<input type='hidden' name='public_source' value='$public_source'/>";
 							echo "<input type='hidden' name='mail_address' value='$mail'/>";
 							echo "<input type='hidden' name='note' value='$note'/>";
-							echo "<input class='submit' type='submit' name='send' value='发送课程内容'/>";
-								echo "</td>";
-								echo "</tr>";
 							echo "</table>";
+						
+							echo "<br/></br><div style='text-align:center; vertical-align:middel;'><input class='submit' type='submit' name='send' value='记录课程内容' onClick='return makesure()'/>&nbsp;&nbsp;<a href='mail_index.php'><input class='submit' type='button' value='返回'></a></div>";
 							echo "</form>";
 							//show audio of this class
 							$audio_dir="class_content/".$cb." audio/$class_num";
@@ -168,6 +189,73 @@ font-size: 12px;
 							
 							echo "<br/><br/>";
 							break;
+						case "record":
+		                                        $classid = $_POST["classid"];
+		                                        $class_num = $_POST["begin_class"];
+		                                        $class_source = $_POST["class_source"];
+		                                        $public_source = $_POST["public_source"];
+		                                        $smtpemailto = $_POST["mail_address"];
+		                                        $note = $_POST["note"];
+		                                        
+		                                        //将上课信息加入到class_info_record数据库中
+		                                        require_once("database_opt/db_opt.php");
+		                                        $conn=db_conn("daresay_db");
+		                                        $table_name="class_info_record";
+		                                        $sql="SELECT * FROM {$table_name}";
+		                                        $result=mysql_query($sql,$conn);
+		                                        $result=mysql_num_rows($result);
+		                                        if($result<1){
+		                                        	//表不存在，创建k2001_class_info_record类似的表
+		                                        	$sql="CREATE TABLE {$table_name} (id INT(20) not null AUTO_INCREMENT,classid varchar(100),date varchar(100),week varchar(100),hour varchar(100),class_info varchar(1000),absent varchar(64),note varchar(1000),primary key(id))";
+		                                        	$result=mysql_query($sql, $conn);
+		                                        	if (!$result) {
+		                                        		die("SQL: {$sql}<br>Error:".mysql_error());
+		                                        		//goto SndMail;
+		                                        	}
+		                                        }
+		                                        //将上课信息加入到class_info_record数据库中
+		                                        include("class_content/hour_classinfo_match.php");
+		                                        $cb=substr($classid,0,2);
+		                                        $class_content=$cb."_class_content";
+		                                        list($tmp_fir,$tmp_sec) = explode("-",$class_num);
+		                                        foreach(${$class_content} as $K=>$V) {
+		                                        	list($tmp_a,$tmp_b) = explode("-",$K);
+		                                        	if ($tmp_a <= $tmp_fir && $tmp_sec <= $tmp_b) {
+		                                        		if (strncmp($V,"Math",4) == 0 || strncmp($V,"Science",7)==0) {
+		                                        			$print_lesson=$V;
+		                                        				break;
+		                                        		}
+
+		                                        		$l_num=($tmp_fir-$tmp_a)/2+1;
+		                                        		$print_lesson=$V." Lesson ".$l_num;
+		                                        		break;
+		                                        	} 
+		                                        }
+
+		                                        $weekarray=array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday");
+		                                        $date=date("Y-m-d");
+		                                        $week=$weekarray[date("w")];
+		                                        $class_info=$print_lesson;
+		                                        $absent="";
+		                                        //$note="";
+		                                        mysql_query('BEGIN',$conn);
+		                                        $sql="SELECT * FROM {$table_name} FOR UPDATE";
+		                                        $result=mysql_query($sql,$conn);
+		                                        if (!$result)
+		                                        	die("SQL: {$sql}<br>Error:".mysql_error());
+		                                        $sql="INSERT INTO {$table_name} (classid, date, week, hour, class_info, absent, note) VALUES ('$classid', '$date', '$week', '$class_num', '$class_info', '$absent', '$note')";
+		                                        $result=mysql_query($sql, $conn);
+		                                        echo mysql_error();
+		                                        if (!$result) {
+		                                        		die("SQL: {$sql}<br>Error:".mysql_error());
+		                                        		//goto SndMail;
+		                                        }
+		                                        mysql_query('COMMIT',$conn);
+		                                        mysql_close($conn);
+							require_once("database_opt/public.php");
+							print_class_record_info($classid);
+		                                        
+//SndMail:
 					  }
 
 						?>
