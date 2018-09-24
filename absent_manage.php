@@ -17,6 +17,14 @@
 	     var swfplayer = videopath + "player/flowplayer-3.1.1.swf";
 
     </script>
+    <script type="text/javascript">
+        function makesure(){
+	    if (confirm("确认要更改状态么？")) {
+	        return true; 
+	    }
+	    return false;
+	}
+    </script>
     <style type="text/css">
     table
 {
@@ -104,6 +112,7 @@ height: 30px;
 								echo "<td>补课班级</td>";
 								echo "<td>已补完</td>";
 								echo "<td>备注</td>";
+								echo "<td>操作</td>";
 								echo "</tr>";
 								$i=1;
 								while ($row = mysql_fetch_assoc($result)) {
@@ -116,6 +125,7 @@ height: 30px;
 										echo "<td>".$row['in_classid']."</td>";
 										echo "<td>".$row['finish']."</td>";
 										echo "<td>".$row['note']."</td>";
+						                                echo "<td><a href='absent_manage.php?action=chg_finish&engname=".$row['engname']."&classid=".$row['classid']."&ab_hour=".$row['ab_hour']."&finish=".$row['finish']."' onClick='return makesure()'>Change_State</a></td>";
 									echo "</tr>";
 								}
 								echo "</table>";
@@ -249,6 +259,24 @@ height: 30px;
 								//$title="ADD ABSENT: ".$classid." ".$engname." absent hour ".$ab_hour;
 								//send_mail("18612187698@163.com",$title,$title);
 										
+							break;
+							case "chg_finish":
+								$engname=$_GET["engname"];
+								$classid=$_GET["classid"];
+								$ab_hour=$_GET["ab_hour"];
+								$finish=$_GET["finish"];
+								if (strcmp($finish, "yes") == 0) 
+								    $state = "no";
+								else
+								    $state = "yes";
+
+								$conn=db_conn("daresay_db");
+								$sql="UPDATE {$db_table} SET finish='$state' WHERE classid='$classid' and engname='$engname' and ab_hour='$ab_hour'";
+								$result=mysql_query($sql,$conn);
+								if (!$result)
+									die("SQL: {$sql}<br>Error:".mysql_error());
+								mysql_close($conn);
+								echo "<a href='absent_index.php'>Return</a>"; 
 							break;
 						
 							case "delete":
