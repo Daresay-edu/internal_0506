@@ -178,8 +178,8 @@ height: 30px;
 								
 								echo "<h2>课时费总计：".$total_salary."元.</h2><br/>";
 						
-								echo "<h2>试听课奖金: ".$chief_num."*10+".$assist_num."*5=".$total_listen.".</h2><br/>";
-								echo "<h2 style='color:orange'><b>工资总计：".$total_money.".</b></h2><br/>";
+								//echo "<h2>试听课奖金: ".$chief_num."*10+".$assist_num."*5=".$total_listen.".</h2><br/>";
+								//echo "<h2 style='color:orange'><b>工资总计：".$total_money.".</b></h2><br/>";
 								echo "<h2>如有任何疑问请随时联系Jackie！感谢您的辛勤付出！</h2>";
 								echo "<br/><br/>";
 

@@ -125,7 +125,7 @@ height: 30px;
 										echo "<td>".$row['in_classid']."</td>";
 										echo "<td>".$row['finish']."</td>";
 										echo "<td>".$row['note']."</td>";
-						                                echo "<td><a href='absent_manage.php?action=chg_finish&engname=".$row['engname']."&classid=".$row['classid']."&ab_hour=".$row['ab_hour']."&finish=".$row['finish']."' onClick='return makesure()'>Change_State</a></td>";
+						                                echo "<td><a href='absent_manage.php?action=chg_finish&engname=".$row['engname']."&classid=".$row['classid']."&ab_hour=".$row['ab_hour']."&finish=".$row['finish']."' onClick='return makesure()'><input class='submit' type='button' value='Change'></a></td>";
 									echo "</tr>";
 								}
 								echo "</table>";
