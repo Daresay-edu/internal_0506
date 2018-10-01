@@ -11,13 +11,27 @@
 								//$engname="jason";
 								//check if have the same engname in db
 								$conn=db_conn("daresay_db");
+								echo $classid;
+								echo $engname;
+								echo $passwd;
 								if (strcmp($classid, "teacher") == 0) {
 									$sql="SELECT * FROM teachers WHERE engname='$engname' and password='$passwd'";
 									$result=mysql_query($sql,$conn);
+									
 									if (!$result) {
+										echo "fail";
 										http_response_code(400);
 									} else {
-										http_response_code(200);
+										$row = mysql_fetch_assoc($result);
+                                        if ($row) {
+                                            echo "success";
+											http_response_code(200);                                                                                                   
+
+                                        } else {
+											echo "fail";
+											http_response_code(400);
+										}
+										
 									}
 								} else if (strcmp($classid, "admin") == 0) {
 									
@@ -39,9 +53,10 @@
 										$sql="UPDATE online_user SET access_times='$access_times' WHERE engname='$engname' AND classid='$classid' AND passwd='$passwd'";
 										$result=mysql_query($sql,$conn);
 										http_response_code(200);
-
+										echo "success";
 									} else {
 										//http_response_status(400);
+										echo "fail";
 										http_response_code(400);
 										//header('HTTP/1.1 400 Bad Request');
 									}
