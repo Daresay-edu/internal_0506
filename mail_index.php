@@ -101,6 +101,8 @@
                           
                     			   </table>
 					   </form>
+					   <div id="class_info">
+					   </div>
 
 					</div>
 					<!-- Table -->

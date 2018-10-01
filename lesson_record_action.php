@@ -84,7 +84,10 @@ height: 30px;
 
 					switch($_GET["action"]) {
 						case "see":
-							$classid = $_POST["classid"];
+						        if($_SERVER['REQUEST_METHOD']=='POST') 
+							    $classid = $_POST["classid"];
+							else 
+							    $classid = $_GET["classid"];
 							
 							print_class_record_info($classid);
 							

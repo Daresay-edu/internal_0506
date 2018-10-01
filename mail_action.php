@@ -87,6 +87,7 @@ height: 30px;
                       		
 					<?php
 					require_once("database_opt/db_opt.php");
+					require_once("database_opt/public.php");
 					switch($_GET["action"]) {
 						case "see":
 							$classid = $_POST["classid"];
@@ -163,8 +164,17 @@ height: 30px;
 							echo "<input type='hidden' name='mail_address' value='$mail'/>";
 							echo "<input type='hidden' name='note' value='$note'/>";
 							echo "</table>";
-						
-							echo "<br/></br><div style='text-align:center; vertical-align:middel;'><input class='submit' type='submit' name='send' value='记录课程内容' onClick='return makesure()'/>&nbsp;&nbsp;<a href='mail_index.php'><input class='submit' type='button' value='返回'></a></div>";
+
+							$current_hour = get_current_hour ($classid);
+							list($fir_hour, $sec_hour) = explode("-", $current_hour);
+		                                        list($tmp_fir,$tmp_sec) = explode("-",$class_num);
+                                                        echo "<br/></br><div style='text-align:center; vertical-align:middel;'>";
+						        if ((int)$tmp_fir - (int)$sec_hour != 1){
+							    echo "<input class='submit' type='submit' name='send' value='请按顺序记录课程内容' disabled='disabled' onClick='return makesure()'/>&nbsp;&nbsp;";
+							}else{
+							    echo "<input class='submit' type='submit' name='send' value='记录课程内容' onClick='return makesure()'/>&nbsp;&nbsp;";
+							}
+							echo "<a href='mail_index.php'><input class='submit' type='button' value='返回'></a></div>";
 							echo "</form>";
 							//show audio of this class
 							$audio_dir="class_content/".$cb." audio/$class_num";
@@ -199,6 +209,7 @@ height: 30px;
 		                                        
 		                                        //将上课信息加入到class_info_record数据库中
 		                                        require_once("database_opt/db_opt.php");
+		                                        require_once("database_opt/public.php");
 		                                        $conn=db_conn("daresay_db");
 		                                        $table_name="class_info_record";
 		                                        $sql="SELECT * FROM {$table_name}";
@@ -218,6 +229,14 @@ height: 30px;
 		                                        $cb=substr($classid,0,2);
 		                                        $class_content=$cb."_class_content";
 		                                        list($tmp_fir,$tmp_sec) = explode("-",$class_num);
+							$current_hour = get_current_hour ($classid);
+							//要记录的课时需要比系统中记录的课时大一课时
+							list($fir_hour, $sec_hour) = explode("-", $current_hour);
+		                                        list($tmp_fir,$tmp_sec) = explode("-",$class_num);
+						        if ((int)$tmp_fir - (int)$sec_hour != 1){
+						            echo "<script>alert('操作失败！预发送的课时为".$class_num."需要比已记录课时".$current_hour."大1！');window.history.go(-1);</script>";
+							    break;
+							}	
 		                                        foreach(${$class_content} as $K=>$V) {
 		                                        	list($tmp_a,$tmp_b) = explode("-",$K);
 		                                        	if ($tmp_a <= $tmp_fir && $tmp_sec <= $tmp_b) {

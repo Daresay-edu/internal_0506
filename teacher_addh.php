@@ -139,10 +139,6 @@
 							<td align="center" >助教课时费:</td>
 							<td><input class='field' type="text" name="assist_salary"/></td>
 						</tr>
-						<tr>
-							<td align="center" >口令:</td>
-							<td><input class='field' type="text" name="password"/></td>
-						</tr>
 					   	<tr>
 							<td align="center" >备注:</td>
 							<td><input class='field' type="text" name="note"/></td>

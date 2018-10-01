@@ -94,7 +94,7 @@
 									<?php
 								
 										require_once("database_opt/public.php");
-										$classes = get_running_class();
+										$classes = get_normal_class();
 										echo $classes;
 										for ($i=0;$i<count($classes);$i++) {
 								            $tmp = $classes[$i];

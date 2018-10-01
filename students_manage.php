@@ -81,6 +81,7 @@ height: 30px;
 					header("Content-type: text/html;charset=utf-8");
 					require_once("phpmail/sendmail_interface.php");
 					require_once("database_opt/db_opt.php");
+					require_once("database_opt/public.php");
 						switch($_GET["action"]) {
 							case "display":
 								$classid=$_POST["classid"];
@@ -167,12 +168,7 @@ height: 30px;
 								if ($online == 1) {
 									$lastday=0;
 									//get passwd
-									$tmp_ascii="";
-									for($i=0;$i<strlen($engname);$i++){
-										$tmp_ascii=$tmp_ascii.ord($engname[$i]);
-										//echo ord($engname[$i]);
-									}
-									$tmp_ascii=substr($tmp_ascii,1,4);
+									$tmp_ascii = gen_password($engname);
 									$hour_begin = 0;
 									$sql="INSERT INTO online_user (name, engname, classid, passwd, hour_begin, hour_end, lastday, note, access_times)
 										  VALUES ('$name', '$engname', '$classid','$tmp_ascii', '$hour_begin', '$hour_end','$lastday', '$note', '0');";

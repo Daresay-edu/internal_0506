@@ -1,6 +1,21 @@
 <?php
 
 require_once("db_opt.php");
+function get_class_date($classid){
+	require_once("db_opt.php");
+	$conn=db_conn("daresay_db");
+	//read the class record info and get the hour
+	$table_name="class_info_record";
+	$sql="SELECT * FROM {$table_name} where classid='$classid'";
+	$result=mysql_query($sql,$conn);
+	$big_hour=0;
+	$record_hour=0;
+	while ($row = mysql_fetch_assoc($result)) {
+		$tmp_date=$row['date'];
+	}
+	mysql_close($conn);
+	return $tmp_date;
+}	
 function get_current_hour($classid){
 	require_once("db_opt.php");
 	$conn=db_conn("daresay_db");
@@ -16,7 +31,7 @@ function get_current_hour($classid){
 		list($fir_hour,$sec_hour)=explode("-",$tmp_hour);
 		if ($big_hour < $fir_hour) {
 			$big_hour=$fir_hour;	
-			$record_hour=$tmp_hour."&".$tmp_date;
+			$record_hour=$tmp_hour;
 		}
 	}
 	mysql_close($conn);
@@ -127,10 +142,11 @@ function print_remind_by_classid($classid) {
 		if (!$result)
 			die("SQL: {$sql}<br>Error:".mysql_error());	
 		$row = mysql_fetch_assoc($result);
-		$current_hour_date = get_current_hour($classid);
-		list($current_hour,$class_date) = array_pad(explode("&", $current_hour_date, 2), 2 , null);
+		$current_hour = get_current_hour($classid);
 		if($current_hour == "191-192")
 			return 1;
+
+		$class_date = get_class_date($classid);
 		
 	        $school = $row['school'];
 		list($fir_tm,$sec_tm) = array_pad(explode(",", $row['class_time'], 2), 2 , null);
@@ -212,5 +228,14 @@ function print_class_record_info($classid) {
 	echo "</table>";
 	echo "<br/><br/>";
 							
+}
+
+function gen_password ($engname) {
+    $tmp_ascii = "";
+    for($i=0;$i<strlen($engname);$i++){
+    	$tmp_ascii=$tmp_ascii.ord($engname[$i]);
+    	//echo ord($engname[$i]);
+    }
+    return substr($tmp_ascii,1,4);
 }
 ?>

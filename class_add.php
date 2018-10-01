@@ -195,7 +195,7 @@
 							<td align="center" >授课教师:</td>
 							<td><input class='field' type="text" name="teachers"/></td>
 						</tr>
-						<tr>
+						<!--<tr>
 							<td align="center" >班级邮箱:</td>
 							<td><input class='field' type="text" name="mail"/></td>
 						</tr>
@@ -207,7 +207,7 @@
 						<tr>
 							<td align="center" >课后资源位置:</td>
 							<td><input class='field' type="text" name="source2"/></td>
-						</tr>
+						</tr>--!>
 						
 					   	<tr>
 							<td align="center" >备注:</td>

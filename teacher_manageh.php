@@ -79,6 +79,7 @@ height: 30px;
                       			<br/>
 					<?php
 					require_once("database_opt/db_opt.php");
+					require_once("database_opt/public.php");
 						switch($_GET["action"]) {
 							case "display":
 								$engname=$_POST["engname"];
@@ -129,7 +130,7 @@ height: 30px;
 								$year=$_POST["year"];
 								$month=$_POST["month"];
 								$day=$_POST["day"];
-								$password=$_POST["password"];
+								//$password=$_POST["password"];
 								
 
 								$join_date=$year."-".$month."-".$day;
@@ -161,6 +162,7 @@ height: 30px;
 
 								}
 								// insert into db
+								$password = gen_password($engname);
 								$sql="INSERT INTO {$table_name} (name, engname, age, sex, phone, join_date, chief_salary, 
 									assist_salary, password, note)
 								      VALUES ('$name', '$engname', '$age', '$sex', '$phone', '$join_date', '$chief_salary',
