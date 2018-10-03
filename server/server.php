@@ -25,6 +25,7 @@ function test_encoding ($string) {
         	$demo_class = $_POST["demo_class"];
         	$demo_date = $_POST["demo_date"];
         	$way = $_POST["way"];
+        	$state = $_POST["state"];
         	$sale = $_POST["sale"];
 
 		//$chname = decode_chinese($chname);
@@ -44,9 +45,9 @@ function test_encoding ($string) {
                         } else {
 				//insert students to demo_students table
 				$sql="INSERT INTO demo_students (name, engname, age, gender, phone, school, classid, 
-					date,  way, saleman, stuid)
+					date,  state, way, saleman, stuid)
 				      VALUES ('$chname', '$engname', '$age','$gender', '$phone', '$school', '$demo_class',
-				      '$demo_date','$way', '$sale', '0');";
+				      '$demo_date','$state', '$way', '$sale', '0');";
 				$result=mysql_query($sql,$conn);
 				if (!$result) {
 					echo "add demo student fail";
