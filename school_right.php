@@ -20,7 +20,7 @@
 <select class='field' name='schoolid' id="schoolid">
 <option value="All">All</option>
 <?php
-	require_once("database_opt/db_opt.php");
+	require_once("lib/db_opt.php");
 	$conn=db_conn("daresay_db");
 	$sql="SELECT * FROM school";
 	$result=mysql_query($sql,$conn);
@@ -44,7 +44,7 @@
 <label>School ID</label>
 <select class='field' name='schoolid1' id="schoolid1">
 <?php
-	require_once("database_opt/db_opt.php");
+	require_once("lib/db_opt.php");
 	$conn=db_conn("daresay_db");
 	$sql="SELECT * FROM school";
 	$result=mysql_query($sql,$conn);

@@ -89,7 +89,7 @@ a{
 				<table border="0" width="700">
 				<?php
 				header("Content-type: text/html;charset=utf-8");
-				 require_once("database_opt/db_opt.php");
+				 require_once("lib/db_opt.php");
 				 $conn=db_conn("daresay_db");
 				$sql="SELECT * FROM credit";
 				$result=mysql_query($sql,$conn);

@@ -22,7 +22,7 @@
 <select class="field" name="engnamedis" id="engnamedis">
 <option value="def">请选择</option>
 <?php
-	require_once("database_opt/db_opt.php");
+	require_once("lib/db_opt.php");
 	$conn=db_conn("daresay_db");
 	$sql="SELECT * FROM teachers";
 	$result=mysql_query($sql,$conn);
@@ -140,7 +140,7 @@
 <select class='field' name='engnamedel' id="engnamedel">
 <option value="def">请选择</option>
 <?php
-	require_once("database_opt/db_opt.php");
+	require_once("lib/db_opt.php");
 	$conn=db_conn("daresay_db");
 	$sql="SELECT * FROM teachers";
 	$result=mysql_query($sql,$conn);
@@ -157,7 +157,7 @@
 		<option value="def">请选择</option>
 				<?php
 								
-									require_once("database_opt/public.php");
+									require_once("lib/lib.php");
 										$classes = get_running_class();
 										echo $classes;
 										for ($i=0;$i<count($classes);$i++) {

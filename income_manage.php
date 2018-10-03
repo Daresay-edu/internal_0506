@@ -78,7 +78,7 @@ height: 30px;
                       			<!-- Add Videos -->
                       			<br/>
 					<?php
-					require_once("database_opt/db_opt.php");
+					require_once("lib/db_opt.php");
 						switch($_GET["action"]) {
 							case "display":
 								/*分如下步骤：

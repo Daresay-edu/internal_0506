@@ -38,7 +38,7 @@ td
 					
                    		
 					<?php
-					require_once("database_opt/db_opt.php");
+					require_once("lib/db_opt.php");
 					switch($_GET["action"]) {
 						case "see":
 							$classid = $_POST["classid"];
@@ -62,7 +62,7 @@ td
 						<input type='hidden' name='engname' id='engname' value='def'/>
 						<input type='hidden' name='toclassid' id='toclassid' value='def'/>
 						<input type='hidden' name='ab_hour' id='ab_hour' value='def'/>";
-							require_once("database_opt/public.php");
+							require_once("lib/lib.php");
 							if (strcmp($classid, "All")==0) {
 								$table_name="class";
 								$sql="SELECT * FROM {$table_name}";

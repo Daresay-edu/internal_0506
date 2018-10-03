@@ -28,7 +28,7 @@ function getClassnum(classid) {
 				xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");  
 			} 
 			 // 设置请求类型,请求地址，以及是否启用异步处理请求，大多数设置开启 true  
-			xmlhttp.open("GET","database_opt/get_next_class_hour.php?hour="+classid,true);  
+			xmlhttp.open("GET","lib/get_next_class_hour.php?hour="+classid,true);  
 			// 将请求发送至服务器  
 			xmlhttp.send();  
 			// 处理onreadystatechange事件 我们规定当服务器响应已做好被处理的准备时所执行的任务  
@@ -71,7 +71,7 @@ function getClassnum1(classid) {
 				xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");  
 			} 
 			 // 设置请求类型,请求地址，以及是否启用异步处理请求，大多数设置开启 true  
-			xmlhttp.open("GET","database_opt/get_next_class_hour.php?hour="+classid,true);  
+			xmlhttp.open("GET","lib/get_next_class_hour.php?hour="+classid,true);  
 			// 将请求发送至服务器  
 			xmlhttp.send();  
 			// 处理onreadystatechange事件 我们规定当服务器响应已做好被处理的准备时所执行的任务  
@@ -110,7 +110,7 @@ function getClassMem(classid) {
 				xmlhttp1=new ActiveXObject("Microsoft.XMLHTTP");  				
 			} 
 			// 设置请求类型,请求地址，以及是否启用异步处理请求，大多数设置开启 true  
-			xmlhttp1.open("GET","database_opt/get_class_members.php?mem="+classid,true);  
+			xmlhttp1.open("GET","lib/get_class_members.php?mem="+classid,true);  
 			// 将请求发送至服务器  
 			xmlhttp1.send();  
 			// 处理onreadystatechange事件 我们规定当服务器响应已做好被处理的准备时所执行的任务  
@@ -140,7 +140,7 @@ function dis_ab_getClassMem(classid) {
 				xmlhttp1=new ActiveXObject("Microsoft.XMLHTTP");  				
 			} 
 			// 设置请求类型,请求地址，以及是否启用异步处理请求，大多数设置开启 true  
-			xmlhttp1.open("GET","database_opt/get_class_members.php?mem="+classid,true);  
+			xmlhttp1.open("GET","lib/get_class_members.php?mem="+classid,true);  
 			// 将请求发送至服务器  
 			xmlhttp1.send();  
 			// 处理onreadystatechange事件 我们规定当服务器响应已做好被处理的准备时所执行的任务  
@@ -172,7 +172,7 @@ function mod_del_ab_getClassMem1(classid) {
 			} 
 			
 			// 设置请求类型,请求地址，以及是否启用异步处理请求，大多数设置开启 true  
-			xmlhttp1.open("GET","database_opt/get_class_members.php?mem="+classid,true);  
+			xmlhttp1.open("GET","lib/get_class_members.php?mem="+classid,true);  
 			// 将请求发送至服务器  
 			xmlhttp1.send();  
 			// 处理onreadystatechange事件 我们规定当服务器响应已做好被处理的准备时所执行的任务  
@@ -206,7 +206,7 @@ function getsomeoneAB() {
 			var str2=document.getElementById("mod_del_engname").value;
 			var tmp=str1+";"+str2;
 			// 设置请求类型,请求地址，以及是否启用异步处理请求，大多数设置开启 true  
-			xmlhttp1.open("GET","database_opt/get_ab_hour_through_classid_engname.php?classid_engname="+tmp,true);  
+			xmlhttp1.open("GET","lib/get_ab_hour_through_classid_engname.php?classid_engname="+tmp,true);  
 			// 将请求发送至服务器  
 			xmlhttp1.send();  
 			// 处理onreadystatechange事件 我们规定当服务器响应已做好被处理的准备时所执行的任务  

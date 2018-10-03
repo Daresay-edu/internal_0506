@@ -21,7 +21,7 @@
 <option value="def">请选择</option>
 	<?php
 								
-	require_once("database_opt/public.php");
+	require_once("lib/lib.php");
 										$classes = get_normal_class();
 										echo $classes;
 										for ($i=0;$i<count($classes);$i++) {
@@ -50,7 +50,7 @@
 <option value="def">请选择</option>
 	<?php
 								
-		require_once("database_opt/public.php");
+		require_once("lib/lib.php");
 										$classes = get_normal_class();
 										echo $classes;
 										for ($i=0;$i<count($classes);$i++) {

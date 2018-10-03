@@ -67,7 +67,7 @@
 							<td><select class='field' name="classid" id="classid" onchange="getClassnum(this.value)">
 									<option value="All">All</option>
 									<?php	
-										require_once("database_opt/db_opt.php");
+										require_once("lib/db_opt.php");
 										$conn=db_conn("daresay_db");
 										$sql="SELECT * FROM class";							
 										$result=mysql_query($sql,$conn);

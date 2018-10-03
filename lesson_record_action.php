@@ -80,7 +80,7 @@ height: 30px;
                       			<br/>
 					<?php
 					include "phpmail/mail_array.php";
-				        require_once("database_opt/public.php");
+				        require_once("lib/lib.php");
 
 					switch($_GET["action"]) {
 						case "see":

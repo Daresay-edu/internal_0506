@@ -78,7 +78,7 @@ height: 30px;
                       			<!-- Add Videos -->
                       			<br/>
 					<?php
-					require_once("database_opt/db_opt.php");
+					require_once("lib/db_opt.php");
 					require_once("phpmail/sendmail_interface.php");
 					$db_table="class";
 						switch($_GET["action"]) {

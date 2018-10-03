@@ -102,7 +102,7 @@ height: 30px;
 				<br/>
 				<table border="0" width="700">
 				<?php
-				 require_once("database_opt/db_opt.php");
+				 require_once("lib/db_opt.php");
 				 $conn=db_conn("daresay_db");
 				$sql="SELECT * FROM students";
 				$result=mysql_query($sql,$conn);

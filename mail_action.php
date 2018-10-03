@@ -86,8 +86,8 @@ height: 30px;
                       			<!-- Add Videos -->
                       		
 					<?php
-					require_once("database_opt/db_opt.php");
-					require_once("database_opt/public.php");
+					require_once("lib/db_opt.php");
+					require_once("lib/lib.php");
 					switch($_GET["action"]) {
 						case "see":
 							$classid = $_POST["classid"];
@@ -208,8 +208,8 @@ height: 30px;
 		                                        $note = $_POST["note"];
 		                                        
 		                                        //将上课信息加入到class_info_record数据库中
-		                                        require_once("database_opt/db_opt.php");
-		                                        require_once("database_opt/public.php");
+		                                        require_once("lib/db_opt.php");
+		                                        require_once("lib/lib.php");
 		                                        $conn=db_conn("daresay_db");
 		                                        $table_name="class_info_record";
 		                                        $sql="SELECT * FROM {$table_name}";
@@ -271,7 +271,7 @@ height: 30px;
 		                                        }
 		                                        mysql_query('COMMIT',$conn);
 		                                        mysql_close($conn);
-							require_once("database_opt/public.php");
+							require_once("lib/lib.php");
 							print_class_record_info($classid);
 		                                        
 //SndMail:

@@ -67,7 +67,7 @@
 								<option value="def">请选择</option>
 								<?php
 								
-										require_once("database_opt/public.php");
+										require_once("lib/lib.php");
 										$classes = get_running_class();
 										echo $classes;
 										for ($i=0;$i<count($classes);$i++) {
@@ -143,7 +143,7 @@
 							<td><select class='field' name="inclassid" id="inclassid">
 							     <?php
 								
-										require_once("database_opt/public.php");
+										require_once("lib/lib.php");
 										$classes = get_running_class();
 										echo $classes;
 										for ($i=0;$i<count($classes);$i++) {

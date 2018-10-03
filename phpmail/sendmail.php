@@ -72,7 +72,7 @@ switch($_GET["action"]) {
 		$mailtype = "HTML";//邮件格式（HTML/TXT）,TXT为文本邮件
 		
 		//将上课信息加入到class_info_record数据库中
-		require_once("../database_opt/db_opt.php");
+		require_once("../lib/db_opt.php");
 		$conn=db_conn("daresay_db");
 		$table_name="class_info_record";
 		$sql="SELECT * FROM {$table_name}";

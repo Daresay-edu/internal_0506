@@ -1,7 +1,7 @@
 								<?php
 								// Enable CORS (http://enable-cors.org/server_php.html)
 								header('Access-Control-Allow-Origin: *');
-								require_once("database_opt/db_opt.php");
+								require_once("lib/db_opt.php");
 								$classid=$_POST["Classid"];
 								$engname=$_POST["EngName"];
 								

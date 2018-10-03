@@ -80,7 +80,7 @@ height: 30px;
 					<?php
 					header("Content-type: text/html;charset=utf-8");
 					require_once("phpmail/sendmail_interface.php");
-					require_once("database_opt/db_opt.php");
+					require_once("lib/db_opt.php");
 						switch($_GET["action"]) {
 							case "display":
 								$classid=$_POST["classid"];
@@ -316,7 +316,7 @@ height: 30px;
 									<tr>
 									<td align='center' >班级</td>
 									<td><select name='classid'>";
-										require_once("database_opt/db_opt.php");
+										require_once("lib/db_opt.php");
 										
 										$sql="SELECT * FROM class";							
 										$result=mysql_query($sql,$conn);

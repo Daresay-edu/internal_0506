@@ -29,7 +29,7 @@ border: 1px solid;
 <?php
 header("Content-type:text/html;charset=utf-8"); 
 include("class_content/hour_classinfo_match.php");
-require_once("database_opt/db_opt.php");
+require_once("lib/db_opt.php");
 $db_table="class";
 switch($_GET["action"]) {
 	case "add":

@@ -38,7 +38,7 @@ td
 					
                    		
 					<?php
-						require_once("database_opt/db_opt.php");
+						require_once("lib/db_opt.php");
 						$engname=$_POST["engname"];
 						$classid=$_POST["classid"];
 						$ab_hour=$_POST["ab_hour"];
