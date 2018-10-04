@@ -238,7 +238,7 @@ function getnextClassID(classid) {
  }
  
 function makesure(){
-    if (confirm("¿¿¿¿¿¿¿")) {
+    if (confirm("Sure about this operation?")) {
         return true; 
     }
     return false;

@@ -238,11 +238,55 @@ function gen_password ($engname) {
     }
     return substr($tmp_ascii,1,4);
 }
+########### functions for students ###############
+function student_add ($name, $engname, $age, $sex, 
+                           $school, $phone, $classid, $charge, 
+			   $hour_begin, $hour_end, $pay_time,$credit, $note) {
+	$return = array();
+	$conn=db_conn("daresay_db");
+	$sql="SELECT * FROM students WHERE engname='$engname' and classid='$classid'";
+	$result=mysql_query($sql,$conn);
+	if (!$result) {
+		$errmsg = "Query students failed.";
+		$return[] = DX_ERROR;
+		$return[] = $errmsg; 
+		goto go_out;
+	}
+	$row = mysql_fetch_assoc($result);
+	if ($row) {
+		$errmsg = "students already exist.";
+		$return[] = DX_ERROR;
+		$return[] = $errmsg; 
+		goto go_out;
+	}
+
+	// insert into students table
+	$sql="INSERT INTO students (name, engname, classid, age, phone,school, pay_time, 
+		charge,  hour_begin, hour_end, note, sex, credit)
+	      VALUES ('$name', '$engname', '$classid', '$age', '$phone', '$school', '$pay_time',
+	      '$charge','$hour_begin', '$hour_end','$note', '$sex', '$credit');";
+	$result=mysql_query($sql,$conn);
+	if (!$result) {
+		$errmsg = "Insert students failed.";
+		$return[] = DX_ERROR;
+		$return[] = $errmsg; 
+		goto go_out; 
+	} else {
+
+                $errmsg = "Success";
+		$return[] = DX_SUCCESS;
+		$return[] = $errmsg; 
+		goto go_out; 
+	}
+go_out:
+	mysql_close($conn);
+	return $return;
+}
 
 ########### functions for demo students ###############
 function demo_student_add ($chname, $engname, $age, $gender, 
                            $school, $phone, $demo_class, $demo_date, 
-			   $way, $state, $sale) {
+			   $way, $state, $sale, $note) {
 	$conn=db_conn("daresay_db");
 	$sql="SELECT * FROM demo_students WHERE engname='$engname' and name='$chname'";
 	$result=mysql_query($sql,$conn);
@@ -260,18 +304,18 @@ function demo_student_add ($chname, $engname, $age, $gender,
 			return $return;
                 } else {
 			//insert students to demo_students table
-			$sql="INSERT INTO demo_students (name, engname, age, gender, phone, school, classid, 
-				date,  state, way, saleman, stuid)
+			$sql="INSERT INTO demo_students (name, engname, age, gender, phone, school, demo_in, 
+				demo_date,  state, way, saleman, stuid, join_into, note)
 			      VALUES ('$chname', '$engname', '$age','$gender', '$phone', '$school', '$demo_class',
-			      '$demo_date','$state', '$way', '$sale', '0');";
+			      '$demo_date','$state', '$way', '$sale', '0', '0', '$note');";
 			$result=mysql_query($sql,$conn);
 			if (!$result) {
-				echo "Add demo student fail";
+				$errmsg = "Add demo student fail";
 				$return[] = DX_ERROR;
 				$return[] = $errmsg; 
 				return $return;
 			} else { 
-                		echo "Success";
+                		$errmsg = "Success";
 				$return[] = DX_SUCCESS;
 				$return[] = $errmsg; 
 				return $return;
@@ -279,5 +323,135 @@ function demo_student_add ($chname, $engname, $age, $gender,
 		}
 	}
 	mysql_close($conn);
+}
+
+function demo_student_query_by_name ($name, $engname) {
+	$conn=db_conn("daresay_db");
+	$sql="SELECT * FROM demo_students WHERE name='$name' and engname='$engname'";
+	$result=mysql_query($sql,$conn);
+	if (!$result) {
+		$errmsg = "Query demo student failed.";
+		$return[] = DX_ERROR;
+		$return[] = $errmsg; 
+		return $return;
+	} else {
+		$row = mysql_fetch_assoc($result);
+		$return[] = DX_SUCCESS;
+		$return[] = $row; 
+		return $return;
+	}
+	mysql_close($conn);
+}
+function demo_student_query_by_date ($from, $end) {
+	$conn=db_conn("daresay_db");
+	$sql="SELECT * FROM demo_students";
+	$result=mysql_query($sql,$conn);
+	if (!$result) {
+		$errmsg = "Query demo student failed.";
+		$return[] = DX_ERROR;
+		$return[] = $errmsg; 
+		return $return;
+	} else {
+		$ret_arr = array();
+		$i = 0;
+		while ($row = mysql_fetch_assoc($result)) {
+			$tmp_date = $row['demo_date'];
+			if (strtotime($tmp_date) < strtotime($from) || strtotime($tmp_date) > strtotime($end))
+				continue;
+			$ret_arr[$i++] = $row; 
+		}
+
+		$return[] = DX_SUCCESS;
+		$return[] = $ret_arr; 
+		return $return;
+	}
+	mysql_close($conn);
+}
+function demo_student_query_update_state ($state) {
+	$conn=db_conn("daresay_db");
+	$sql="SELECT * FROM demo_students";
+	$result=mysql_query($sql,$conn);
+	if (!$result) {
+		$errmsg = "Query demo student failed.";
+		$return[] = DX_ERROR;
+		$return[] = $errmsg; 
+		return $return;
+	} else {
+		$ret_arr = array();
+		$i = 0;
+		while ($row = mysql_fetch_assoc($result)) {
+			$tmp_date = $row['demo_date'];
+			if (strtotime($tmp_date) < strtotime($from) || strtotime($tmp_date) > strtotime($end))
+				continue;
+			$ret_arr[$i++] = $row; 
+		}
+
+		$return[] = DX_SUCCESS;
+		$return[] = $ret_arr; 
+		return $return;
+	}
+	mysql_close($conn);
+}
+
+function demo_student_delete ($name, $engname) {
+	$conn=db_conn("daresay_db");
+	$sql="DELETE FROM demo_students WHERE engname='$engname' and name='$name'";
+	$result=mysql_query($sql,$conn);
+	if (!$result) {
+		$errmsg = "Delete demo student failed.";
+		$return[] = DX_ERROR;
+		$return[] = $errmsg; 
+		return $return;
+	} else {
+		$errmsg = "Success.";
+		$return[] = DX_SUCCESS;
+		$return[] = $errmsg; 
+		return $return;
+	}
+	mysql_close($conn);
+}
+
+function demo_student_modify ($oldname, $oldengname, $chname, $engname, $age, $gender, 
+                           $school, $phone, $demo_class, $demo_date, 
+			   $way, $state, $sale, $stuid, $join_into, $note) {
+	$conn=db_conn("daresay_db");
+	$sql="UPDATE demo_students SET name='$chname', engname='$engname', age='$age', gender='$gender', 
+		school='$school', phone='$phone', demo_in='$demo_class', demo_date='$demo_date', way='$way',
+		state='$state', saleman='$sale', stuid='$stuid', join_into='$join_into', note='$note' 
+		WHERE name='$oldname' AND engname='$oldengname'";
+										 
+	$result=mysql_query($sql,$conn);
+	if (!$result) {
+		$errmsg = "modify demo student failed.";
+		$return[] = DX_ERROR;
+		$return[] = $errmsg; 
+		return $return;
+	} else {
+		$errmsg = "Success.";
+		$return[] = DX_SUCCESS;
+		$return[] = $errmsg; 
+		return $return;
+	}
+	mysql_close($conn);
+}
+
+function demo_student_turn_real($oldname, $oldengname, $chname, $engname, $stuid, $join_into) {
+	$conn=db_conn("daresay_db");
+	$sql="UPDATE demo_students SET name='$chname', engname='$engname', state='已报名', stuid='$stuid', join_into='$join_into'
+		WHERE name='$oldname' AND engname='$oldengname'";
+										 
+	$result=mysql_query($sql,$conn);
+	if (!$result) {
+		$errmsg = "modify demo student failed.";
+		$return[] = DX_ERROR;
+		$return[] = $errmsg; 
+	} else {
+		$errmsg = "Success.";
+		$return[] = DX_SUCCESS;
+		$return[] = $errmsg; 
+	}
+go_out:
+	mysql_close($conn);
+	return $return;
 }
 ?>
