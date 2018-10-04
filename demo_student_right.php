@@ -108,6 +108,13 @@
 								}
 								?>
 								</select>
+<p>State:</p>
+	<select class='year' name="state">
+		<option value='All'>All</option>
+		<option value='未试听'>未试听</option>
+		<option value='已试听'>已试听</option>
+		<option value='已报名'>已报名</option>
+	</select>
 <br/><br/>
 <br/>
 <input class='submit'  type='submit' value='Display Record'/><span></span>

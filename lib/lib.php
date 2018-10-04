@@ -342,7 +342,7 @@ function demo_student_query_by_name ($name, $engname) {
 	}
 	mysql_close($conn);
 }
-function demo_student_query_by_date ($from, $end) {
+function demo_student_query_by_date ($from, $end, $state) {
 	$conn=db_conn("daresay_db");
 	$sql="SELECT * FROM demo_students";
 	$result=mysql_query($sql,$conn);
@@ -357,6 +357,8 @@ function demo_student_query_by_date ($from, $end) {
 		while ($row = mysql_fetch_assoc($result)) {
 			$tmp_date = $row['demo_date'];
 			if (strtotime($tmp_date) < strtotime($from) || strtotime($tmp_date) > strtotime($end))
+				continue;
+			if (strcmp($state, $row['state']) && strcmp($state, 'All'))
 				continue;
 			$ret_arr[$i++] = $row; 
 		}

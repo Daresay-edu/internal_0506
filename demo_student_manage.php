@@ -170,6 +170,7 @@ height: 30px;
 								if (isset($_REQUEST['from'])) {
 									$datefrom = $_REQUEST['from'];
 									$dateend = $_REQUEST['end'];
+									$state = 'All';
 								} else {
 
 									$yearfrom=$_POST["yearfrom"];
@@ -178,12 +179,13 @@ height: 30px;
 									$yearend=$_POST["yearto"];
 									$monthend=$_POST["monthto"];
 									$dayend=$_POST["dayto"];
+									$state=$_POST["state"];
 									
 									$datefrom=$yearfrom."-".$monthfrom."-".$dayfrom;
 									$dateend=$yearend."-".$monthend."-".$dayend;
 								}
 
-								list($errno, $data) = demo_student_query_by_date($datefrom, $dateend); 
+								list($errno, $data) = demo_student_query_by_date($datefrom, $dateend, $state); 
 
 								echo "<table>";
 								echo "<tr>";
