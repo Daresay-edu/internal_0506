@@ -187,30 +187,55 @@ height: 30px;
 
 								list($errno, $data) = demo_student_query_by_date($datefrom, $dateend, $state); 
 
-								echo "<table>";
-								echo "<tr>";
-								echo "<td>姓名</td>";
-								echo "<td>英文名</td>";
-								echo "<td>电话</td>";
-								echo "<td>试听时间</td>";
-								echo "<td>状态</td>";
-								echo "<td>备注</td>";
-								echo "<td>操作</td>";
-								echo "</tr>";
-								$i=0;
-								for ($i; $i < count($data); $i++) {
+								if (strcmp($state, '已报名') == 0) {
+									echo "<table>";
 									echo "<tr>";
-										echo "<td>".$data[$i]['name']."</td>";
-										echo "<td>".$data[$i]['engname']."</td>";
-										echo "<td>".$data[$i]['phone']."</td>";
-										echo "<td>".$data[$i]['demo_date']."</td>";
-										echo "<td>".$data[$i]['state']."</td>";
-										echo "<td>".$data[$i]['note']."</td>";
-										echo "<td><a href='demo_student_manage.php?action=display_by_name&name=".$data[$i]['name']."&engname=".$data[$i]['engname']."&age=".$data[$i]['age']."&gender=".$data[$i]['gender']."&phone=".$data[$i]['phone']."&school=".$data[$i]['school']."&demo_in=".$data[$i]['demo_in']."&demo_date=".$data[$i]['demo_date']."&state=".$data[$i]['state']."&way=".$data[$i]['way']."&saleman=".$data[$i]['saleman']."&stuid=".$data[$i]['stuid']."&join_into=".$data[$i]['join_into']."&note=".$data[$i]['note']."&from=".$datefrom."&end=".$dateend."'><input class='submit' type='button' value='操作'/></a></td>";
+									echo "<td>姓名</td>";
+									echo "<td>试听时间</td>";
+									echo "<td>试听班级</td>";
+									echo "<td>课程顾问</td>";
+									echo "<td>加入班级</td>";
+									echo "<td>状态</td>";
+									echo "<td>操作</td>";
 									echo "</tr>";
+									$i=0;
+									for ($i; $i < count($data); $i++) {
+										echo "<tr>";
+											echo "<td>".$data[$i]['name']."(".$data[$i]['engname'].")</td>";
+											echo "<td>".$data[$i]['demo_date']."</td>";
+											echo "<td>".$data[$i]['demo_in']."</td>";
+											echo "<td>".$data[$i]['saleman']."</td>";
+											echo "<td>".$data[$i]['join_into']."</td>";
+											echo "<td>".$data[$i]['state']."</td>";
+											echo "<td><a href='demo_student_manage.php?action=display_by_name&name=".$data[$i]['name']."&engname=".$data[$i]['engname']."&age=".$data[$i]['age']."&gender=".$data[$i]['gender']."&phone=".$data[$i]['phone']."&school=".$data[$i]['school']."&demo_in=".$data[$i]['demo_in']."&demo_date=".$data[$i]['demo_date']."&state=".$data[$i]['state']."&way=".$data[$i]['way']."&saleman=".$data[$i]['saleman']."&stuid=".$data[$i]['stuid']."&join_into=".$data[$i]['join_into']."&note=".$data[$i]['note']."&from=".$datefrom."&end=".$dateend."'><input class='submit' type='button' value='操作'/></a></td>";
+										echo "</tr>";
+									}
+									echo "</table>";
+									echo "<br/><br/>";
+								} else {
+									echo "<table>";
+									echo "<tr>";
+									echo "<td>姓名</td>";
+									echo "<td>电话</td>";
+									echo "<td>试听时间</td>";
+									echo "<td>状态</td>";
+									echo "<td>备注</td>";
+									echo "<td>操作</td>";
+									echo "</tr>";
+									$i=0;
+									for ($i; $i < count($data); $i++) {
+										echo "<tr>";
+											echo "<td>".$data[$i]['name']."(".$data[$i]['engname'].")</td>";
+											echo "<td>".$data[$i]['phone']."</td>";
+											echo "<td>".$data[$i]['demo_date']."</td>";
+											echo "<td>".$data[$i]['state']."</td>";
+											echo "<td>".$data[$i]['note']."</td>";
+											echo "<td><a href='demo_student_manage.php?action=display_by_name&name=".$data[$i]['name']."&engname=".$data[$i]['engname']."&age=".$data[$i]['age']."&gender=".$data[$i]['gender']."&phone=".$data[$i]['phone']."&school=".$data[$i]['school']."&demo_in=".$data[$i]['demo_in']."&demo_date=".$data[$i]['demo_date']."&state=".$data[$i]['state']."&way=".$data[$i]['way']."&saleman=".$data[$i]['saleman']."&stuid=".$data[$i]['stuid']."&join_into=".$data[$i]['join_into']."&note=".$data[$i]['note']."&from=".$datefrom."&end=".$dateend."'><input class='submit' type='button' value='操作'/></a></td>";
+										echo "</tr>";
+									}
+									echo "</table>";
+									echo "<br/><br/>";
 								}
-								echo "</table>";
-								echo "<br/><br/>";
 
 							break;
 							case "add":

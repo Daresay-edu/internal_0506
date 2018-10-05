@@ -20,14 +20,13 @@
 <select class='field' name='schoolid' id="schoolid">
 <option value="All">All</option>
 <?php
-	require_once("lib/db_opt.php");
-	$conn=db_conn("daresay_db");
-	$sql="SELECT * FROM school";
-	$result=mysql_query($sql,$conn);
-	if (!$result)
-		die("SQL: {$sql}<br>Error:".mysql_error());			
-	while ($row = mysql_fetch_assoc($result)) {
-		echo "<option value='{$row['schoolid']}'>{$row['schoolid']}</option>";
+	require_once("lib/lib.php");
+	list($errno, $data) = get_all_school();
+	if ($errno)
+		echo "<script>alert('获取学校信息失败-".$row."');</script>";
+	$i=0;
+	for ($i; $i < count($data); $i++) {
+		echo "<option value='".$data[$i]['schoolid']."'>".$data[$i]['schoolid']."</option>";
 	}
 ?>
 
@@ -44,14 +43,13 @@
 <label>School ID</label>
 <select class='field' name='schoolid1' id="schoolid1">
 <?php
-	require_once("lib/db_opt.php");
-	$conn=db_conn("daresay_db");
-	$sql="SELECT * FROM school";
-	$result=mysql_query($sql,$conn);
-	if (!$result)
-		die("SQL: {$sql}<br>Error:".mysql_error());			
-	while ($row = mysql_fetch_assoc($result)) {
-		echo "<option value='{$row['schoolid']}'>{$row['schoolid']}</option>";
+	require_once("lib/lib.php");
+	list($errno, $data) = get_all_school();
+	if ($errno)
+		echo "<script>alert('获取学校信息失败-".$row."');</script>";
+	$i=0;
+	for ($i; $i < count($data); $i++) {
+		echo "<option value='".$data[$i]['schoolid']."'>".$data[$i]['schoolid']."</option>";
 	}
 ?>
 

@@ -238,6 +238,32 @@ function gen_password ($engname) {
     }
     return substr($tmp_ascii,1,4);
 }
+########### functions for school ###############
+function get_all_school () {
+	$return = array();
+	$conn=db_conn("daresay_db");
+	$sql="SELECT * FROM school";
+	$result=mysql_query($sql,$conn);
+	if (!$result) {
+		$errmsg = "get all school failed.";
+		$return[] = DX_ERROR;
+		$return[] = $errmsg; 
+		goto go_out;
+	}
+
+	$ret_arr = array();
+	$i = 0;
+	while ($row = mysql_fetch_assoc($result)) {
+		$ret_arr[$i++] = $row; 
+	}
+
+	$return[] = DX_SUCCESS;
+	$return[] = $ret_arr; 
+go_out:
+	mysql_close($conn);
+	return $return;
+
+}
 ########### functions for students ###############
 function student_add ($name, $engname, $age, $sex, 
                            $school, $phone, $classid, $charge, 

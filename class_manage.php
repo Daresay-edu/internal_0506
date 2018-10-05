@@ -95,23 +95,21 @@ height: 30px;
 								echo "<table>";
 								if(strcmp($classid,"All") == 0) {
 										echo "<tr>";
-										echo "<td>ID</td>";
+										echo "<td>校区</td>";
 										echo "<td>班级</td>";
 										echo "<td>开班时间</td>";
 										echo "<td>上课时间</td>";
 										echo "<td>授课教师</td>";
-										echo "<td>班级邮箱</td>";
 										echo "<td>备注</td>";
 										echo "</tr>";
 										$i=1;
 										while ($row = mysql_fetch_assoc($result)) {
 											echo "<tr>";
-												echo "<td>".$i++."</td>";
+												echo "<td>".$row['school']."</td>";
 												echo "<td>".$row['classid']."</td>";
 												echo "<td>".$row['open_time']."</td>";
 												echo "<td>".$row['class_time']."</td>";
 												echo "<td>".$row['teachers']."</td>";
-												echo "<td>".$row['mail_address']."</td>";
 												echo "<td>".$row['note']."</td>";
 											echo "</tr>";
 										}
@@ -123,6 +121,10 @@ height: 30px;
 
 										echo "<table border='0' width=500px  align='center'>";
 										$row = mysql_fetch_assoc($result);
+										echo "<tr>";
+											echo "<td>校区</td>";
+											echo "<td>".$row['school']."</td>";
+										echo "</tr>";
 										echo "<tr>";
 											echo "<td>班级</td>";
 											echo "<td>".$row['classid']."</td>";
@@ -138,10 +140,6 @@ height: 30px;
 										echo "<tr>";
 											echo "<td >授课教师</td>";
 											echo "<td>".$row['teachers']."</td>";
-										echo "</tr>";
-											echo "<tr>";
-											echo "<td >班级邮箱</td>";
-											echo "<td>".$row['mail_address']."</td>";
 										echo "</tr>";
 										echo "<tr>";
 											echo "<td >班级资源位置</td>";
@@ -162,6 +160,7 @@ height: 30px;
 
 							break;
 							case "add":
+								$schoolid=$_POST["schoolid"];
 								$classid=$_POST["classid"];
 								$year=$_POST["year"];
 								$month=$_POST["month"];
@@ -174,9 +173,6 @@ height: 30px;
 								$sec_day_hour=$_POST["sec_day_hour"];
 								$sec_day_minute=$_POST["sec_day_minute"];
 								$teachers=$_POST["teachers"];
-								$mail=$_POST["mail"];
-								$source2=$_POST["source2"];
-								$source1=$_POST["source1"];
 								$note=$_POST["note"];		
 								
 								$open_time=$year."-".$month."-".$day;
@@ -189,8 +185,7 @@ height: 30px;
 								if(!$result){
 									//表不存在，创建表
 									$sql="CREATE TABLE {$db_table} (id INT(20) not null AUTO_INCREMENT,classid varchar(32),open_time varchar(32),
-									class_time varchar(32),teachers varchar(32), mail_address varchar(32),source1 varchar(1000),source2 varchar(1000),
-									note varchar(1000),primary key(id))";
+									class_time varchar(32),teachers varchar(32), note varchar(1000),primary key(id))";
 									$result=mysql_query($sql, $conn);
 									if (!$result) {
 										die("SQL: {$sql}<br>Error:".mysql_error());
@@ -214,8 +209,8 @@ height: 30px;
 								
 								
 								// insert into db
-								$sql="INSERT INTO $db_table(classid, open_time, class_time, teachers, mail_address, source1, source2, note)
-								      VALUES ('$classid', '$open_time', '$class_time', '$teachers', '$mail', '$source1', '$source2', '$note');";
+								$sql="INSERT INTO $db_table(school, classid, open_time, class_time, teachers, note)
+								      VALUES ('$schoolid', '$classid', '$open_time', '$class_time', '$teachers', '$note');";
 								$result=mysql_query($sql,$conn);
 								if (!$result)
 									die("SQL: {$sql}<br>Error:".mysql_error());
@@ -226,6 +221,10 @@ height: 30px;
 
 								echo "<table border='0' width=500px  align='center'>";
 								$row = mysql_fetch_assoc($result);
+									echo "<tr>";
+										echo "<td>校区</td>";
+										echo "<td>".$row['school']."</td>";
+									echo "</tr>";
 									echo "<tr>";
 										echo "<td>班级</td>";
 										echo "<td>".$row['classid']."</td>";
@@ -241,18 +240,6 @@ height: 30px;
 									echo "<tr>";
 										echo "<td >授课教师</td>";
 										echo "<td>".$row['teachers']."</td>";
-									echo "</tr>";
-										echo "<tr>";
-										echo "<td >班级邮箱</td>";
-										echo "<td>".$row['mail_address']."</td>";
-									echo "</tr>";
-									echo "<tr>";
-										echo "<td >班级资源位置</td>";
-										echo "<td>".$row['source1']."</td>";
-									echo "</tr>";
-									echo "<tr>";
-										echo "<td >课后资源位置</td>";
-										echo "<td>".$row['source2']."</td>";
 									echo "</tr>";
 									echo "<tr>";
 										echo "<td>备注</td>";
@@ -282,6 +269,10 @@ height: 30px;
 
 									echo "<table border='0' width=500px  align='center'>";
 									echo "<tr>";
+										echo "<td>校区</td>";
+										echo "<td>".$row['school']."</td>";
+									echo "</tr>";
+									echo "<tr>";
 										echo "<td>班级</td>";
 										echo "<td>".$row['classid']."</td>";
 									echo "</tr>";
@@ -296,18 +287,6 @@ height: 30px;
 									echo "<tr>";
 										echo "<td >授课教师</td>";
 										echo "<td>".$row['teachers']."</td>";
-									echo "</tr>";
-										echo "<tr>";
-										echo "<td >班级邮箱</td>";
-										echo "<td>".$row['mail_address']."</td>";
-									echo "</tr>";
-									echo "<tr>";
-										echo "<td >班级资源位置</td>";
-										echo "<td>".$row['source1']."</td>";
-									echo "</tr>";
-									echo "<tr>";
-										echo "<td >课后资源位置</td>";
-										echo "<td>".$row['source2']."</td>";
 									echo "</tr>";
 									echo "<tr>";
 										echo "<td>备注</td>";
@@ -335,10 +314,11 @@ height: 30px;
 									die("SQL: {$sql}<br>Error:".mysql_error());						
 
 								if ($row = mysql_fetch_assoc($result)) {
+									$school=$row['school'];
 									$classid=$row['name'];
 									$open_time=$row['open_time'];
 									$class_time=$row['class_time'];
-									$source=$row['source_addr'];
+									$teachers=$row['teachers'];
 									$note=$row['note'];
 								} else {
 									echo "No record!";
@@ -348,6 +328,10 @@ height: 30px;
 
 								echo "<form action='class_manage.php?action=modify_do' method='post'>
 								       <table border='0' align='center' width='800'>
+									<tr>
+									<td align='center' >校区</td>
+									<td><input type='text' name='school' value='$school'/></td>
+									</tr>
 									<tr>
 									<td align='center' >班级名称</td>
 									<td><input type='text' name='classid' value='$classid'/></td>
@@ -363,10 +347,10 @@ height: 30px;
 									<td><input type='text' name='lesson_time' value='$class_time'/></td>
 									</tr>
 									<tr>
-									<td align='center' >资源地址</td>
-									<td><input type='text' name='source_addr' value='$source'/></td>
+									<td align='center' >教师</td>
+								
+									<td><input type='text' name='teachers' value='$teachers'/></td>
 									</tr>
-									<tr>
 									<tr>
 									<td align='center' >备注</td>
 									<td><input type='text' name='note' value='$note'/></td>
@@ -390,25 +374,18 @@ height: 30px;
 
 							break;
 							case "modify_do":
-							
+								$school=$_POST["school"];
 								$classid=$_POST["classid"];
 								$open_time=$_POST["open_time"];
 								$lesson_time=$_POST["lesson_time"];
-								$source_addr=$_POST["source_addr"];
+								$teachers=$_POST["teachers"];
 								$note=$_POST["note"];
 								$classid_old=$_POST["classid_hide"];
 
 								//check if have the same engname in db
 								$conn=db_conn("daresay_db");
 
-								$sql="DELETE FROM $db_table WHERE name='$classid_old'";
-								$result=mysql_query($sql,$conn);
-								if (!$result)
-									die("SQL: {$sql}<br>Error:".mysql_error());						
-								
-								// insert into db
-								$sql="INSERT INTO $db_table(name, open_time, class_time, source_addr, note)
-								      VALUES ('$classid', '$open_time', '$lesson_time', '$source_addr','$note');";
+								$sql="UPDATE $db_table SET school='$school', classid='$classid', open_time='$optn_time', class_time='$class_time', teachers='$teachers', note='$note'";
 									  
 								$result=mysql_query($sql,$conn);
 								if (!$result)
@@ -431,10 +408,6 @@ height: 30px;
 									echo "<tr>";
 										echo "<td>上课时间</td>";
 										echo "<td>".$row['class_time']."</td>";
-									echo "</tr>";
-									echo "<tr>";
-										echo "<td>资源位置</td>";
-										echo "<td>".$row['source_addr']."</td>";
 									echo "</tr>";
 									echo "<tr>";
 										echo "<td>备注</td>";

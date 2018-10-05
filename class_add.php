@@ -62,6 +62,22 @@
 					<form action="class_manage.php?action=add" method="post">
 					   <table border="0" align="center" width="800">
 					   	<tr>
+							<td align="center" >所在校区</td>
+							<td><select class='year' name="schoolid">
+							<?php
+								require_once("lib/lib.php");
+								list($errno, $data) = get_all_school();
+								if ($errno)
+									echo "<script>alert('获取学校信息失败-".$row."');</script>";
+								$i=0;
+								for ($i; $i < count($data); $i++) {
+									echo "<option value='".$data[$i]['schoolid']."'>".$data[$i]['schoolid']."</option>";
+								}
+							?>
+							</select>
+							</td>
+						</tr>
+					   	<tr>
 							<td align="center" >班级</td>
 							<td><input class='field' type="text" name="classid" value="K"/></td>
 						</tr>
