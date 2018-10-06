@@ -1,6 +1,26 @@
 <?php
 include("err.php");
 require_once("db_opt.php");
+require_once "email.class.php";
+#require_once("../phpmail/sendmail_interface.php");
+function send_mail($email_addr,$email_title,$email_content) {
+			//$classid = $_POST["classid"];
+			//$class_num = $_POST["begin_class"];
+			$smtpserver = "smtp.sina.com";//SMTP服务器
+			$smtpserverport =587;//SMTP服务器端口
+			$smtpusermail = "daresay2014@sina.com";//SMTP服务器的用户邮箱
+			$smtpuser = "daresay2014@sina.com";//SMTP服务器的用户帐号
+			$smtppass = "daresay20140506";//SMTP服务器的用户密码 就是邮箱登陆密码
+			$mailtype = "HTML";//邮件格式（HTML/TXT）,TXT为文本邮件
+			
+			$smtpemailto=$email_addr;
+			$mailtitle=$email_title;
+			$mailcontent=$email_content;
+			$smtp = new smtp($smtpserver,$smtpserverport,true,$smtpuser,$smtppass);//这里面的一个true是表示使用身份验证,否则不使用身份验证.
+			$smtp->debug = false;//是否显示发送的调试信息
+			$state = $smtp->sendmail($smtpemailto, $smtpusermail, $mailtitle, $mailcontent, $mailtype);
+	
+}
 function get_class_date($classid){
 	require_once("db_opt.php");
 	$conn=db_conn("daresay_db");
@@ -482,4 +502,57 @@ go_out:
 	mysql_close($conn);
 	return $return;
 }
+########### functions for parents message ###############
+function parents_message_add($classid, $engname, $title, $phone, $message) {
+	$return = array();
+	$conn=db_conn("daresay_db");
+	$sql="INSERT INTO parents_message (engname, classid, title, phone, message)
+	      VALUES ('$engname', '$classid', '$title', '$phone', '$message');";
+	$result=mysql_query($sql,$conn);
+	if (!$result) {
+		$errmsg = "Insert message failed.";
+		$return[] = DX_ERROR;
+		$return[] = $errmsg; 
+		goto go_out; 
+	} else {
+
+                $errmsg = "Success";
+		$return[] = DX_SUCCESS;
+		$return[] = $errmsg; 
+		goto go_out; 
+	}
+go_out:
+	mysql_close($conn);
+	return $return;
+}
+########### functions for mail ###############
+function send_mail_to_admin ($mail_title, $mail_content) {
+	$admin_mail = "18020023616@163.com";
+        send_mail($admin_mail, $mail_title, $mail_content);
+} 
+########### functions for teacher ###############
+function get_all_teachers () {
+	$return = array();
+	$conn=db_conn("daresay_db");
+	$sql="SELECT * FROM teachers";
+	$result=mysql_query($sql,$conn);
+	if (!$result) {
+		$errmsg = "get all school failed.";
+		$return[] = DX_ERROR;
+		$return[] = $errmsg; 
+		goto go_out;
+	}
+
+	$ret_arr = array();
+	$i = 0;
+	while ($row = mysql_fetch_assoc($result)) {
+		$ret_arr[$i++] = $row; 
+	}
+
+	$return[] = DX_SUCCESS;
+	$return[] = $ret_arr; 
+go_out:
+	mysql_close($conn);
+	return $return;
+} 
 ?>

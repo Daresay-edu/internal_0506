@@ -79,7 +79,6 @@ height: 30px;
                       			<br/>
 					<?php
 					require_once("lib/db_opt.php");
-					require_once("phpmail/sendmail_interface.php");
 					$db_table="school";
 						switch($_GET["action"]) {
 							case "display":

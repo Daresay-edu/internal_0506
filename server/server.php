@@ -53,6 +53,24 @@ function test_encoding ($string) {
 			return json_encode($data);
 		}
 		break;
+	    case "parents_message_add":
+        	$classid = $_POST["p_classid"];
+        	$engname = $_POST["p_engname"];
+        	$title = $_POST["message_title"];
+        	$phone = $_POST["parents_phone"];
+        	$message = $_POST["message_content"];
+
+		$mail_title = "New parent message from [".$classid." ".$engname."]";
+		$mail_content = "Title: ".$title."\n\n\n\nPhone: ".$phone."\n\n\n\nMessage: ".$message;
+		send_mail_to_admin($mail_title, $mail_content);
+
+		list($errno, $data) = parents_message_add ($classid, $engname, $title, $phone, $message); 
+		if ($errno) {
+			return http_response_code(400);
+		} else {
+			return http_response_code(200);
+		}
+		break;
 	}
 										
 	

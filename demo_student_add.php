@@ -132,7 +132,7 @@ function CheckForm()
 					   	<tr>
 							<td align="center" >试听班级</td>
 							<td><select class='field' name="demo_class" id="demo_class">
-								<option value="def">请选择</option>
+								<option value="独立Demo">独立Demo</option>
 							<?php
 								
 										require_once("lib/lib.php");

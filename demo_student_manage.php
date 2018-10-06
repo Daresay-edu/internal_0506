@@ -87,7 +87,6 @@ height: 30px;
                       			<br/>
 					<?php
 					header("Content-type: text/html;charset=utf-8");
-					require_once("phpmail/sendmail_interface.php");
 					require_once("lib/db_opt.php");
 					require_once("lib/lib.php");
 						switch($_GET["action"]) {
@@ -563,7 +562,7 @@ height: 30px;
 									echo "<script>alert('修改试听学员为正式学员失败-".$data."');window.history.go(-1);</script>";
 								
 								$where = "888";
-                                				send_mail("18020023616@163.com", "New Student From ".$where, $name."-".$age."岁-".$school."-".$phone);
+                                				send_mail("New Student From ".$where, $name."-".$age."岁-".$school."-".$phone);
 								list($errno, $row) = demo_student_query_by_name($name, $engname); 
 							 	if ($errno)
 									echo "<script>alert('查询试听学员失败-".$row."');window.history.go(-1);</script>";

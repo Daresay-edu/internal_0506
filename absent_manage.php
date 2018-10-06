@@ -88,7 +88,7 @@ height: 30px;
 					<?php
 					require_once("lib/db_opt.php");
 					require_once("dollar.php");
-					require_once("phpmail/sendmail_interface.php");
+					require_once("lib/lib.php");
 					$db_table="absent";
 						switch($_GET["action"]) {
 							case "display":

@@ -79,7 +79,6 @@ height: 30px;
                       			<br/>
 					<?php
 					header("Content-type: text/html;charset=utf-8");
-					require_once("phpmail/sendmail_interface.php");
 					require_once("lib/db_opt.php");
 						switch($_GET["action"]) {
 							case "display":
@@ -521,8 +520,6 @@ height: 30px;
 								echo '<br/>';
 								echo "Success!";
 								mysql_close($conn);
-								$where = "888";
-                                send_mail("18020023616@163.com", "New Student From ".$where, $name."-".$age."岁-".$school."-".$phone);
 							break;
 							case "modify_do":
 								$reason=$_POST["reason"];

@@ -74,15 +74,14 @@
 							<td><select class='field' name='engname' id="engname">
 								<option value="def">请选择</option>
 								<?php
-									require_once("lib/db_opt.php");
-									$conn=db_conn("daresay_db");
-									$sql="SELECT * FROM teachers";
-									$result=mysql_query($sql,$conn);
-									if (!$result)
-										die("SQL: {$sql}<br>Error:".mysql_error());			
-										while ($row = mysql_fetch_assoc($result)) {
-											echo "<option value='{$row['engname']}'>{$row['engname']}</option>";
-										}	
+									require_once("lib/lib.php");
+									list($errno, $data) = get_all_teachers();
+									if ($errno)
+										echo "<script>alert('获取教师信息失败-".$row."');</script>";
+									$i=0;
+									for ($i; $i < count($data); $i++) {
+										echo "<option value='".$data[$i]['engname']."'>".$data[$i]['engname']."</option>";
+									}
 								?>
 								</select>
 							</td>
