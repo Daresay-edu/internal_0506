@@ -155,6 +155,40 @@ function CheckForm()
 							?>
 							<td><input class='field' type="text" name="demo_date" id="demo_date" value="<?php echo $today;?>"/></td>
 						</tr>
+					   	<tr>
+							<td align="center" >主教:</td>
+							<td><select class='field' name='chief_teacher' id="chief_teacher">
+								<option value="def">请选择</option>
+								<?php
+									require_once("lib/lib.php");
+									list($errno, $data) = get_all_teachers();
+									if ($errno)
+										echo "<script>alert('获取教师信息失败-".$row."');</script>";
+									$i=0;
+									for ($i; $i < count($data); $i++) {
+										echo "<option value='".$data[$i]['engname']."'>".$data[$i]['engname']."</option>";
+									}
+								?>
+								</select>
+							</td>
+						</tr>
+					   	<tr>
+							<td align="center" >助教:</td>
+							<td><select class='field' name='assis_teacher' id="assis_teacher">
+								<option value="def">请选择</option>
+								<?php
+									require_once("lib/lib.php");
+									list($errno, $data) = get_all_teachers();
+									if ($errno)
+										echo "<script>alert('获取教师信息失败-".$row."');</script>";
+									$i=0;
+									for ($i; $i < count($data); $i++) {
+										echo "<option value='".$data[$i]['engname']."'>".$data[$i]['engname']."</option>";
+									}
+								?>
+								</select>
+							</td>
+						</tr>
 
 					   	<tr>
 							<td align="center" >信息来源:</td>
@@ -170,9 +204,22 @@ function CheckForm()
 							</td>
 
 						</tr>
-						<tr>
+					   	<tr>
 							<td align="center" >课程顾问:</td>
-							<td><input class='field' type="text" name="sale"/></td>
+							<td><select class='field' name='sale' id="sale">
+								<option value="def">请选择</option>
+								<?php
+									require_once("lib/lib.php");
+									list($errno, $data) = get_all_teachers();
+									if ($errno)
+										echo "<script>alert('获取教师信息失败-".$row."');</script>";
+									$i=0;
+									for ($i; $i < count($data); $i++) {
+										echo "<option value='".$data[$i]['engname']."'>".$data[$i]['engname']."</option>";
+									}
+								?>
+								</select>
+							</td>
 						</tr>
 					   	<tr>
 							<td align="center" >备注:</td>

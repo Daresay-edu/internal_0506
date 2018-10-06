@@ -24,12 +24,15 @@ function test_encoding ($string) {
         	$phone = $_POST["phone"];
         	$demo_class = $_POST["demo_class"];
         	$demo_date = $_POST["demo_date"];
+        	$chief_teacher = $_POST["chief_teacher"];
+        	$assis_teacher = $_POST["assis_teacher"];
         	$way = $_POST["way"];
         	$state = $_POST["state"];
         	$sale = $_POST["sale"];
 
 		list($errno, $data) = demo_student_add($chname, $engname, $age, $gender, $school, 
-							 $phone, $demo_class, $demo_date, $way, $state, $sale); 
+							 $phone, $demo_class, $demo_date, $chief_teacher, 
+							 $assis_teacher, $way, $state, $sale); 
 		if ($errno) {
 			return http_response_code(400);
 		} else {

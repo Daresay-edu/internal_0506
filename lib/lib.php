@@ -332,7 +332,7 @@ go_out:
 ########### functions for demo students ###############
 function demo_student_add ($chname, $engname, $age, $gender, 
                            $school, $phone, $demo_class, $demo_date, 
-			   $way, $state, $sale, $note) {
+			   $chief_teacher, $assis_teacher, $way, $state, $sale, $note) {
 	$conn=db_conn("daresay_db");
 	$sql="SELECT * FROM demo_students WHERE engname='$engname' and name='$chname'";
 	$result=mysql_query($sql,$conn);
@@ -351,9 +351,9 @@ function demo_student_add ($chname, $engname, $age, $gender,
                 } else {
 			//insert students to demo_students table
 			$sql="INSERT INTO demo_students (name, engname, age, gender, phone, school, demo_in, 
-				demo_date,  state, way, saleman, stuid, join_into, note)
+				demo_date, chief_teacher, assis_teacher,  state, way, saleman, stuid, join_into, note)
 			      VALUES ('$chname', '$engname', '$age','$gender', '$phone', '$school', '$demo_class',
-			      '$demo_date','$state', '$way', '$sale', '0', '0', '$note');";
+			      '$demo_date','$chief_teacher', '$assis_teacher', '$state', '$way', '$sale', '0', '0', '$note');";
 			$result=mysql_query($sql,$conn);
 			if (!$result) {
 				$errmsg = "Add demo student fail";
@@ -461,10 +461,11 @@ function demo_student_delete ($name, $engname) {
 
 function demo_student_modify ($oldname, $oldengname, $chname, $engname, $age, $gender, 
                            $school, $phone, $demo_class, $demo_date, 
-			   $way, $state, $sale, $stuid, $join_into, $note) {
+			   $chief_teacher, $assis_teacher, $way, $state, $sale, $stuid, $join_into, $note) {
 	$conn=db_conn("daresay_db");
 	$sql="UPDATE demo_students SET name='$chname', engname='$engname', age='$age', gender='$gender', 
-		school='$school', phone='$phone', demo_in='$demo_class', demo_date='$demo_date', way='$way',
+		school='$school', phone='$phone', demo_in='$demo_class', demo_date='$demo_date', 
+		chief_teacher='$chief_teacher', assis_teacher='$assis_teacher', way='$way',
 		state='$state', saleman='$sale', stuid='$stuid', join_into='$join_into', note='$note' 
 		WHERE name='$oldname' AND engname='$oldengname'";
 										 
