@@ -3,39 +3,33 @@ include("err.php");
 require_once("db_opt.php");
 require_once "email.class.php";
 #require_once("../phpmail/sendmail_interface.php");
-function send_mail($email_addr,$email_title,$email_content) {
-			//$classid = $_POST["classid"];
-			//$class_num = $_POST["begin_class"];
-			$smtpserver = "smtp.sina.com";//SMTP服务器
-			$smtpserverport =587;//SMTP服务器端口
-			$smtpusermail = "daresay2014@sina.com";//SMTP服务器的用户邮箱
-			$smtpuser = "daresay2014@sina.com";//SMTP服务器的用户帐号
-			$smtppass = "daresay20140506";//SMTP服务器的用户密码 就是邮箱登陆密码
-			$mailtype = "HTML";//邮件格式（HTML/TXT）,TXT为文本邮件
-			
-			$smtpemailto=$email_addr;
-			$mailtitle=$email_title;
-			$mailcontent=$email_content;
-			$smtp = new smtp($smtpserver,$smtpserverport,true,$smtpuser,$smtppass);//这里面的一个true是表示使用身份验证,否则不使用身份验证.
-			$smtp->debug = false;//是否显示发送的调试信息
-			$state = $smtp->sendmail($smtpemailto, $smtpusermail, $mailtitle, $mailcontent, $mailtype);
-	
-}
-function get_class_date($classid){
-	require_once("db_opt.php");
+########### functions for school ###############
+function get_all_school () {
+	$return = array();
 	$conn=db_conn("daresay_db");
-	//read the class record info and get the hour
-	$table_name="class_info_record";
-	$sql="SELECT * FROM {$table_name} where classid='$classid'";
+	$sql="SELECT * FROM school";
 	$result=mysql_query($sql,$conn);
-	$big_hour=0;
-	$record_hour=0;
-	while ($row = mysql_fetch_assoc($result)) {
-		$tmp_date=$row['date'];
+	if (!$result) {
+		$errmsg = "get all school failed.";
+		$return[] = DX_ERROR;
+		$return[] = $errmsg; 
+		goto go_out;
 	}
+
+	$ret_arr = array();
+	$i = 0;
+	while ($row = mysql_fetch_assoc($result)) {
+		$ret_arr[$i++] = $row; 
+	}
+
+	$return[] = DX_SUCCESS;
+	$return[] = $ret_arr; 
+go_out:
 	mysql_close($conn);
-	return $tmp_date;
-}	
+	return $return;
+
+}
+########### functions for class ###############
 function get_current_hour($classid){
 	require_once("db_opt.php");
 	$conn=db_conn("daresay_db");
@@ -152,6 +146,32 @@ function get_all_class() {
 	sort($running_class);
 	return $running_class;
 }
+
+function get_class_date($classid){
+	require_once("db_opt.php");
+	$return = array ();
+	$conn=db_conn("daresay_db");
+	//read the class record info and get the hour
+	$table_name="class_info_record";
+	$sql="SELECT * FROM {$table_name} where classid='$classid'";
+	$result=mysql_query($sql,$conn);
+	if (!$result) {
+		$errmsg = "get all class failed.";
+		$return[] = DX_ERROR;
+		$return[] = $errmsg; 
+		goto go_out;
+	}
+
+	$tmp_date = "";
+	while ($row = mysql_fetch_assoc($result)) {
+		$tmp_date=$row['date'];
+	}
+	$return[] = DX_SUCCESS;
+	$return[] = $tmp_date; 
+go_out:
+	mysql_close($conn);
+	return $return;
+}	
 function print_remind_by_classid($classid) {
 	if (is_normal_class($classid)) {
 		static $num=1;
@@ -166,7 +186,9 @@ function print_remind_by_classid($classid) {
 		if($current_hour == "191-192")
 			return 1;
 
-		$class_date = get_class_date($classid);
+		list($errno, $class_date) = get_class_date($classid);
+		if ($errno) 
+			echo "get class date failed";
 		
 	        $school = $row['school'];
 		list($fir_tm,$sec_tm) = array_pad(explode(",", $row['class_time'], 2), 2 , null);
@@ -249,7 +271,7 @@ function print_class_record_info($classid) {
 	echo "<br/><br/>";
 							
 }
-
+########### functions for students ###############
 function gen_password ($engname) {
     $tmp_ascii = "";
     for($i=0;$i<strlen($engname);$i++){
@@ -258,33 +280,6 @@ function gen_password ($engname) {
     }
     return substr($tmp_ascii,1,4);
 }
-########### functions for school ###############
-function get_all_school () {
-	$return = array();
-	$conn=db_conn("daresay_db");
-	$sql="SELECT * FROM school";
-	$result=mysql_query($sql,$conn);
-	if (!$result) {
-		$errmsg = "get all school failed.";
-		$return[] = DX_ERROR;
-		$return[] = $errmsg; 
-		goto go_out;
-	}
-
-	$ret_arr = array();
-	$i = 0;
-	while ($row = mysql_fetch_assoc($result)) {
-		$ret_arr[$i++] = $row; 
-	}
-
-	$return[] = DX_SUCCESS;
-	$return[] = $ret_arr; 
-go_out:
-	mysql_close($conn);
-	return $return;
-
-}
-########### functions for students ###############
 function student_add ($name, $engname, $age, $sex, 
                            $school, $phone, $classid, $charge, 
 			   $hour_begin, $hour_end, $pay_time,$credit, $note) {
@@ -527,6 +522,24 @@ go_out:
 	return $return;
 }
 ########### functions for mail ###############
+function send_mail($email_addr,$email_title,$email_content) {
+			//$classid = $_POST["classid"];
+			//$class_num = $_POST["begin_class"];
+			$smtpserver = "smtp.sina.com";//SMTP服务器
+			$smtpserverport =587;//SMTP服务器端口
+			$smtpusermail = "daresay2014@sina.com";//SMTP服务器的用户邮箱
+			$smtpuser = "daresay2014@sina.com";//SMTP服务器的用户帐号
+			$smtppass = "daresay20140506";//SMTP服务器的用户密码 就是邮箱登陆密码
+			$mailtype = "HTML";//邮件格式（HTML/TXT）,TXT为文本邮件
+			
+			$smtpemailto=$email_addr;
+			$mailtitle=$email_title;
+			$mailcontent=$email_content;
+			$smtp = new smtp($smtpserver,$smtpserverport,true,$smtpuser,$smtppass);//这里面的一个true是表示使用身份验证,否则不使用身份验证.
+			$smtp->debug = false;//是否显示发送的调试信息
+			$state = $smtp->sendmail($smtpemailto, $smtpusermail, $mailtitle, $mailcontent, $mailtype);
+	
+}
 function send_mail_to_admin ($mail_title, $mail_content) {
 	$admin_mail = "18020023616@163.com";
         send_mail($admin_mail, $mail_title, $mail_content);

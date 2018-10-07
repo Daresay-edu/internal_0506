@@ -107,10 +107,6 @@ height: 30px;
 									die("SQL: {$sql}<br>Error:".mysql_error());	
 							$row = mysql_fetch_assoc($result);
 							
-							$mail=$row['mail_address'];
-							$class_source=$row['source1'];
-							$public_source=$row['source2'];
-							
 							$mailcontent = "<div class='content'>";
 
 							/* get content */
@@ -159,9 +155,6 @@ height: 30px;
 							echo "<br/><br/>";
 							echo "<input type='hidden' name='classid' value='$classid'/>";
 							echo "<input type='hidden' name='begin_class' value='$class_num'/>";
-							echo "<input type='hidden' name='class_source' value='$class_source'/>";
-							echo "<input type='hidden' name='public_source' value='$public_source'/>";
-							echo "<input type='hidden' name='mail_address' value='$mail'/>";
 							echo "<input type='hidden' name='note' value='$note'/>";
 							echo "</table>";
 
@@ -169,7 +162,7 @@ height: 30px;
 							list($fir_hour, $sec_hour) = explode("-", $current_hour);
 		                                        list($tmp_fir,$tmp_sec) = explode("-",$class_num);
                                                         echo "<br/></br><div style='text-align:center; vertical-align:middel;'>";
-						        if ((int)$tmp_fir - (int)$sec_hour != 1){
+						        if ((int)$tmp_fir - (int)$sec_hour != 1 && (int)$tmp_sec != 192){
 							    echo "<input class='submit' type='submit' name='send' value='请按顺序记录课程内容' disabled='disabled' onClick='return makesure()'/>&nbsp;&nbsp;";
 							}else{
 							    echo "<input class='submit' type='submit' name='send' value='记录课程内容' onClick='return makesure()'/>&nbsp;&nbsp;";
@@ -202,9 +195,6 @@ height: 30px;
 						case "record":
 		                                        $classid = $_POST["classid"];
 		                                        $class_num = $_POST["begin_class"];
-		                                        $class_source = $_POST["class_source"];
-		                                        $public_source = $_POST["public_source"];
-		                                        $smtpemailto = $_POST["mail_address"];
 		                                        $note = $_POST["note"];
 		                                        
 		                                        //将上课信息加入到class_info_record数据库中
@@ -233,7 +223,7 @@ height: 30px;
 							//要记录的课时需要比系统中记录的课时大一课时
 							list($fir_hour, $sec_hour) = explode("-", $current_hour);
 		                                        list($tmp_fir,$tmp_sec) = explode("-",$class_num);
-						        if ((int)$tmp_fir - (int)$sec_hour != 1){
+						        if ((int)$tmp_fir - (int)$sec_hour != 1 && (int)$tmp_sec != 192){
 						            echo "<script>alert('操作失败！预发送的课时为".$class_num."需要比已记录课时".$current_hour."大1！');window.history.go(-1);</script>";
 							    break;
 							}	
