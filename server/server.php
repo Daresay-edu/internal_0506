@@ -74,6 +74,18 @@ function test_encoding ($string) {
 			return http_response_code(200);
 		}
 		break;
+	    case "password_modify":
+        	$classid = $_POST["p_classid"];
+        	$engname = $_POST["p_engname"];
+        	$new_password = $_POST["new_password"];
+
+		list($errno, $data) = password_modify ($classid, $engname, $new_password); 
+		if ($errno) {
+			return http_response_code(400);
+		} else {
+			return http_response_code(200);
+		}
+		break;
 	}
 										
 	

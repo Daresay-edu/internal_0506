@@ -323,6 +323,25 @@ go_out:
 	mysql_close($conn);
 	return $return;
 }
+function password_modify ($classid, $engname, $new_password) {
+	$return = array();
+	$conn=db_conn("daresay_db");
+	$sql="UPDATE online_user SET passwd='$new_password' WHERE classid='$classid' AND engname='$engname'";
+										 
+	$result=mysql_query($sql,$conn);
+	if (!$result) {
+		$errmsg = "modify passowrd failed.";
+		$return[] = DX_ERROR;
+		$return[] = $errmsg; 
+		return $return;
+	} else {
+		$errmsg = "Success.";
+		$return[] = DX_SUCCESS;
+		$return[] = $errmsg; 
+		return $return;
+	}
+	mysql_close($conn);
+}
 
 ########### functions for demo students ###############
 function demo_student_add ($chname, $engname, $age, $gender, 
