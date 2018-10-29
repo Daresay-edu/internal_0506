@@ -29,7 +29,7 @@ function everybody_get_dollar($classid, $hour){
             break;
 		}
 		$sql="INSERT INTO dollar(engname, classid, hour, date, dollar_num, note)
-			  VALUES ('$engname', '$classid', '$hour', '$date', '$dollar_num','$note');";
+			  VALUES ('$engname', '$classid', '$hour', '$date', '$dollar_num','');";
 		$result=mysql_query($sql,$conn);
 	    if (!$result)
 		    die("SQL: {$sql}<br>Error:".mysql_error());	

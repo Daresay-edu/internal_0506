@@ -262,6 +262,8 @@ height: 30px;
 		                                        mysql_query('COMMIT',$conn);
 		                                        mysql_close($conn);
 							require_once("lib/lib.php");
+							require_once("dollar.php");
+							everybody_get_dollar($classid, $class_num);
 							print_class_record_info($classid);
 		                                        
 //SndMail:
