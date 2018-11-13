@@ -28,7 +28,7 @@
 <div class='sort'>
 <label>Classid</label>
 <select class='field' name='classid'>
-<option value="def">请选择</option>
+<option value="All">All</option>
 <?php
 	require_once("lib/lib.php");
 										$classes = get_all_class();

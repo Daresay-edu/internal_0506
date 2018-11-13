@@ -84,11 +84,6 @@ height: 30px;
 						switch($_GET["action"]) {
 							case "display":
 								$classid=$_POST["classid"];
-								$conn=db_conn("daresay_db");
-								$sql="SELECT * FROM students WHERE classid='$classid'";
-								$result=mysql_query($sql,$conn);
-								if (!$result)
-									die("SQL: {$sql}<br>Error:".mysql_error());						
 								echo "<table>";
 								echo "<tr>";
 								echo "<td>ID</td>";
@@ -102,20 +97,54 @@ height: 30px;
 								echo "<td>金额</td>";
 								echo "<td>积分</td>";
 								echo "</tr>";
-								$i=1;
-								while ($row = mysql_fetch_assoc($result)) {
-									echo "<tr>";
-										echo "<td>".$i++."</td>";
-										echo "<td>".$row['name']."</td>";
-										echo "<td>".$row['engname']."</td>";
-										echo "<td>".$row['age']."</td>";
-										echo "<td>".$row['phone']."</td>";
-										echo "<td>".$row['school']."</td>";
-										echo "<td>".$row['classid']."</td>";
-										echo "<td>".$row['hour_begin']."至".$row['hour_end']."</td>";
-										echo "<td>".$row['charge']."</td>";
-										echo "<td>".$row['credit']."</td>";
-									echo "</tr>";
+
+								$conn=db_conn("daresay_db");
+								$j=1;
+								if ($classid == "All") {
+								    require_once("lib/lib.php");
+								    $classes = get_running_class();
+								    for ($i=0;$i<count($classes);$i++) {
+								        $tmp = $classes[$i];
+								        $sql="SELECT * FROM students WHERE classid='$tmp'";
+								        $result=mysql_query($sql,$conn);
+								        if (!$result)
+								        	die("SQL: {$sql}<br>Error:".mysql_error());						
+								        while ($row = mysql_fetch_assoc($result)) {
+								        	echo "<tr>";
+								        		echo "<td>".$j++."</td>";
+								        		echo "<td>".$row['name']."</td>";
+								        		echo "<td>".$row['engname']."</td>";
+								        		echo "<td>".$row['age']."</td>";
+								        		echo "<td>".$row['phone']."</td>";
+								        		echo "<td>".$row['school']."</td>";
+								        		echo "<td>".$row['classid']."</td>";
+								        		echo "<td>".$row['hour_begin']."至".$row['hour_end']."</td>";
+								        		echo "<td>".$row['charge']."</td>";
+								        		echo "<td>".$row['credit']."</td>";
+								        	echo "</tr>";
+								        }
+								    }	
+								} else {
+								    $sql="SELECT * FROM students WHERE classid='$classid'";
+								    $result=mysql_query($sql,$conn);
+								    if (!$result)
+								    	die("SQL: {$sql}<br>Error:".mysql_error());						
+								    while ($row = mysql_fetch_assoc($result)) {
+								    	echo "<tr>";
+								    		echo "<td>".$j++."</td>";
+								    		echo "<td>".$row['name']."</td>";
+								    		echo "<td>".$row['engname']."</td>";
+								    		echo "<td>".$row['age']."</td>";
+								    		echo "<td>".$row['phone']."</td>";
+								    		echo "<td>".$row['school']."</td>";
+								    		echo "<td>".$row['classid']."</td>";
+								    		echo "<td>".$row['hour_begin']."至".$row['hour_end']."</td>";
+								    		echo "<td>".$row['charge']."</td>";
+								    		echo "<td>".$row['credit']."</td>";
+								    	echo "</tr>";
+								    }
+								
+								
 								}
 								echo "</table>";
 								echo "<br/><br/>";
