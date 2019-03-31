@@ -225,6 +225,31 @@ function getsomeoneAB() {
 				}  
 			}  
 }
+function logout() {
+	// 创建XMLHttpRequest对象  
+			if (window.XMLHttpRequest)  
+			{// code for IE7+, Firefox, Chrome, Opera, Safari 现代浏览器  
+				xmlhttp1=new XMLHttpRequest();
+			}  
+			else  
+			{// code for IE6, IE5 用户低版本ie  
+				xmlhttp1=new ActiveXObject("Microsoft.XMLHTTP");  				
+			} 
+			// 设置请求类型,请求地址，以及是否启用异步处理请求，大多数设置开启 true  
+			xmlhttp1.open("GET","lib/logout.php",true);  
+			// 将请求发送至服务器  
+			xmlhttp1.send();  
+			// 处理onreadystatechange事件 我们规定当服务器响应已做好被处理的准备时所执行的任务  
+			xmlhttp1.onreadystatechange=function()  
+			{  
+				// 4,200 不知道可以看看上面我贴出来的介绍  
+				if (xmlhttp1.readyState==4 && xmlhttp1.status==200)  
+				{
+					window.location.replace("login.php");
+				}  
+			}  
+
+}
 function getnextClassID(classid) {
 	var level = classid.substring(0,1);
 	var inclassid = parseInt(classid.substr(1)) + 1;

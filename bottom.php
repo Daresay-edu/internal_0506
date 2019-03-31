@@ -9,7 +9,7 @@
 		echo "&copy; 2014-".$year." Daresay Education."					
 ?>
 </span>
-<span class="right"> <a href="permitcheck.php" style="text-decoration:none;">
+<span class="right"> <a href="#" style="text-decoration:none;">
 Design by Edward
 </a>
 </span>
