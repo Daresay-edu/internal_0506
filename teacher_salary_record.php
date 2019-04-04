@@ -64,17 +64,39 @@
 					<form action="teacher_salary_manage.php?action=add" method="post" id="form1">
 					   <table border="0" align="center" width="800">
 					   	<tr>
+							<?php 
+							        $role = 'ordinary';									
+									if (isset($_SESSION['role'])){
+                                        if ($_SESSION['role'] == 'admin') {
+										    $role = 'admin';
+										} else {
+											$role = 'ordinary';
+											if (isset($_SESSION['username'])) {
+												$engname = $_SESSION['username'];
+											}
+										}
+									}
+							?>
 							<td align="center" >教师:</td>
 							<td><select class='field' name='engname' id="engname">
-								<option value="def">请选择</option>
+							    <?php if ($role == 'admin') {?>
+									<option value="def">请选择</option>
+								<?php }?>
 								<?php
 									require_once("lib/lib.php");
+									
 									list($errno, $data) = get_all_teachers();
 									if ($errno)
 										echo "<script>alert('获取教师信息失败-".$row."');</script>";
 									$i=0;
 									for ($i; $i < count($data); $i++) {
-										echo "<option value='".$data[$i]['engname']."'>".$data[$i]['engname']."</option>";
+										if ($role == "admin"){
+											echo "<option value='".$data[$i]['engname']."'>".$data[$i]['engname']."</option>";
+										}else {
+ 											if($data[$i]['engname'] == $engname) {
+												echo "<option value='".$data[$i]['engname']."'>".$data[$i]['engname']."</option>";
+											}
+										}
 									}
 								?>
 								</select>

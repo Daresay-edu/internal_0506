@@ -19,19 +19,40 @@
 <div class='sort'>
 
 <label>英文名</label>
-<select class="field" name="engnamedis" id="engnamedis">
-<option value="def">请选择</option>
-<?php
-	require_once("lib/db_opt.php");
-	$conn=db_conn("daresay_db");
-	$sql="SELECT * FROM teachers";
-	$result=mysql_query($sql,$conn);
-	if (!$result)
-		die("SQL: {$sql}<br>Error:".mysql_error());			
-	while ($row = mysql_fetch_assoc($result)) {
-		echo "<option value='{$row['engname']}'>{$row['engname']}</option>";
-	}
+<?php 
+							        $role = 'ordinary';									
+									if (isset($_SESSION['role'])){
+                                        if ($_SESSION['role'] == 'admin') {
+										    $role = 'admin';
+										} else {
+											$role = 'ordinary';
+											if (isset($_SESSION['username'])) {
+												$engname = $_SESSION['username'];
+											}
+										}
+									}
 ?>
+<select class="field" name="engnamedis" id="engnamedis">
+ <?php if ($role == 'admin') {?>
+									<option value="def">请选择</option>
+								<?php }?>
+	<?php
+									require_once("lib/lib.php");
+									
+									list($errno, $data) = get_all_teachers();
+									if ($errno)
+										echo "<script>alert('获取教师信息失败-".$row."');</script>";
+									$i=0;
+									for ($i; $i < count($data); $i++) {
+										if ($role == "admin"){
+											echo "<option value='".$data[$i]['engname']."'>".$data[$i]['engname']."</option>";
+										}else {
+ 											if($data[$i]['engname'] == $engname) {
+												echo "<option value='".$data[$i]['engname']."'>".$data[$i]['engname']."</option>";
+											}
+										}
+									}
+								?>
 
 </select><br/>
 <label>条件</label>
@@ -137,19 +158,40 @@
 <form name="form1" method="post" action="">
 <div class='sort'>
 <label>英文名</label>
-<select class='field' name='engnamedel' id="engnamedel">
-<option value="def">请选择</option>
-<?php
-	require_once("lib/db_opt.php");
-	$conn=db_conn("daresay_db");
-	$sql="SELECT * FROM teachers";
-	$result=mysql_query($sql,$conn);
-	if (!$result)
-		die("SQL: {$sql}<br>Error:".mysql_error());			
-	while ($row = mysql_fetch_assoc($result)) {
-		echo "<option value='{$row['engname']}'>{$row['engname']}</option>";
-	}
+<?php 
+							        $role = 'ordinary';									
+									if (isset($_SESSION['role'])){
+                                        if ($_SESSION['role'] == 'admin') {
+										    $role = 'admin';
+										} else {
+											$role = 'ordinary';
+											if (isset($_SESSION['username'])) {
+												$engname = $_SESSION['username'];
+											}
+										}
+									}
 ?>
+<select class='field' name='engnamedel' id="engnamedel">
+ <?php if ($role == 'admin') {?>
+									<option value="def">请选择</option>
+								<?php }?>
+<?php
+									require_once("lib/lib.php");
+									
+									list($errno, $data) = get_all_teachers();
+									if ($errno)
+										echo "<script>alert('获取教师信息失败-".$row."');</script>";
+									$i=0;
+									for ($i; $i < count($data); $i++) {
+										if ($role == "admin"){
+											echo "<option value='".$data[$i]['engname']."'>".$data[$i]['engname']."</option>";
+										}else {
+ 											if($data[$i]['engname'] == $engname) {
+												echo "<option value='".$data[$i]['engname']."'>".$data[$i]['engname']."</option>";
+											}
+										}
+									}
+								?>
 </select>
 <br/>
 <label >班级</label>
