@@ -17,7 +17,7 @@
 
 <form name="form1" method="post" action="">
 <div class='sort'>
-<label>Classid</label>
+<label>班级</label>
 <select class='field' name='classid'>
 
 <?php
@@ -37,8 +37,8 @@ require_once("lib/db_opt.php");
 ?>
 </select>
 <br/>
-<label>Case</label>
-<p>From:</p>
+<label>条件</label>
+<p>从:</p>
 	<select class='year' name="yearfrom">
 		<?php
 			$today=date("Y-n-j");								
@@ -81,7 +81,7 @@ require_once("lib/db_opt.php");
 								}
 								?>
 								</select>
-<p>To:</p>
+<p>至:</p>
 	<select class='year' name="yearend">
 		<?php
 			$today=date("Y-n-j");								
@@ -128,16 +128,16 @@ require_once("lib/db_opt.php");
 								?>
 								</select>
 <br/><br/>
-<label>Type</label>
+<label>类别</label>
 <select class='field' name="type">
 	<option value="income">已赚</option>
 	<option value="all">收取</option>
 </select>
 <br/><br/>
-<label>Password</label>
+<label>密码</label>
 <input class='field' type='password' name='password'/>
 <br/>
-<input class='submit' type="button" onclick="form1.action='income_manage.php?action=display';form1.submit();" value="Count"/><span></span>
+<input class='submit' type="button" onclick="form1.action='income_manage.php?action=display';form1.submit();" value="计算"/><span></span>
 
 <div class='cl'>&nbsp;</div>
 </div>

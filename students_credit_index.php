@@ -56,13 +56,7 @@ a{
 <!-- Container -->
 <div id="container">
 	<div class="shell">
-		
-		<!-- Small Nav -->
-		<div class="small-nav">
-			<a href="#">学员积分</a>
-		</div>
-		<!-- End Small Nav -->
-		
+	
 		<!-- Message OK -->		
 		
 		<!-- End Message Error -->
@@ -78,7 +72,7 @@ a{
 				<div class="box">
 				<!-- Box Head -->
 				<div class="box-head">
-				<h2 class="left"></h2>
+				<h2 class="left">学员积分</h2>
 				</div>
 				<!-- End Box Head -->	
 
@@ -143,7 +137,7 @@ a{
 					
 					<!-- Box Head -->
 					<div class="box-head">
-						<h2>Management</h2>
+						<h2>学员积分管理</h2>
 					</div>
 					<!-- End Box Head-->
 					<?php

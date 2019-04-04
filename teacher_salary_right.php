@@ -12,13 +12,13 @@
 <body>
 
 <div class='box-content'>
-<a href='teacher_salary_record.php' class='add-button'><span>Add new record</span></a>
+<a href='teacher_salary_record.php' class='add-button'><span>新增打卡记录</span></a>
 <div class='cl'>&nbsp;</div>
 
 <form action="teacher_salary_manage.php?action=display" method="post">
 <div class='sort'>
 
-<label>English Name</label>
+<label>英文名</label>
 <select class="field" name="engnamedis" id="engnamedis">
 <option value="def">请选择</option>
 <?php
@@ -34,8 +34,8 @@
 ?>
 
 </select><br/>
-<label>Case</label>
-<p>From:</p>
+<label>条件</label>
+<p>从:</p>
 	<select class='year' name="yearfrom">
 		<?php
 			$today=date("Y-n-j");								
@@ -78,7 +78,7 @@
 								}
 								?>
 								</select>
-<p>To:</p>
+<p>至:</p>
 	<select class='year' name="yearto">
 		<?php
 			$today=date("Y-n-j");								
@@ -125,10 +125,10 @@
 								?>
 								</select>
 <br/><br/>
-<label>Password</label>
+<label>密码</label>
 <input class='field' type='password' name='passworddis'/>
 <br/>
-<input class='submit'  type='submit' value='Display Record'/><span></span>
+<input class='submit'  type='submit' value='查询'/><span></span>
 <div class='cl'>&nbsp;</div>
 </div>
 
@@ -136,7 +136,7 @@
 
 <form name="form1" method="post" action="">
 <div class='sort'>
-<label>English Name</label>
+<label>英文名</label>
 <select class='field' name='engnamedel' id="engnamedel">
 <option value="def">请选择</option>
 <?php
@@ -152,7 +152,7 @@
 ?>
 </select>
 <br/>
-<label >ClassID</label>
+<label >班级</label>
 	<select class='field' name='classiddel' id="classid">
 		<option value="def">请选择</option>
 				<?php
@@ -168,7 +168,7 @@
 				?>
 	</select>
 <br/>
-<label>Date</label>
+<label>日期</label>
 <select class='year' name="yeardel">
 		<?php
 			$today=date("Y-n-j");								
@@ -217,10 +217,10 @@
 
 
 <br/><br/>
-<label>Password</label>
+<label>密码</label>
 <input class='field' type='password' name='passworddel'/>
 <br/>
-<input class='field'  style="background-color:#F9EBAE" type="button" onclick="form1.action='teacher_salary_manage.php?action=delete';form1.submit();" value="Delete"/><span></span>
+<input class='field'  style="background-color:#F9EBAE" type="button" onclick="form1.action='teacher_salary_manage.php?action=delete';form1.submit();" value="删除"/><span></span>
 <div class='cl'>&nbsp;</div>
 </div>
 </form>

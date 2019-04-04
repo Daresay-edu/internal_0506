@@ -11,14 +11,14 @@
 <body>
 
 <div class='box-content'>
-<a href='class_add.php' class='add-button'><span>Add new class</span></a>
+<a href='class_add.php' class='add-button'><span>新增班级</span></a>
 <div class='cl'>&nbsp;</div>
 
 
 
 <form name="form1" method="post" action="">
 <div class='sort'>
-<label>Classid</label>
+<label>班级</label>
 <select class='field' name='classid'>
 
 <?php
@@ -39,9 +39,9 @@ require_once("lib/db_opt.php");
 </select>
 
 <br/>
-<input class='submit' type="button" onclick="form1.action='class_manage.php?action=display';form1.submit();" value="Display"/><span></span>
+<input class='submit' type="button" onclick="form1.action='class_manage.php?action=display';form1.submit();" value="查询"/><span></span>
 
-<input class='submit' type="button" onclick="form1.action='class_manage.php?action=delete';form1.submit();" value="Delete"/><span></span>
+<input class='submit' type="button" onclick="form1.action='class_manage.php?action=delete';form1.submit();" value="删除"/><span></span>
 
 <div class='cl'>&nbsp;</div>
 </div>

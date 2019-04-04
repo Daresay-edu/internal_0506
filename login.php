@@ -20,7 +20,7 @@
 		<hr class="hr15">
 		<input name="password" id="password" placeholder="密码" required="" type="password">
 		<hr class="hr15">
-		<input type="submit" class= 'submit' name="add" value="登录"/>
+		<input type="submit" class= 'submit' name="add" value="登录" onclick="return check_login();"/>
 		<hr class="hr20">
 		<!-- 帮助 <a onClick="alert('请联系管理员')">忘记密码</a> -->
 	</form>
@@ -28,7 +28,7 @@
 	
 </div>
 
-<div class="copyright">© 2019 by <a href="http://www.mycodes.net/" target="_blank">Daresay Education</a></div>
+<div class="copyright">© 2014 by Daresay Education</div>
 
 </body>
 </html>

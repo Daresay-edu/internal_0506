@@ -11,12 +11,12 @@
 <body>
 
 <div class='box-content'>
-<a href='absent_add.php' class='add-button'><span>Add new absent</span></a>
+<a href='absent_add.php' class='add-button'><span>新增学生缺勤</span></a>
 <div class='cl'>&nbsp;</div>
 
 <form action="absent_manage.php?action=display" method="post">
 <div class='sort'>
-<label>Classid</label>
+<label>班级</label>
 <select class='field' name='classid' id="dis_classid" onchange="dis_ab_getClassMem(this.value)">
 <option value="def">请选择</option>
 	<?php
@@ -33,19 +33,19 @@
 
 </select>
 <br/>
-<label>English Name</label>
+<label>英文名</label>
 <select class='field' name="engname" id="dis_engname">
 <option value="null">null</option>
 </select>
 <br/>
-<input class='field'  style="background-color:#F9EBAE" type='submit' value='Display absent'/><span></span>
+<input class='field'  style="background-color:#F9EBAE" type='submit' value='查询'/><span></span>
 <div class='cl'>&nbsp;</div>
 </div>
 </form>
 
 <form name="form1" method="post" action="">
 <div class='sort'>
-<label>Classid</label>
+<label>班级</label>
 <select class='field' name='classid' id="mod_del_classid" onchange="mod_del_ab_getClassMem1(this.value)">
 <option value="def">请选择</option>
 	<?php
@@ -61,18 +61,18 @@
 	?>
 </select>
 <br/>
-<label>English Name</label>
+<label>英文名</label>
 <select class='field' name="engname" id="mod_del_engname" onchange="getsomeoneAB()">
 <option value="null">null</option>
 </select>
 <br/>
-<label>Absent Hour(as: 11-12)</label>
+<label>缺勤课时(as: 11-12)</label>
 <select class='field' name="ab_hour" id="ab_hour">
 <option value="null">null</option>
 </select>
 <br/>
-<input class='field'  style="background-color:#F9EBAE" type="button" onclick="form1.action='absent_manage.php?action=modify';form1.submit();" value="Modify absent"/><span></span>
-<input class='field'  style="background-color:#F9EBAE" type="button" onclick="form1.action='absent_manage.php?action=delete';form1.submit();" value="Delete absent"/><span></span>
+<input class='field'  style="background-color:#F9EBAE" type="button" onclick="form1.action='absent_manage.php?action=modify';form1.submit();" value="修改"/><span></span>
+<input class='field'  style="background-color:#F9EBAE" type="button" onclick="form1.action='absent_manage.php?action=delete';form1.submit();" value="删除"/><span></span>
 <div class='cl'>&nbsp;</div>
 </div>
 </form>

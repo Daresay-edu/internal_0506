@@ -66,7 +66,7 @@ height: 30px;
 				<div class="box">
 					<!-- Box Head -->
 					<div class="box-head">
-						<h2 class="left"></h2>
+						<h2 class="left">登录检查</h2>
                     			</div>
 					<!-- End Box Head -->	
 

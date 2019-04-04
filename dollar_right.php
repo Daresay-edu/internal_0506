@@ -11,12 +11,12 @@
 <body>
 
 <div class='box-content'>
-<a href='dollar_add.php' class='add-button'><span>Add new dollar</span></a>
+<a href='dollar_add.php' class='add-button'><span>新增Dollar记录</span></a>
 <div class='cl'>&nbsp;</div>
 
 <form action="dollar_manage.php?action=display" method="post">
 <div class='sort'>
-<label>Classid</label>
+<label>班级</label>
 <select class='field' name='classid' id="dis_classid" onchange="dis_ab_getClassMem(this.value)">
 <option value="def">请选择</option>
 	<?php
@@ -33,13 +33,13 @@
 
 </select>
 <br/>
-<label>English Name</label>
+<label>英文名</label>
 <select class='field' name="engname" id="dis_engname">
 <option value="null">null</option>
 </select>
 </select><br/>
-<label>Case</label>
-<p>From:</p>
+<label>条件</label>
+<p>从:</p>
 	<select class='year' name="yearfrom">
 		<?php
 			$today=date("Y-n-j");								
@@ -82,7 +82,7 @@
 								}
 								?>
 								</select>
-<p>To:</p>
+<p>至:</p>
 	<select class='year' name="yearto">
 		<?php
 			$today=date("Y-n-j");								
@@ -128,7 +128,7 @@
 								}
 								?>
 								</select>
-<input class='field'  style="background-color:#F9EBAE" type='submit' value='Display'/><span></span>
+<input class='field'  style="background-color:#F9EBAE" type='submit' value='查询'/><span></span>
 <div class='cl'>&nbsp;</div>
 </div>
 </form>

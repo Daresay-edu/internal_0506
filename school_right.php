@@ -11,14 +11,14 @@
 <body>
 
 <div class='box-content'>
-<a href='school_add.php' class='add-button'><span>Add new school</span></a>
+<a href='school_add.php' class='add-button'><span>新增校区</span></a>
 <div class='cl'>&nbsp;</div>
 
 <form action="school_manage.php?action=display" method="post">
 <div class='sort'>
-<label>School ID</label>
+<label>校区</label>
 <select class='field' name='schoolid' id="schoolid">
-<option value="All">All</option>
+<option value="All">所有</option>
 <?php
 	require_once("lib/lib.php");
 	list($errno, $data) = get_all_school();
@@ -32,7 +32,7 @@
 
 </select>
 <br/>
-<input type='submit' class='submit' value='Display School'/><span></span>
+<input type='submit' class='submit' value='查询'/><span></span>
 <div class='cl'>&nbsp;</div>
 </div>
 
@@ -40,7 +40,7 @@
 
 <form name="form1" method="post" action="">
 <div class='sort'>
-<label>School ID</label>
+<label>校区</label>
 <select class='field' name='schoolid1' id="schoolid1">
 <?php
 	require_once("lib/lib.php");
@@ -55,7 +55,7 @@
 
 </select>
 <br/>
-<input type="button" class='submit' onclick="form1.action='school_manage.php?action=delete';form1.submit();" value="Delete"/><span></span>
+<input type="button" class='submit' onclick="form1.action='school_manage.php?action=delete';form1.submit();" value="删除"/><span></span>
 <div class='cl'>&nbsp;</div>
 </div>
 </form>

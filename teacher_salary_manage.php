@@ -47,12 +47,7 @@ height: 30px;
 <!-- Container -->
 <div id="container">
 	<div class="shell">
-		
-		<!-- Small Nav -->
-		<div class="small-nav">
-			<a href="#">教师打卡</a>
-		</div>
-		<!-- End Small Nav -->
+
 		
 		<!-- Message OK -->		
 		
@@ -69,7 +64,7 @@ height: 30px;
 				<div class="box">
 					<!-- Box Head -->
 					<div class="box-head">
-						<h2 class="left"></h2>
+						<h2 class="left">教师打卡</h2>
                     			</div>
 					<!-- End Box Head -->	
 
@@ -663,7 +658,7 @@ height: 30px;
 					
 					<!-- Box Head -->
 					<div class="box-head">
-						<h2>Management</h2>
+						<h2>教师课时费管理</h2>
 					</div>
 					<!-- End Box Head-->
 					<?php

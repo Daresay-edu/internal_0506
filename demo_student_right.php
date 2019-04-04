@@ -12,14 +12,14 @@
 <body>
 
 <div class='box-content'>
-<a href='demo_student_add.php' class='add-button'><span>Add new demo student</span></a>
+<a href='demo_student_add.php' class='add-button'><span>新增试听学生</span></a>
 <div class='cl'>&nbsp;</div>
 
 <form action="demo_student_manage.php?action=display" method="post">
 <div class='sort'>
 
 <label>试听时间:</label>
-<p>From:</p>
+<p>从:</p>
 	<select class='year' name="yearfrom">
 		<?php
 			$today=date("Y-n-j");								
@@ -62,7 +62,7 @@
 								}
 								?>
 								</select>
-<p>To:</p>
+<p>至:</p>
 	<select class='year' name="yearto">
 		<?php
 			$today=date("Y-n-j");								
@@ -108,7 +108,7 @@
 								}
 								?>
 								</select>
-<p>State:</p>
+<p>状态:</p>
 	<select class='year' name="state">
 		<option value='All'>All</option>
 		<option value='未试听'>未试听</option>
@@ -117,7 +117,7 @@
 	</select>
 <br/><br/>
 <br/>
-<input class='submit'  type='submit' value='Display Record'/><span></span>
+<input class='submit'  type='submit' value='查询'/><span></span>
 <div class='cl'>&nbsp;</div>
 </div>
 

@@ -47,13 +47,6 @@ height: 30px;
 <!-- Container -->
 <div id="container">
 	<div class="shell">
-		
-		<!-- Small Nav -->
-		<div class="small-nav">
-			<a href="#">备课</a>
-		</div>
-		<!-- End Small Nav -->
-		
 		<!-- Message OK -->		
 		
 		<!-- End Message Error -->
@@ -69,7 +62,7 @@ height: 30px;
 				<div class="box">
 				<!-- Box Head -->
 				<div class="box-head">
-				<h2 class="left"></h2>
+				<h2 class="left">学员信息</h2>
 				</div>
 				<!-- End Box Head -->	
 
@@ -135,7 +128,7 @@ height: 30px;
 					
 					<!-- Box Head -->
 					<div class="box-head">
-						<h2>Management</h2>
+						<h2>学生管理</h2>
 					</div>
 					<!-- End Box Head-->
 					<?php

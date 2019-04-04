@@ -30,12 +30,6 @@
 <div id="container">
 	<div class="shell">
 		
-		<!-- Small Nav -->
-		<div class="small-nav">
-			<a href="#">Dollar记录</a>
-		</div>
-		<!-- End Small Nav -->
-		
 		<!-- Message OK -->		
 		
 		<!-- End Message Error -->
@@ -51,7 +45,7 @@
 				<div class="box">
 					<!-- Box Head -->
 					<div class="box-head">
-						<h2 class="left"></h2>
+						<h2 class="left">查询Dollor记录</h2>
                     			</div>
 					<!-- End Box Head -->	
 
@@ -182,7 +176,7 @@
 					
 					<!-- Box Head -->
 					<div class="box-head">
-						<h2>Management</h2>
+						<h2>Dollar管理</h2>
 					</div>
 					<!-- End Box Head-->
 					<?php include("dollar_right.php");?>

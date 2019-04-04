@@ -168,6 +168,7 @@ ul li {
 
 #main {}
 #content { float:left; width:750px; }
+#bigcontent { float:left; width:998px; }
 #sidebar { float:right; width:225px; }
 
 

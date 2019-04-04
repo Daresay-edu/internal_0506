@@ -21,14 +21,14 @@
 <body>
 
 <div class='box-content'>
-<a href='student_add.php' class='add-button'><span>Add new student</span></a>
+<a href='student_add.php' class='add-button'><span>新增学生</span></a>
 <div class='cl'>&nbsp;</div>
 
 <form action="students_manage.php?action=display" method="post">
 <div class='sort'>
-<label>Classid</label>
+<label>班级</label>
 <select class='field' name='classid'>
-<option value="All">All</option>
+<option value="All">所有</option>
 <?php
 	require_once("lib/lib.php");
 										$classes = get_all_class();
@@ -42,7 +42,7 @@
 
 </select>
 <br/>
-<input class='field'  style="background-color:#F9EBAE" type='submit' value='Display students'/><span></span>
+<input class='field'  style="background-color:#F9EBAE" type='submit' value='查询'/><span></span>
 <div class='cl'>&nbsp;</div>
 </div>
 
@@ -50,7 +50,7 @@
 
 <form name="form1" method="post" action="">
 <div class='sort'>
-<label>Classid</label>
+<label>班级</label>
 <select class='field' name='classid' id="classid" onchange="getClassMem(this.value)">
 <option value="def">请选择</option>
 <?php
@@ -65,14 +65,14 @@
 ?>
 </select>
 <br/>
-<label>English Name</label>
+<label>英文名</label>
 <select class='field' name='engname' id="engname">
 <option value="null">null</option>
 </select>
 <br/>
-<input class='field'  style="background-color:#F9EBAE" type="button" onclick="form1.action='students_manage.php?action=modify';form1.submit();" value="Modify"/><span></span>
-<input class='field'  style="background-color:#F9EBAE" type="button" onclick="form1.action='students_manage.php?action=copy';form1.submit();" value="Copy"/><span></span>
-<input class='field'  style="background-color:#F9EBAE" type="button" onclick="return delete_stu();" value="Delete"/><span></span>
+<input class='field'  style="background-color:#F9EBAE" type="button" onclick="form1.action='students_manage.php?action=modify';form1.submit();" value="修改"/><span></span>
+<input class='field'  style="background-color:#F9EBAE" type="button" onclick="form1.action='students_manage.php?action=copy';form1.submit();" value="拷贝"/><span></span>
+<input class='field'  style="background-color:#F9EBAE" type="button" onclick="return delete_stu();" value="删除"/><span></span>
 <div class='cl'>&nbsp;</div>
 </div>
 </form>

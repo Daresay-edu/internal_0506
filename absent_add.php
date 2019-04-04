@@ -30,11 +30,6 @@
 <div id="container">
 	<div class="shell">
 		
-		<!-- Small Nav -->
-		<div class="small-nav">
-			<a href="#">添加缺席</a>
-		</div>
-		<!-- End Small Nav -->
 		
 		<!-- Message OK -->		
 		
@@ -51,7 +46,7 @@
 				<div class="box">
 					<!-- Box Head -->
 					<div class="box-head">
-						<h2 class="left"></h2>
+						<h2 class="left">添加学生缺勤</h2>
                     			</div>
 					<!-- End Box Head -->	
 
@@ -195,7 +190,7 @@
 					
 					<!-- Box Head -->
 					<div class="box-head">
-						<h2>Management</h2>
+						<h2>管理</h2>
 					</div>
 					<!-- End Box Head-->
 					<?php include("absent_right.php");?>

@@ -11,14 +11,14 @@
 <body>
 
 <div class='box-content'>
-<a href='teacher_addh.php' class='add-button'><span>Add new teacher</span></a>
+<a href='teacher_addh.php' class='add-button'><span>新增教师</span></a>
 <div class='cl'>&nbsp;</div>
 
 <form action="teacher_manageh.php?action=display" method="post">
 <div class='sort'>
-<label>English Name</label>
+<label>英文名</label>
 <select class='field' name='engname' id="engname">
-<option value="All">All</option>
+<option value="All">所有</option>
 <?php
 	require_once("lib/db_opt.php");
 	$conn=db_conn("daresay_db");
@@ -33,7 +33,7 @@
 
 </select>
 <br/>
-<input type='submit' class= 'submit'style="background-color:#F9EBAE" value='Display Teacher'/><span></span>
+<input type='submit' class= 'submit'style="background-color:#F9EBAE" value='查询'/><span></span>
 <div class='cl'>&nbsp;</div>
 </div>
 
@@ -41,9 +41,9 @@
 
 <form name="form1" method="post" action="">
 <div class='sort'>
-<label>English Name</label>
+<label>英文名</label>
 <select class='field' name='engname' id="engname">
-<option value="All">All</option>
+<option value="All">所有</option>
 <?php
 	require_once("lib/db_opt.php");
 	$conn=db_conn("daresay_db");
@@ -57,7 +57,7 @@
 ?>
 </select>
 <br/>
-<input type="button" class= 'submit'style="background-color:#F9EBAE" onclick="form1.action='teacher_manageh.php?action=delete';form1.submit();" value="Delete"/><span></span>
+<input type="button" class= 'submit'style="background-color:#F9EBAE" onclick="form1.action='teacher_manageh.php?action=delete';form1.submit();" value="删除"/><span></span>
 <div class='cl'>&nbsp;</div>
 </div>
 </form>

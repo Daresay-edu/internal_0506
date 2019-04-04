@@ -32,9 +32,9 @@
 	<div class="shell">
 		
 		<!-- Small Nav -->
-		<div class="small-nav">
+	    <!--<div class="small-nav">
 			<a href="#">备课</a>
-		</div>
+		</div>-->
 		<!-- End Small Nav -->
 		
 		<!-- Message OK -->		
@@ -52,8 +52,8 @@
 				<div class="box">
 					<!-- Box Head -->
 					<div class="box-head">
-						<h2 class="left"></h2>
-                    			</div>
+						<h2 class="left">查看课程内容</h2>
+                    </div>
 					<!-- End Box Head -->	
 
 					<!-- Table -->
@@ -121,31 +121,12 @@
 					
 					<!-- Box Head -->
 					<div class="box-head">
-						<h2>Management</h2>
+						<h2>课程内容管理</h2>
 					</div>
 					<!-- End Box Head-->
 					
 					<div class="box-content">
-						<a href="#" class="add-button"><span>Add new Article</span></a>
-						<div class="cl">&nbsp;</div>
-						
-						<p class="select-all"><input type="checkbox" class="checkbox" /><label>select all</label></p>
-						<p><a href="#">Delete Selected</a></p>
-						
-						<!-- Sort -->
-						<div class="sort">
-							<label>Sort by</label>
-							<select class="field">
-								<option value="">Title</option>
-							</select>
-							<select class="field">
-								<option value="">Date</option>
-							</select>
-							<select class="field">
-								<option value="">Author</option>
-							</select>
-						</div>
-						<!-- End Sort -->
+					
 						
 					</div>
 				</div>

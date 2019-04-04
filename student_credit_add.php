@@ -49,11 +49,6 @@ function CheckForm()
 <div id="container">
 	<div class="shell">
 		
-		<!-- Small Nav -->
-		<div class="small-nav">
-			<a href="#">添加积分</a>
-		</div>
-		<!-- End Small Nav -->
 		
 		<!-- Message OK -->		
 		
@@ -70,7 +65,7 @@ function CheckForm()
 				<div class="box">
 					<!-- Box Head -->
 					<div class="box-head">
-						<h2 class="left"></h2>
+						<h2 class="left">添加学员积分</h2>
                     			</div>
 					<!-- End Box Head -->	
 
@@ -185,7 +180,7 @@ function CheckForm()
 					
 					<!-- Box Head -->
 					<div class="box-head">
-						<h2>Management</h2>
+						<h2>学员积分管理</h2>
 					</div>
 					<!-- End Box Head-->
 					<?php include("students_credit_right.php");?>

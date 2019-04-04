@@ -60,12 +60,6 @@ function CheckForm()
 <div id="container">
 	<div class="shell">
 		
-		<!-- Small Nav -->
-		<div class="small-nav">
-			<a href="#">试听登记</a>
-		</div>
-		<!-- End Small Nav -->
-		
 		<!-- Message OK -->		
 		
 		<!-- End Message Error -->
@@ -81,7 +75,7 @@ function CheckForm()
 				<div class="box">
 					<!-- Box Head -->
 					<div class="box-head">
-						<h2 class="left"></h2>
+						<h2 class="left">试听登记</h2>
                     			</div>
 					<!-- End Box Head -->	
 
@@ -248,7 +242,7 @@ function CheckForm()
 					
 					<!-- Box Head -->
 					<div class="box-head">
-						<h2>Management</h2>
+						<h2>试听学员管理</h2>
 					</div>
 					<!-- End Box Head-->
 					<?php include("demo_student_right.php");?>

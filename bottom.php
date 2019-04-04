@@ -10,7 +10,7 @@
 ?>
 </span>
 <span class="right"> <a href="#" style="text-decoration:none;">
-Design by Edward
+Developed by Edward
 </a>
 </span>
 </div>
