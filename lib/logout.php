@@ -4,6 +4,7 @@ header("Cache-Control: no-cache, must-revalidate");
 	unset($_SESSION['username']);
 	unset($_SESSION['role']);
 	session_destroy();
-    header('Location: login.php');
+    //header('Location: login.php');
+	return json_encode("1");
 	
 ?>

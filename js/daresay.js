@@ -225,7 +225,25 @@ function getsomeoneAB() {
 				}  
 			}  
 }
-function logout() {
+function check_login() {
+	    var engname=document.getElementById("engname").value;
+		var password=document.getElementById("password").value;
+		alert(engname);
+		$.ajax({
+           type:'POST',
+           url:"lib/login.php",
+           data:{engname:engname,password:password},
+		   //dataType:"json",
+           success: function(redata){
+			  alert("Success");
+              window.location.replace("mail_index.php");
+           },
+           error: function() {
+              alert("用户名或者密码错误!");
+           }
+        });
+}
+function logout1() {
 	// 创建XMLHttpRequest对象  
 			if (window.XMLHttpRequest)  
 			{// code for IE7+, Firefox, Chrome, Opera, Safari 现代浏览器  
@@ -245,10 +263,27 @@ function logout() {
 				// 4,200 不知道可以看看上面我贴出来的介绍  
 				if (xmlhttp1.readyState==4 && xmlhttp1.status==200)  
 				{
-					window.location.replace("login.php");
+					
+					window.location.href="login.php";
 				}  
 			}  
+			alert("success");
 
+}
+function logout() {
+		$.ajax({
+           type:'GET',
+           url:"lib/logout.php",
+           //data:{},
+		   //dataType:"json",
+           success: function(data){
+			  alert("Success");
+              window.location.replace("login.php");
+           },
+           error: function() {
+              alert("Logout Failed!");
+           }
+        });
 }
 function getnextClassID(classid) {
 	var level = classid.substring(0,1);
