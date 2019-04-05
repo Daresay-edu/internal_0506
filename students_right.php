@@ -70,9 +70,9 @@
 <option value="null">null</option>
 </select>
 <br/>
-<input class='field'  style="background-color:#F9EBAE" type="button" onclick="form1.action='students_manage.php?action=modify';form1.submit();" value="修改"/><span></span>
-<input class='field'  style="background-color:#F9EBAE" type="button" onclick="form1.action='students_manage.php?action=copy';form1.submit();" value="拷贝"/><span></span>
-<input class='field'  style="background-color:#F9EBAE" type="button" onclick="return delete_stu();" value="删除"/><span></span>
+<input class='submit'  style="background-color:#F9EBAE" type="button" onclick="form1.action='students_manage.php?action=modify';form1.submit();" value="修改"/>
+<input class='submit'  style="background-color:#F9EBAE" type="button" onclick="form1.action='students_manage.php?action=copy';form1.submit();" value="拷贝"/>
+<input class='submit'  style="background-color:#F9EBAE" type="button" onclick="return delete_stu();" value="删除"/>
 <div class='cl'>&nbsp;</div>
 </div>
 </form>
