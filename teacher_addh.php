@@ -124,6 +124,14 @@
 								</select>
 						  </td>
 						  </tr>
+						<tr>
+							<td align="center" >基本工资:</td>
+							<td><input class='field' type="text" name="base_salary"/></td>
+						</tr>
+						<tr>
+							<td align="center" >绩效工资:</td>
+							<td><input class='field' type="text" name="merit_salary"/></td>
+						</tr>
 
 					   	<tr>
 							<td align="center" >主教课时费:</td>
