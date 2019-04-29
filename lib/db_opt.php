@@ -18,16 +18,17 @@ function backup_db() {
 		//$mysql_password='daresay2014';
 		//$mysql_database='b5270951';//云主机上的数据库名字
 		
-		$mysql_server_name='sqld-gz.bcehost.com:3306';
-		$mysql_username='d9e7f33f04e64fc0b989537af1dbf458';
-		$mysql_password='75575f76656c4f778c1b9ab7c70e47e7';
-		$mysql_database='UjldrFKYrZWDHQtNJoSz';//云主机上的数据库名字
+		$mysql_server_name='b-sjz8tiup25k9x6.bch.rds.gz.baidubce.com:3306';
+		$mysql_username='b_sjz8tiup25k9x6';
+		$mysql_password='TjuqYR3o2pg9amu2';
+		$mysql_database='b_sjz8tiup25k9x6';//云主机上的数据库名字
 		$conn=mysql_connect($mysql_server_name,$mysql_username,$mysql_password,$mysql_database);
 		if (!$conn)
 		{
 			die('Could not connect: ' . mysql_error());
 		}
 		//$mysql_database="b5270951";
+		mysql_query("SET NAMES utf8");
 		$db_selected = mysql_select_db($mysql_database,$conn);
 		return $conn;
 		
