@@ -77,10 +77,6 @@
 						
 							</td>
 						</tr>
-					   <tr>
-							<td align="right" >口令:</td>
-							<td><input class='field' type="password" name="password"/></td>
-						</tr>
 					   	<tr>
 							<td align="right"><input class='field'  style="background-color:#F9EBAE" type="submit" name="send" value="查看"/></td>
 						</tr>

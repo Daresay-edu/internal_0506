@@ -41,22 +41,9 @@ td
 					require_once("lib/db_opt.php");
 					switch($_GET["action"]) {
 						case "see":
-							$classid = $_POST["classid"];
-							$password = $_POST["password"];
-							
+							$classid = $_POST["classid"];							
 							$conn=db_conn("daresay_db");
-							$table_name="teachers";
-							//operator must be Edward
-							$sql="SELECT * FROM {$table_name} WHERE engname='Edward'";
-							$result=mysql_query($sql,$conn);
-							if (!$result) {
-								die("SQL: {$sql}<br>Error:".mysql_error());
-							}
-							$row = mysql_fetch_assoc($result);
-							if ($password != $row['password']) {
-								echo "<script>alert('口令不对');window.history.go(-1);</script>";
-								exit;
-							}
+							
 							echo "<form name='remind' action='remind_action_makeup_finish.php' method='post' target='_blank'>";
 							echo "<input type='hidden' name='classid' id='classid' value='def'/>
 						<input type='hidden' name='engname' id='engname' value='def'/>

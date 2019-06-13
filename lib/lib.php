@@ -192,7 +192,7 @@ function print_remind_by_classid($classid) {
 		
 	        $school = $row['school'];
 		list($fir_tm,$sec_tm) = array_pad(explode(",", $row['class_time'], 2), 2 , null);
-	echo "<h1 align='center'>".$num++." 班级: ".$classid."   课时：".$current_hour." [".$class_date."]   上课时间：".$row['class_time']."</h1>";
+	    echo "<h1 align='center'>".$num++." 班级: ".$classid."   课时：".$current_hour." [".$class_date."]   上课时间：".$row['class_time']."</h1>";
 		echo "<table border='1' align='center'>";
 
 		list($fir_class,$sec_class) = array_pad(explode("-", $current_hour, 2), 2 , null);
