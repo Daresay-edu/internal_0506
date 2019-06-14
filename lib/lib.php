@@ -30,7 +30,7 @@ go_out:
 
 }
 ########### functions for class ###############
-function get_current_hour($classid){
+function get_current_hour($classid, $sec_hour){
 	require_once("db_opt.php");
 	$conn=db_conn("daresay_db");
 	//read the class record info and get the hour
@@ -39,6 +39,7 @@ function get_current_hour($classid){
 	$result=mysql_query($sql,$conn);
 	$big_hour=0;
 	$record_hour=0;
+	$record_hour_sec = 0;
 	while ($row = mysql_fetch_assoc($result)) {
 		$tmp_hour=$row['hour'];
 		$tmp_date=$row['date'];
@@ -46,10 +47,15 @@ function get_current_hour($classid){
 		if ($big_hour < $fir_hour) {
 			$big_hour=$fir_hour;	
 			$record_hour=$tmp_hour;
+			$record_hour_sec = $sec_hour;
 		}
 	}
 	mysql_close($conn);
-	return $record_hour;
+	if ($sec_hour == True) {
+		return $record_hour_sec;
+	}else {
+		return $record_hour;
+	}
 }	
 function who_need_pay($classid){
 	require_once("db_opt.php");
@@ -182,7 +188,7 @@ function print_remind_by_classid($classid) {
 		if (!$result)
 			die("SQL: {$sql}<br>Error:".mysql_error());	
 		$row = mysql_fetch_assoc($result);
-		$current_hour = get_current_hour($classid);
+		$current_hour = get_current_hour($classid, False);
 		if($current_hour == "191-192")
 			return 1;
 

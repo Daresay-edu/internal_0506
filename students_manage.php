@@ -84,11 +84,12 @@ height: 30px;
 								echo "<td>英文姓名</td>";
 								echo "<td>年龄</td>";
 								echo "<td>电话</td>";
-								echo "<td>所在学校</td>";
 								echo "<td>班级</td>";
 								echo "<td>缴费课时</td>";
+								echo "<td>班级课时</td>";
 								echo "<td>金额</td>";
 								echo "<td>积分</td>";
+								echo "<td>操作</td>";
 								echo "</tr>";
 
 								$conn=db_conn("daresay_db");
@@ -98,42 +99,54 @@ height: 30px;
 								    $classes = get_running_class();
 								    for ($i=0;$i<count($classes);$i++) {
 								        $tmp = $classes[$i];
+										$current_hour = get_current_hour($tmp, True);
 								        $sql="SELECT * FROM students WHERE classid='$tmp'";
 								        $result=mysql_query($sql,$conn);
 								        if (!$result)
 								        	die("SQL: {$sql}<br>Error:".mysql_error());						
 								        while ($row = mysql_fetch_assoc($result)) {
-								        	echo "<tr>";
+											if ($row['hour_end'] - $current_hour <= 10) {
+								        	    echo "<tr bgcolor='#D1EEEE'>";
+											} else {
+												echo "<tr>";
+											}
 								        		echo "<td>".$j++."</td>";
 								        		echo "<td>".$row['name']."</td>";
 								        		echo "<td>".$row['engname']."</td>";
 								        		echo "<td>".$row['age']."</td>";
 								        		echo "<td>".$row['phone']."</td>";
-								        		echo "<td>".$row['school']."</td>";
 								        		echo "<td>".$row['classid']."</td>";
 								        		echo "<td>".$row['hour_begin']."至".$row['hour_end']."</td>";
+												echo "<td>".$current_hour."</td>";
 								        		echo "<td>".$row['charge']."</td>";
 								        		echo "<td>".$row['credit']."</td>";
+												echo "<td><a href='students_manage.php?action=modify&engname=".$row['engname']."&classid=".$row['classid']."'><input class='submit' type='button' value='Modify'></a></td>";
 								        	echo "</tr>";
 								        }
 								    }	
 								} else {
+									$current_hour = get_current_hour($classid, True);
 								    $sql="SELECT * FROM students WHERE classid='$classid'";
 								    $result=mysql_query($sql,$conn);
 								    if (!$result)
 								    	die("SQL: {$sql}<br>Error:".mysql_error());						
 								    while ($row = mysql_fetch_assoc($result)) {
-								    	echo "<tr>";
+											if ($row['hour_end'] - $current_hour <= 10) {
+								        	    echo "<tr bgcolor='#D1EEEE'>";
+											} else {
+												echo "<tr>";
+											}
 								    		echo "<td>".$j++."</td>";
 								    		echo "<td>".$row['name']."</td>";
 								    		echo "<td>".$row['engname']."</td>";
 								    		echo "<td>".$row['age']."</td>";
 								    		echo "<td>".$row['phone']."</td>";
-								    		echo "<td>".$row['school']."</td>";
 								    		echo "<td>".$row['classid']."</td>";
 								    		echo "<td>".$row['hour_begin']."至".$row['hour_end']."</td>";
+											echo "<td>".$current_hour."</td>";
 								    		echo "<td>".$row['charge']."</td>";
 								    		echo "<td>".$row['credit']."</td>";
+											echo "<td><a href='students_manage.php?action=modify&engname=".$row['engname']."&classid=".$row['classid']."'><input class='submit' type='button' value='Modify'></a></td>";
 								    	echo "</tr>";
 								    }
 								
@@ -312,8 +325,8 @@ height: 30px;
 								echo "<br/><br/>";
 							break;
 							case "modify":
-								$engname=$_POST["engname"];
-								$classid=$_POST["classid"];
+								$engname=$_REQUEST["engname"];
+								$classid=$_REQUEST["classid"];
 								$conn=db_conn("daresay_db");
 								$sql="SELECT * FROM students WHERE engname='$engname' and classid='$classid'";
 								$result=mysql_query($sql,$conn);
