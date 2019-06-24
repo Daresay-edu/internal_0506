@@ -86,7 +86,7 @@ height: 30px;
                       			<!-- Add Videos -->
                       			<br/>
 					<?php
-					header("Content-type: text/html;charset=utf-8");
+					//header("Content-type: text/html;charset=utf-8");
 					require_once("lib/db_opt.php");
 					require_once("lib/lib.php");
 						switch($_GET["action"]) {

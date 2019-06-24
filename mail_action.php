@@ -158,7 +158,7 @@ height: 30px;
 							echo "<input type='hidden' name='note' value='$note'/>";
 							echo "</table>";
 
-							$current_hour = get_current_hour ($classid);
+							$current_hour = get_current_hour ($classid, false);
 							list($fir_hour, $sec_hour) = explode("-", $current_hour);
 		                                        list($tmp_fir,$tmp_sec) = explode("-",$class_num);
                                                         echo "<br/></br><div style='text-align:center; vertical-align:middel;'>";
@@ -219,7 +219,7 @@ height: 30px;
 		                                        $cb=substr($classid,0,2);
 		                                        $class_content=$cb."_class_content";
 		                                        list($tmp_fir,$tmp_sec) = explode("-",$class_num);
-							$current_hour = get_current_hour ($classid);
+							$current_hour = get_current_hour ($classid, False);
 							//要记录的课时需要比系统中记录的课时大一课时
 							list($fir_hour, $sec_hour) = explode("-", $current_hour);
 		                                        list($tmp_fir,$tmp_sec) = explode("-",$class_num);
