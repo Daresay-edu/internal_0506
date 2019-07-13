@@ -123,25 +123,7 @@ function CheckForm()
 							<td align="center" >所在学校:</td>
 							<td><input class='field' type="text" name="school" id="school"/></td>
 						</tr>
-					   	<tr>
-							<td align="center" >试听班级</td>
-							<td><select class='field' name="demo_class" id="demo_class">
-								<option value="独立Demo">独立Demo</option>
-							<?php
-								
-										require_once("lib/lib.php");
-										$classes = get_running_class();
-										echo $classes;
-										for ($i=0;$i<count($classes);$i++) {
-								            $tmp = $classes[$i];
-											echo "<option value='$tmp'>".$tmp."</option>";	
-										}	
-							
-							?>
-							    </select>
-							</td>
-						</tr>
-
+					 
 						<tr>
 							<td align="center" >试听日期:</td>
 							<?php
@@ -197,6 +179,23 @@ function CheckForm()
 							</select>
 							</td>
 
+						</tr>
+							<tr>
+							<td align="center" >接待人员:</td>
+							<td><select class='field' name='reception' id="reception">
+								<option value="def">请选择</option>
+								<?php
+									require_once("lib/lib.php");
+									list($errno, $data) = get_all_teachers();
+									if ($errno)
+										echo "<script>alert('获取教师信息失败-".$row."');</script>";
+									$i=0;
+									for ($i; $i < count($data); $i++) {
+										echo "<option value='".$data[$i]['engname']."'>".$data[$i]['engname']."</option>";
+									}
+								?>
+								</select>
+							</td>
 						</tr>
 					   	<tr>
 							<td align="center" >课程顾问:</td>

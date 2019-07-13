@@ -74,6 +74,14 @@
 							   </select>
 							</td>
 						</tr>
+						<tr>
+							<td align="center" >职位:</td>
+							<td><select class='field' name="role">
+							    <option value="teacher">teacher</option>;
+							    <option value="sale">sale</option>;
+							   </select>
+							</td>
+						</tr>
 					   	<tr>
 							<td align="center" >电话:</td>
 							<td><input class='field' type="text" name="phone"/></td>

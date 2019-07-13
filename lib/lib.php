@@ -351,8 +351,8 @@ function password_modify ($classid, $engname, $new_password) {
 
 ########### functions for demo students ###############
 function demo_student_add ($chname, $engname, $age, $gender, 
-                           $school, $phone, $demo_class, $demo_date, 
-			   $chief_teacher, $assis_teacher, $way, $state, $sale, $note) {
+                           $school, $phone, $demo_date, 
+			   $chief_teacher, $assis_teacher, $way, $state, $reception, $sale, $note) {
 	$conn=db_conn("daresay_db");
 	$sql="SELECT * FROM demo_students WHERE engname='$engname' and name='$chname'";
 	$result=mysql_query($sql,$conn);
@@ -370,10 +370,10 @@ function demo_student_add ($chname, $engname, $age, $gender,
 			return $return;
                 } else {
 			//insert students to demo_students table
-			$sql="INSERT INTO demo_students (name, engname, age, gender, phone, school, demo_in, 
-				demo_date, chief_teacher, assis_teacher,  state, way, saleman, stuid, join_into, note)
-			      VALUES ('$chname', '$engname', '$age','$gender', '$phone', '$school', '$demo_class',
-			      '$demo_date','$chief_teacher', '$assis_teacher', '$state', '$way', '$sale', '0', '0', '$note');";
+			$sql="INSERT INTO demo_students (name, engname, age, gender, phone, school, 
+				demo_date, chief_teacher, assis_teacher,  state, way, reception, saleman, stuid, join_into, note)
+			      VALUES ('$chname', '$engname', '$age','$gender', '$phone', '$school', 
+			      '$demo_date','$chief_teacher', '$assis_teacher', '$state', '$way', '$reception', '$sale', '0', '0', '$note');";
 			$result=mysql_query($sql,$conn);
 			if (!$result) {
 				$errmsg = "Add demo student fail";
@@ -389,6 +389,28 @@ function demo_student_add ($chname, $engname, $age, $gender,
 		}
 	}
 	mysql_close($conn);
+}
+
+function demo_student_query () {
+	$conn=db_conn("daresay_db");
+	$sql="SELECT * FROM demo_students";
+	$result=mysql_query($sql,$conn);
+	if (!$result) {
+		$errmsg = "Query demo student failed.";
+		$return[] = DX_ERROR;
+		$return[] = $errmsg; 
+		mysql_close($conn);
+		return $return;
+	} else {
+		$jarr = array();
+		while ($rows=mysqli_fetch_array($result,MYSQLI_ASSOC)){
+			array_push($jarr,$rows);
+		}
+		$return[] = DX_SUCCESS;
+		$return[] = $jarr; 
+		mysql_close($conn);
+		return $return;
+	}
 }
 
 function demo_student_query_by_name ($name, $engname) {
@@ -480,13 +502,13 @@ function demo_student_delete ($name, $engname) {
 }
 
 function demo_student_modify ($oldname, $oldengname, $chname, $engname, $age, $gender, 
-                           $school, $phone, $demo_class, $demo_date, 
-			   $chief_teacher, $assis_teacher, $way, $state, $sale, $stuid, $join_into, $note) {
+                           $school, $phone, $demo_date, 
+			   $chief_teacher, $assis_teacher, $way, $state, $reception, $sale, $stuid, $join_into, $note) {
 	$conn=db_conn("daresay_db");
 	$sql="UPDATE demo_students SET name='$chname', engname='$engname', age='$age', gender='$gender', 
-		school='$school', phone='$phone', demo_in='$demo_class', demo_date='$demo_date', 
+		school='$school', phone='$phone', demo_date='$demo_date', 
 		chief_teacher='$chief_teacher', assis_teacher='$assis_teacher', way='$way',
-		state='$state', saleman='$sale', stuid='$stuid', join_into='$join_into', note='$note' 
+		state='$state', reception='$reception', saleman='$sale', stuid='$stuid', join_into='$join_into', note='$note' 
 		WHERE name='$oldname' AND engname='$oldengname'";
 										 
 	$result=mysql_query($sql,$conn);

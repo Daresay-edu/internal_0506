@@ -31,8 +31,10 @@
 				}else{
 					if ($_SESSION['role'] == "admin") {
 						include("menu_manage_admin.php");	
+					} else if ($_SESSION['role'] == "sale"){
+						include("menu_manage_sale.php");					
 					} else {
-						include("menu_manage.php");					
+						include("menu_manage.php");
 					}
 				}
 			?>

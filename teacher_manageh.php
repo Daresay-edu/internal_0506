@@ -97,6 +97,7 @@ height: 30px;
 								echo "<td>姓名</td>";
 								echo "<td>英文名</td>";
 								echo "<td>年龄</td>";
+								echo "<td>职位</td>";
 								echo "<td>电话</td>";
 								echo "<td>入职日期</td>";
 								echo "<td>基本工资</td>";
@@ -110,6 +111,7 @@ height: 30px;
 										echo "<td>".$row['name']."</td>";
 										echo "<td>".$row['engname']."</td>";
 										echo "<td>".$row['age']."</td>";
+										echo "<td>".$row['role']."</td>";
 										echo "<td>".$row['phone']."</td>";
 										echo "<td>".$row['join_date']."</td>";
 										echo "<td>".$row['base_salary']."</td>";
@@ -127,6 +129,7 @@ height: 30px;
 								$engname=$_POST["engname"];
 								$age=$_POST["age"];
 								$sex=$_POST["sex"];
+								$role=$_POST["role"];
 								$phone=$_POST["phone"];
 								$base_salary=$_POST["base_salary"];
 								$merit_salary=$_POST["merit_salary"];
@@ -148,7 +151,7 @@ height: 30px;
 								if(!$result){
 									//表不存在，创建表
 									$sql="CREATE TABLE {$table_name} (id INT(20) not null AUTO_INCREMENT,name varchar(32),engname varchar(32),
-									age varchar(32),sex varchar(32), phone varchar(32),join_date varchar(32),base_salary varchar(32),
+									age varchar(32),sex varchar(32), role varchar(32), phone varchar(32),join_date varchar(32),base_salary varchar(32),
 									merit_salary varchar(32),chief_salary varchar(32),
 									assist_salary varchar(32), password varchar(32), note varchar(1000),primary key(id))";
 									$result=mysql_query($sql, $conn);
@@ -156,7 +159,7 @@ height: 30px;
 										die("SQL: {$sql}<br>Error:".mysql_error());
 									}
 								}
-								$sql="SELECT * FROM {$table_name} WHERE engname='$engname'";
+								$sql="SELECT * FROM {$table_name} WHERE engname='$engname' and role='$role'";
 								$result=mysql_query($sql,$conn);
 								if (!$result)
 									die("SQL: {$sql}<br>Error:".mysql_error());						
@@ -170,14 +173,14 @@ height: 30px;
 								}
 								// insert into db
 								$password = gen_password($engname);
-								$sql="INSERT INTO {$table_name} (name, engname, age, sex, phone, join_date, base_salary, merit_salary, chief_salary, 
+								$sql="INSERT INTO {$table_name} (name, engname, age, sex, role, phone, join_date, base_salary, merit_salary, chief_salary, 
 									assist_salary, password, note)
-								      VALUES ('$name', '$engname', '$age', '$sex', '$phone', '$join_date', '$base_salary', '$merit_salary', '$chief_salary',
+								      VALUES ('$name', '$engname', '$age', '$sex', '$role', '$phone', '$join_date', '$base_salary', '$merit_salary', '$chief_salary',
 								      '$assist_salary','$password','$note');";
 								$result=mysql_query($sql,$conn);
 								if (!$result)
 									die("SQL: {$sql}<br>Error:".mysql_error());
-								$sql="SELECT * FROM {$table_name} WHERE engname='$engname'";
+								$sql="SELECT * FROM {$table_name} WHERE engname='$engname' and role='$role'";
 								$result=mysql_query($sql,$conn);
 								if (!$result)
 									die("SQL: {$sql}<br>Error:".mysql_error());						
@@ -191,6 +194,10 @@ height: 30px;
 									echo "<tr>";
 										echo "<td>英文名字</td>";
 										echo "<td>".$row['engname']."</td>";
+									echo "</tr>";
+									echo "<tr>";
+										echo "<td>角色</td>";
+										echo "<td>".$row['role']."</td>";
 									echo "</tr>";
 									echo "<tr>";
 										echo "<td>年龄</td>";

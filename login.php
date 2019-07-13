@@ -28,6 +28,12 @@ function check_submit(){
     
     <form name="lg" id="lg" action="login.php?action=check" method="post" onsubmit="return check_submit();">
 		<input name="action" value="login" type="hidden">
+        <select name='role' id="role">
+		    <option value="teacher">Teacher</option>
+			<option value="sale">Sale</option>
+			<option value="admin">admin</option>
+		</select>
+		<hr class="hr15">
 		<input name="engname" id="engname" placeholder="用户名" required="required" type="text">
 		<hr class="hr15">
 		<input name="password" id="password" placeholder="密码" required="required" type="password">
@@ -41,12 +47,13 @@ function check_submit(){
 					if (isset($_GET["action"])){
 						switch($_GET["action"]) {
 							case "check":
+								$role = $_POST["role"];
 							    $engname = $_POST["engname"];
 								$password=$_POST["password"];
 								$conn=db_conn("daresay_db");
 								
 								$table_name="teachers";
-									$sql="SELECT * FROM {$table_name} WHERE engname='$engname'";
+									$sql="SELECT * FROM {$table_name} WHERE engname='$engname' and role='$role'";
 									$result=mysql_query($sql,$conn);
 									if (!$result) {
 										die("SQL: {$sql}<br>Error:".mysql_error());
@@ -61,13 +68,12 @@ function check_submit(){
 										//set session
 										session_start();
 										$_SESSION['username']=$engname;
- 										if ($_SESSION['username'] == "admin") {
-											$_SESSION['role'] = "admin";
+										$_SESSION['role'] = $role;
+										if ($role=='sale') {
+											$url="demo_student_add.php";
 										} else {
-											$_SESSION['role'] = "ordinary";
+											$url="mail_index.php";
 										}
-								
-										$url="mail_index.php";
                                         header("Location: $url"); 
 									}
 								

@@ -22,7 +22,7 @@ function test_encoding ($string) {
         	$gender = $_POST["gender"];
         	$school = $_POST["school"];
         	$phone = $_POST["phone"];
-        	$demo_class = $_POST["demo_class"];
+        	//$demo_class = $_POST["demo_class"];
         	$demo_date = $_POST["demo_date"];
         	$chief_teacher = $_POST["chief_teacher"];
         	$assis_teacher = $_POST["assis_teacher"];
@@ -30,32 +30,26 @@ function test_encoding ($string) {
         	$state = $_POST["state"];
         	$sale = $_POST["sale"];
 
-		list($errno, $data) = demo_student_add($chname, $engname, $age, $gender, $school, 
+			list($errno, $data) = demo_student_add($chname, $engname, $age, $gender, $school, 
 							 $phone, $demo_class, $demo_date, $chief_teacher, 
 							 $assis_teacher, $way, $state, $sale); 
-		if ($errno) {
-			return http_response_code(400);
-		} else {
-			return http_response_code(200);
-		}
+			if ($errno) {
+				return http_response_code(400);
+			} else {
+				return http_response_code(200);
+			}
 
-		break;
+			break;
 	    case "demo_stu_query":
-        	//$sale = $_GET["sale"];
-        	//$sale = $_POST["sale"];
-		$sale = "Edward";
-
-		list($errno, $data) = demo_student_query_by_saleman($sale); 
-		if ($errno) {
-			return http_response_code(400);
-		} else {
-			header('Content-Type: application/json');
-			//print_r(json_encode($data));
-			//$res=array("name"=>$data['name'], "phone"=>$data['phone']);
-			//echo json_encode($res);
-			return json_encode($data);
-		}
-		break;
+			list($errno, $data) = demo_student_query(); 
+			if ($errno) {
+				return http_response_code(400);
+			} else {
+				header('Content-Type: application/json');
+				echo json_encode($data);
+				//return json_encode($data);
+			}
+			break;
 	    case "parents_message_add":
         	$classid = $_POST["p_classid"];
         	$engname = $_POST["p_engname"];
@@ -63,29 +57,29 @@ function test_encoding ($string) {
         	$phone = $_POST["parents_phone"];
         	$message = $_POST["message_content"];
 
-		$mail_title = "New parent message from [".$classid." ".$engname."]";
-		$mail_content = "Title: ".$title."\n\n\n\nPhone: ".$phone."\n\n\n\nMessage: ".$message;
-		send_mail_to_admin($mail_title, $mail_content);
+			$mail_title = "New parent message from [".$classid." ".$engname."]";
+			$mail_content = "Title: ".$title."\n\n\n\nPhone: ".$phone."\n\n\n\nMessage: ".$message;
+			send_mail_to_admin($mail_title, $mail_content);
 
-		list($errno, $data) = parents_message_add ($classid, $engname, $title, $phone, $message); 
-		if ($errno) {
-			return http_response_code(400);
-		} else {
-			return http_response_code(200);
-		}
-		break;
+			list($errno, $data) = parents_message_add ($classid, $engname, $title, $phone, $message); 
+			if ($errno) {
+				return http_response_code(400);
+			} else {
+				return http_response_code(200);
+			}
+			break;
 	    case "password_modify":
         	$classid = $_POST["p_classid"];
         	$engname = $_POST["p_engname"];
         	$new_password = $_POST["new_password"];
 
-		list($errno, $data) = password_modify ($classid, $engname, $new_password); 
-		if ($errno) {
-			return http_response_code(400);
-		} else {
-			return http_response_code(200);
-		}
-		break;
+			list($errno, $data) = password_modify ($classid, $engname, $new_password); 
+			if ($errno) {
+				return http_response_code(400);
+			} else {
+				return http_response_code(200);
+			}
+			break;
 	}
 										
 	
