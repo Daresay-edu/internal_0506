@@ -133,7 +133,9 @@ height: 30px;
 								echo "<td>上课日期</td>";
 								echo "<td>星期</td>";
 								echo "<td>授课角色</td>";
-								echo "<td>课时费</td>";
+								if ($_SESSION['role'] == "admin") {
+									echo "<td>课时费</td>";
+								}
 								echo "<td>试听人数</td>";
 								echo "<td>备注</td>";
 								echo "</tr>";
@@ -156,7 +158,9 @@ height: 30px;
 										echo "<td>".$row['date']."</td>";
 										echo "<td>".$row['week']."</td>";
 										echo "<td>".$row['character1']."</td>";
-										echo "<td>".$row['salary']."</td>";
+										if ($_SESSION['role'] == "admin") {
+											echo "<td>".$row['salary']."</td>";
+										}
 										echo "<td>".$row['listen']."</td>";
 										echo "<td>".$row['note']."</td>";
 									echo "</tr>";
@@ -170,9 +174,9 @@ height: 30px;
 								echo "<br/><br/>";
 								$total_listen=$chief_num*10+$assist_num*5;
 								$total_money=$total_salary+$total_listen;
-								
-								echo "<h2>课时费总计：".$total_salary."元.</h2><br/>";
-						
+								if ($_SESSION['role'] == "admin") {
+									echo "<h2>课时费总计：".$total_salary."元.</h2><br/>";
+						        }
 								//echo "<h2>试听课奖金: ".$chief_num."*10+".$assist_num."*5=".$total_listen.".</h2><br/>";
 								//echo "<h2 style='color:orange'><b>工资总计：".$total_money.".</b></h2><br/>";
 								echo "<h2>如有任何疑问请随时联系Jackie！感谢您的辛勤付出！</h2>";
