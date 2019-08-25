@@ -767,7 +767,6 @@ height: 30px;
 								$engname_hide=$_POST["engname_hide"];
 								$classid_hide=$_POST["classid_hide"];
 
-
 								//check if have the same engname in db
 								$conn=db_conn("daresay_db");
 
@@ -789,9 +788,9 @@ height: 30px;
 
 								}
 								// insert into db
-								$hour_begin = 0;
+							
 								$sql="INSERT INTO students (name, engname, classid, age, phone,school, pay_time, 
-									charge,  hour_begin,hour_end, 	note, sex, credit)
+									charge,  hour_begin, hour_end, 	note, sex, credit)
 								      VALUES ('$name', '$engname', '$classid', '$age', '$phone', '$school', '$pay_time',
 								      '$charge','$hour_begin','$hour_end', '$note', '$sex', '$credit');";
 								$result=mysql_query($sql,$conn);
@@ -808,7 +807,7 @@ height: 30px;
 										//echo ord($engname[$i]);
 									}
 									$tmp_ascii=substr($tmp_ascii,1,4);
-									
+									$hour_begin = 0;
 									$sql="UPDATE online_user SET name='$name', engname='$engname', classid='$classid', passwd='$tmp_ascii', 
 										 hour_begin='$hour_begin', hour_end='$hour_end', lastday='$lastday',
 										 note='$note' WHERE classid='$classid_hide' AND engname='$engname_hide'";
@@ -821,7 +820,6 @@ height: 30px;
 								$result=mysql_query($sql,$conn);
 								if (!$result)
 									die("SQL: {$sql}<br>Error:".mysql_error());						
-
 								echo "<table border='0' width=500px  align='center'>";
 								$row = mysql_fetch_assoc($result);
 									echo "<tr>";
