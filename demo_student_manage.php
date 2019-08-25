@@ -195,7 +195,7 @@ height: 30px;
 								}
 
 								list($errno, $data) = demo_student_query_by_date($datefrom, $dateend, $state); 
-
+                                 
 								if (strcmp($state, '已报名') == 0) {
 									echo "<table>";
 									echo "<tr>";
@@ -245,7 +245,14 @@ height: 30px;
 											echo "<td>".$data[$i]['age']."</td>";
 											echo "<td>".$data[$i]['phone']."</td>";
 											echo "<td>".$data[$i]['demo_date']."</td>";
-											echo "<td>".$data[$i]['state']."</td>";
+											
+											if ($data[$i]['state'] == '未试听') {
+												echo "<td bgcolor='#EE6363'>".$data[$i]['state']."</td>";
+											} else if ($data[$i]['state'] == '已试听')  {
+												echo "<td bgcolor='#FFB90F'>".$data[$i]['state']."</td>";
+											} else if ($data[$i]['state'] == '已报名') {
+												echo "<td bgcolor='#32CD32'>".$data[$i]['state']."</td>";
+											}
 											echo "<td>".$data[$i]['saleman']."</td>";
 											echo "<td><a href='demo_student_manage.php?action=display_by_name&name=".$data[$i]['name']."&engname=".$data[$i]['engname']."&age=".$data[$i]['age']."&gender=".$data[$i]['gender']."&phone=".$data[$i]['phone']."&school=".$data[$i]['school']."&demo_date=".$data[$i]['demo_date']."&chief_teacher=".$data[$i]['chief_teacher']."&assis_teacher=".$data[$i]['assis_teacher']."&state=".$data[$i]['state']."&way=".$data[$i]['way']."&reception=".$data[$i]['reception']."&saleman=".$data[$i]['saleman']."&stuid=".$data[$i]['stuid']."&join_into=".$data[$i]['join_into']."&note=".$data[$i]['note']."&from=".$datefrom."&end=".$dateend."'><input class='submit' type='button' value='操作'/></a></td>";
 										echo "</tr>";
