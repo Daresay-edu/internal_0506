@@ -193,8 +193,7 @@ height: 30px;
 									$datefrom=$yearfrom."-".$monthfrom."-".$dayfrom;
 									$dateend=$yearend."-".$monthend."-".$dayend;
 								}
-
-								list($errno, $data) = demo_student_query_by_date($datefrom, $dateend, $state); 
+								list($errno, $data) = demo_student_query_by_date($datefrom, $dateend, $state, $_SESSION['username']); 
                                  
 								if (strcmp($state, '已报名') == 0) {
 									echo "<table>";

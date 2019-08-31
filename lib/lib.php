@@ -430,9 +430,13 @@ function demo_student_query_by_name ($name, $engname) {
 	}
 	mysql_close($conn);
 }
-function demo_student_query_by_date ($from, $end, $state) {
+function demo_student_query_by_date ($from, $end, $state, $saleman) {
 	$conn=db_conn("daresay_db");
-	$sql="SELECT * FROM demo_students";
+	if ($saleman == 'admin') {
+		$sql="SELECT * FROM demo_students";
+	} else {
+		$sql="SELECT * FROM demo_students where saleman='$saleman'";
+	}
 	$result=mysql_query($sql,$conn);
 	if (!$result) {
 		$errmsg = "Query demo student failed.";
