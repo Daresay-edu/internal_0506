@@ -168,7 +168,12 @@ function CheckForm()
 
 					   	<tr>
 							<td align="center" >信息来源:</td>
-							<td><input class='field' type="text" name="way" id="way"/></td>
+							<td><select class='field' name='way'/>;
+								<option value='上门'>上门</option>
+								<option value='广告'>广告</option>
+								<option value='推荐'>推荐</option>
+							</select>
+							</td>
 						</tr>
 					   	<tr>
 							<td align="center" >状态:</td>
@@ -191,7 +196,11 @@ function CheckForm()
 										echo "<script>alert('获取教师信息失败-".$row."');</script>";
 									$i=0;
 									for ($i; $i < count($data); $i++) {
-										echo "<option value='".$data[$i]['engname']."'>".$data[$i]['engname']."</option>";
+										if ($data[$i]['engname'] == $_SESSION['username']) {
+											echo "<option value='".$data[$i]['engname']."' selected='selected'>".$data[$i]['engname']."</option>";
+										} else {
+											echo "<option value='".$data[$i]['engname']."'>".$data[$i]['engname']."</option>";
+										}
 									}
 								?>
 								</select>
@@ -208,7 +217,11 @@ function CheckForm()
 										echo "<script>alert('获取教师信息失败-".$row."');</script>";
 									$i=0;
 									for ($i; $i < count($data); $i++) {
-										echo "<option value='".$data[$i]['engname']."'>".$data[$i]['engname']."</option>";
+										if ($data[$i]['engname'] == $_SESSION['username']) {
+											echo "<option value='".$data[$i]['engname']."' selected='selected'>".$data[$i]['engname']."</option>";
+										} else {
+											echo "<option value='".$data[$i]['engname']."'>".$data[$i]['engname']."</option>";
+										}
 									}
 								?>
 								</select>
