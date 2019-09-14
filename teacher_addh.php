@@ -142,8 +142,12 @@
 						</tr>
 
 					   	<tr>
-							<td align="center" >主教课时费:</td>
-							<td><input class='field' type="text" name="chief_salary"/></td>
+							<td align="center" >K级主教课时费:</td>
+							<td><input class='field' type="text" name="K_chief_salary"/></td>
+						</tr>
+						<tr>
+							<td align="center" >S级主教课时费:</td>
+							<td><input class='field' type="text" name="S_chief_salary"/></td>
 						</tr>
 						<tr>
 							<td align="center" >助教课时费:</td>

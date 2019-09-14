@@ -220,7 +220,11 @@ height: 30px;
 								}
 							   
 								//get the salary of teaher
-								$chief_salary=$row['chief_salary'];
+								if (preg_match('/^K.*/',$classid)) {
+									$chief_salary=$row['K_chief_salary'];
+								} else if (preg_match('/^S.*/',$classid)) {
+									$chief_salary=$row['S_chief_salary'];
+								}
 								$assist_salary=$row['assist_salary'];
 								if (strcmp($character,"Chief")==0) 
 									$salary=$chief_salary;

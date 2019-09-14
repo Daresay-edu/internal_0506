@@ -96,13 +96,11 @@ height: 30px;
 								echo "<tr>";
 								echo "<td>姓名</td>";
 								echo "<td>英文名</td>";
-								echo "<td>年龄</td>";
 								echo "<td>职位</td>";
-								echo "<td>电话</td>";
-								echo "<td>入职日期</td>";
 								echo "<td>基本工资</td>";
 								echo "<td>绩效工资</td>";
-								echo "<td>主教课时费</td>";
+								echo "<td>K主教课时费</td>";
+								echo "<td>S主教课时费</td>";
 								echo "<td>助教课时费</td>";
 								echo "</tr>";
 								$i=1;
@@ -110,13 +108,11 @@ height: 30px;
 									echo "<tr>";
 										echo "<td>".$row['name']."</td>";
 										echo "<td>".$row['engname']."</td>";
-										echo "<td>".$row['age']."</td>";
 										echo "<td>".$row['role']."</td>";
-										echo "<td>".$row['phone']."</td>";
-										echo "<td>".$row['join_date']."</td>";
 										echo "<td>".$row['base_salary']."</td>";
 										echo "<td>".$row['merit_salary']."</td>";
-										echo "<td>".$row['chief_salary']."</td>";
+										echo "<td>".$row['K_chief_salary']."</td>";
+										echo "<td>".$row['S_chief_salary']."</td>";
 										echo "<td>".$row['assist_salary']."</td>";
 									echo "</tr>";
 								}
@@ -133,7 +129,8 @@ height: 30px;
 								$phone=$_POST["phone"];
 								$base_salary=$_POST["base_salary"];
 								$merit_salary=$_POST["merit_salary"];
-								$chief_salary=$_POST["chief_salary"];
+								$K_chief_salary=$_POST["K_chief_salary"];
+								$S_chief_salary=$_POST["S_chief_salary"];
 								$assist_salary=$_POST["assist_salary"];
 								$note=$_POST["note"];
 								$year=$_POST["year"];
@@ -152,7 +149,7 @@ height: 30px;
 									//表不存在，创建表
 									$sql="CREATE TABLE {$table_name} (id INT(20) not null AUTO_INCREMENT,name varchar(32),engname varchar(32),
 									age varchar(32),sex varchar(32), role varchar(32), phone varchar(32),join_date varchar(32),base_salary varchar(32),
-									merit_salary varchar(32),chief_salary varchar(32),
+									merit_salary varchar(32),K_chief_salary varchar(32),S_chief_salary varchar(32),
 									assist_salary varchar(32), password varchar(32), note varchar(1000),primary key(id))";
 									$result=mysql_query($sql, $conn);
 									if (!$result) {
@@ -173,10 +170,10 @@ height: 30px;
 								}
 								// insert into db
 								$password = gen_password($engname);
-								$sql="INSERT INTO {$table_name} (name, engname, age, sex, role, phone, join_date, base_salary, merit_salary, chief_salary, 
-									assist_salary, password, note)
-								      VALUES ('$name', '$engname', '$age', '$sex', '$role', '$phone', '$join_date', '$base_salary', '$merit_salary', '$chief_salary',
-								      '$assist_salary','$password','$note');";
+								$sql="INSERT INTO {$table_name} (name, engname, age, sex, role, phone, join_date, base_salary, merit_salary, K_chief_salary, 
+									S_chief_salary, assist_salary, password, note)
+								      VALUES ('$name', '$engname', '$age', '$sex', '$role', '$phone', '$join_date', '$base_salary', '$merit_salary', '$K_chief_salary',
+								      $S_chief_salary,'$assist_salary','$password','$note');";
 								$result=mysql_query($sql,$conn);
 								if (!$result)
 									die("SQL: {$sql}<br>Error:".mysql_error());
@@ -220,8 +217,12 @@ height: 30px;
 										echo "<td>".$row['merit_salary']."</td>";
 									echo "</tr>";
 									echo "<tr>";
-										echo "<td>主课时费</td>";
-										echo "<td>".$row['chief_salary']."</td>";
+										echo "<td>K级主课时费</td>";
+										echo "<td>".$row['K_chief_salary']."</td>";
+									echo "</tr>";
+									echo "<tr>";
+										echo "<td>S级主课时费</td>";
+										echo "<td>".$row['S_chief_salary']."</td>";
 									echo "</tr>";
 									echo "<tr>";
 										echo "<td>助课时费</td>";
@@ -260,7 +261,8 @@ height: 30px;
 								echo "<td>入职日期</td>";
 								echo "<td>基本工资</td>";
 								echo "<td>绩效工资</td>";
-								echo "<td>主教课时费</td>";
+								echo "<td>K主课时费</td>";
+								echo "<td>S主课时费</td>";
 								echo "<td>助教课时费</td>";
 								echo "</tr>";
 								$i=1;
@@ -273,7 +275,8 @@ height: 30px;
 										echo "<td>".$row['join_date']."</td>";
 										echo "<td>".$row['base_salary']."</td>";
 										echo "<td>".$row['merit_salary']."</td>";
-										echo "<td>".$row['chief_salary']."</td>";
+										echo "<td>".$row['K_chief_salary']."</td>";
+										echo "<td>".$row['S_chief_salary']."</td>";
 										echo "<td>".$row['assist_salary']."</td>";
 									echo "</tr>";
 								}
