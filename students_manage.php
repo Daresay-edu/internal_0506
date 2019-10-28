@@ -267,7 +267,7 @@ height: 30px;
 								echo "Daresay Online用户信息:".$classid." ".$engname." ".$tmp_ascii;
 								mysql_close($conn);
 								$where = "888";
-                                send_mail("18020023616@163.com", "New Student From ".$where, $name."-".$age."岁-".$school."-".$phone);
+                                send_mail("edward_daresay@163.com", "New Student From ".$where, $name."-".$age."岁-".$school."-".$phone);
 							break;
 						
 							case "delete":
@@ -747,7 +747,7 @@ height: 30px;
 								echo "Success!";
 								mysql_close($conn);
 								$where = "888";
-                                send_mail("18020023616@163.com", "New Student From ".$where, $name."-".$age."岁-".$school."-".$phone);
+                                send_mail("edward_daresay@163.com", "New Student From ".$where, $name."-".$age."岁-".$school."-".$phone);
 							break;
 							case "modify_do":
 								$name=$_POST["name"];
