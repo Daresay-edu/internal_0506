@@ -589,15 +589,14 @@ height: 30px;
 								$oldengname=$_POST["engname_hide"];
 
 
-								list($errno, $data) = student_add($name, $engname, $age, $sex, $school, $phone, $classid, $charge, $hour_begin, $hour_end, $pay_time, $credit, $note);
+								list($errno, $tmp_ascii) = student_add($name, $engname, $age, $sex, $school, $phone, $classid, $charge, $hour_begin, $hour_end, $pay_time, $credit, $note);
 							 	if ($errno)
 									echo "<script>alert('添加正式学员失败-".$data."');window.history.go(-1);</script>";
 								list($errno, $data) = demo_student_turn_real($oldname, $oldengname, $name, $engname, 0, $classid);
 							 	if ($errno)
 									echo "<script>alert('修改试听学员为正式学员失败-".$data."');window.history.go(-1);</script>";
 								
-								$where = "888";
-                                				send_mail_to_admin("New Student From ".$where, $name."-".$age."岁-".$school."-".$phone);
+								
 								list($errno, $row) = demo_student_query_by_name($name, $engname); 
 							 	if ($errno)
 									echo "<script>alert('查询试听学员失败-".$row."');window.history.go(-1);</script>";
@@ -661,6 +660,7 @@ height: 30px;
 								echo "</table>";
 								echo '<br/>';
 								echo "Success!";
+								echo "Daresay Online用户信息:".$classid." ".$engname." ".$tmp_ascii;
 							break;
 							case "modify_do":
 								$name = $_POST["name"];

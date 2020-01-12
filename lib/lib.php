@@ -319,10 +319,23 @@ function student_add ($name, $engname, $age, $sex,
 		$return[] = $errmsg; 
 		goto go_out; 
 	} else {
-
-                $errmsg = "Success";
+		//send mail to admin
+		$where = "888";
+        send_mail_to_admin("New Student From ".$where, $name."-".$age."岁-".$school."-".$phone);
+		
+		//insert student to online user table
+		$lastday=0;
+		//get passwd
+		$tmp_ascii = gen_password($engname);
+		$hour_begin = 0;
+		$sql="INSERT INTO online_user (name, engname, classid, passwd, hour_begin, hour_end, lastday, note, access_times)
+			VALUES ('$name', '$engname', '$classid','$tmp_ascii', '$hour_begin', '$hour_end','$lastday', '$note', '0');";
+		$result=mysql_query($sql,$conn);
+		if (!$result)
+			die("SQL: {$sql}<br>Error:".mysql_error());
+        $errmsg = "Success";
 		$return[] = DX_SUCCESS;
-		$return[] = $errmsg; 
+		$return[] = $tmp_ascii; 
 		goto go_out; 
 	}
 go_out:
