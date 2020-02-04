@@ -303,3 +303,6 @@ function makesure(){
     }
     return false;
 }
+ window.document.oncontextmenu = function(){ 
+    return false;
+}
