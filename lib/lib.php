@@ -633,4 +633,68 @@ go_out:
 	mysql_close($conn);
 	return $return;
 } 
+########### functions for demo students ###############
+function add_report ($school, $number, $phone, $date, $type_v) {
+	$conn=db_conn("daresay_db");
+	$sql="SELECT * FROM win WHERE school='$school' and date='$date'";
+	$result=mysql_query($sql,$conn);
+	if (!$result) {
+		$errmsg = "Query report failed.";
+		$return[] = DX_ERROR;
+		$return[] = $errmsg; 
+		return $return;
+	} else {
+		$row = mysql_fetch_assoc($result);
+        if ($row) {
+			$sql="UPDATE win SET number='$number' WHERE school='$school' AND date='$date'";
+			$result=mysql_query($sql,$conn);
+            $errmsg = "Success";
+			$return[] = DX_SUCCESS;
+			$return[] = $errmsg; 
+			return $return;
+        } else {
+			//insert students to demo_students table
+			$sql="INSERT INTO win (school, number, phone, date, type_v)
+			      VALUES ('$school', '$number', '$phone','$date', '$type_v');";
+			$result=mysql_query($sql,$conn);
+			if (!$result) {
+				$errmsg = "Add report fail";
+				$return[] = DX_ERROR;
+				$return[] = $errmsg; 
+				return $return;
+			} else { 
+                $errmsg = "Success";
+				$return[] = DX_SUCCESS;
+				$return[] = $errmsg; 
+				return $return;
+			}
+		}
+	}
+	mysql_close($conn);
+}
+########### functions for demo students ###############
+function win_query_by_date ($date, $type_v) {
+	$conn=db_conn("daresay_db");
+	$sql="SELECT * FROM win";
+	$result=mysql_query($sql,$conn);
+	if (!$result) {
+		$errmsg = "Query demo student failed.";
+		$return[] = DX_ERROR;
+		$return[] = $errmsg; 
+		return $return;
+	} else {
+		$ret_arr = array();
+		$i=0;
+		while ($row = mysql_fetch_assoc($result)) {
+			if ($date==strtotime($row['date']) && $type_v == $row['type_v']) {
+				$ret_arr[$i++] = $row; 
+			}
+		}
+
+		$return[] = DX_SUCCESS;
+		$return[] = $ret_arr; 
+		return $return;
+	}
+	mysql_close($conn);
+}
 ?>

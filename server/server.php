@@ -80,6 +80,45 @@ function test_encoding ($string) {
 				return http_response_code(200);
 			}
 			break;
+		case "absent_status_chg":
+        	$classid = $_POST["p_classid"];
+        	$engname = $_POST["p_engname"];
+        	$new_password = $_POST["new_password"];
+
+			list($errno, $data) = password_modify ($classid, $engname, $new_password); 
+			if ($errno) {
+				return http_response_code(400);
+			} else {
+				return http_response_code(200);
+			}
+			break;
+		case "win_add":
+        	$school=$_POST["school"];
+			$number=$_POST["number"];
+			$phone=$_POST["phone"];
+			$type_v=$_POST["tval"];
+        	$date=date("Y-m-d");
+    
+			list($errno, $data) = add_report ($school, $number, $phone, $date, $type_v); 
+			if ($errno) {
+				return http_response_code(400);
+			} else {
+				return http_response_code(200);
+			}
+			break;
+		case "win_query":
+        	$school=$_POST["school"];
+			$number=$_POST["number"];
+			$phone=$_POST["phone"];
+        	$date=date('y-n-j',time());
+    
+			list($errno, $data) = add_report ($school, $number, $phone, $date); 
+			if ($errno) {
+				return http_response_code(400);
+			} else {
+				return http_response_code(200);
+			}
+			break;
 	}
 										
 	
