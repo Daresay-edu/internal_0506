@@ -633,7 +633,7 @@ go_out:
 	mysql_close($conn);
 	return $return;
 } 
-########### functions for demo students ###############
+########### functions for JiaWei ###############
 function add_report ($school, $number, $phone, $date, $type_v) {
 	$conn=db_conn("daresay_db");
 	$sql="SELECT * FROM win WHERE school='$school' and date='$date'";
@@ -672,10 +672,138 @@ function add_report ($school, $number, $phone, $date, $type_v) {
 	}
 	mysql_close($conn);
 }
-########### functions for demo students ###############
+########### functions for JiaoWei ###############
 function win_query_by_date ($date, $type_v) {
 	$conn=db_conn("daresay_db");
 	$sql="SELECT * FROM win";
+	$result=mysql_query($sql,$conn);
+	if (!$result) {
+		$errmsg = "Query demo student failed.";
+		$return[] = DX_ERROR;
+		$return[] = $errmsg; 
+		return $return;
+	} else {
+		$ret_arr = array();
+		$i=0;
+		while ($row = mysql_fetch_assoc($result)) {
+			if ($date==strtotime($row['date']) && $type_v == $row['type_v']) {
+				$ret_arr[$i++] = $row; 
+			}
+		}
+
+		$return[] = DX_SUCCESS;
+		$return[] = $ret_arr; 
+		return $return;
+	}
+	mysql_close($conn);
+}
+########### functions for JiaoWei ###############
+function win_add_stu_report ($type_v, $date, $in1, $in2, $in3, $in4, $in5, $in6, $in7, $in8, $in9, $in10, $in11, $in12, $in13, $in14) {
+	$conn=db_conn("daresay_db");
+	$sql="SELECT * FROM win_stu WHERE stu_2='$in2' and date='$date'";
+	$result=mysql_query($sql,$conn);
+	if (!$result) {
+		$errmsg = "Query report failed.";
+		$return[] = DX_ERROR;
+		$return[] = $errmsg; 
+		return $return;
+	} else {
+		$row = mysql_fetch_assoc($result);
+        if ($row) {
+			$sql="UPDATE win_stu SET stu_1='$in1',stu_2='$in2',stu_3='$in3',stu_4='$in4',stu_5='$in5',stu_6='$in6',stu_7='$in7',stu_8='$in8',stu_9='$in9', stu_10='$in10',stu_11='$in11',stu_12='$in12',stu_13='$in13',stu_14='$in14' WHERE stu_2='$in2' AND date='$date'";
+			$result=mysql_query($sql,$conn);
+            $errmsg = "Success";
+			$return[] = DX_SUCCESS;
+			$return[] = $errmsg; 
+			return $return;
+        } else {
+			//insert students to demo_students table
+			$sql="INSERT INTO win_stu (stu_1, stu_2, stu_3, stu_4, stu_5, stu_6, stu_7, stu_8, stu_9, stu_10, stu_11, stu_12, stu_13, stu_14, type_v, date)
+			      VALUES ('$in1', '$in2', '$in3','$in4', '$in5', '$in6', '$in7','$in8', '$in9', '$in10', '$in11','$in12', '$in13', '$in14', '$type_v', '$date');";
+			$result=mysql_query($sql,$conn);
+			if (!$result) {
+				$errmsg = "Add report fail";
+				$return[] = DX_ERROR;
+				$return[] = $errmsg; 
+				return $return;
+			} else { 
+                $errmsg = "Success";
+				$return[] = DX_SUCCESS;
+				$return[] = $errmsg; 
+				return $return;
+			}
+		}
+	}
+	mysql_close($conn);
+}
+########### functions for JiaoWei ###############
+function win_stu_query_by_date ($date, $type_v) {
+	$conn=db_conn("daresay_db");
+	$sql="SELECT * FROM win_stu";
+	$result=mysql_query($sql,$conn);
+	if (!$result) {
+		$errmsg = "Query demo student failed.";
+		$return[] = DX_ERROR;
+		$return[] = $errmsg; 
+		return $return;
+	} else {
+		$ret_arr = array();
+		$i=0;
+		while ($row = mysql_fetch_assoc($result)) {
+			if ($date==strtotime($row['date']) && $type_v == $row['type_v']) {
+				$ret_arr[$i++] = $row; 
+			}
+		}
+
+		$return[] = DX_SUCCESS;
+		$return[] = $ret_arr; 
+		return $return;
+	}
+	mysql_close($conn);
+}
+########### functions for JiaoWei ###############
+function win_add_teacher_report ($type_v, $date, $in1, $in2, $in3, $in4, $in5, $in6, $in7, $in8, $in9, $in10, $in11) {
+	$conn=db_conn("daresay_db");
+	$sql="SELECT * FROM win_teacher WHERE tea_2='$in2' and date='$date'";
+	$result=mysql_query($sql,$conn);
+	if (!$result) {
+		$errmsg = "Query report failed.";
+		$return[] = DX_ERROR;
+		$return[] = $errmsg; 
+		return $return;
+	} else {
+		$row = mysql_fetch_assoc($result);
+        if ($row) {
+			$sql="UPDATE win_teacher SET tea_1='$in1',tea_2='$in2',tea_3='$in3',tea_4='$in4',tea_5='$in5',tea_6='$in6',tea_7='$in7',tea_8='$in8',tea_9='$in9', tea_10='$in10',tea_11='$in11' WHERE tea_2='$in2' AND date='$date'";
+			$result=mysql_query($sql,$conn);
+            $errmsg = "Success";
+			$return[] = DX_SUCCESS;
+			$return[] = $errmsg; 
+			return $return;
+        } else {
+			//insert students to demo_students table
+			$sql="INSERT INTO win_teacher (tea_1, tea_2, tea_3, tea_4, tea_5, tea_6, tea_7, tea_8, tea_9, tea_10, tea_11, type_v, date)
+			      VALUES ('$in1', '$in2', '$in3','$in4', '$in5', '$in6', '$in7','$in8', '$in9', '$in10', '$in11', '$type_v', '$date');";
+			$result=mysql_query($sql,$conn);
+			if (!$result) {
+				$errmsg = "Add report fail";
+				$return[] = DX_ERROR;
+				$return[] = $errmsg; 
+				return $return;
+			} else { 
+                $errmsg = "Success";
+				$return[] = DX_SUCCESS;
+				$return[] = $errmsg; 
+				return $return;
+			}
+		}
+	}
+	mysql_close($conn);
+}
+########### functions for JiaoWei ###############
+function win_teacher_query_by_date ($date, $type_v) {
+	$conn=db_conn("daresay_db");
+	$sql="SELECT * FROM win_teacher";
 	$result=mysql_query($sql,$conn);
 	if (!$result) {
 		$errmsg = "Query demo student failed.";

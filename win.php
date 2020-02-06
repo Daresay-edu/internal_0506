@@ -64,7 +64,9 @@ height: 30px;
 				<div class="box-head">
 				<h2 class="left"><?php 
 				                      $date=$_REQUEST["date"]; 
-									  $type=$_REQUEST["type"]; 
+									  $type=$_REQUEST["type"];  
+									  $report_type=$_REQUEST["report_type"];
+									  
 									  echo $date; 
 									  if ($type == '0')
 										  echo '&nbsp培训机构';
@@ -72,6 +74,12 @@ height: 30px;
 										  echo '&nbsp中小学';
 									  if ($type == '2')
 										  echo '&nbsp托幼机构';
+									  if ($report_type == '1')
+										  echo '&nbsp教职工';
+									  if ($report_type == '0')
+										  echo '&nbsp零报告';
+									  if ($report_type == '2')
+										  echo '&nbsp学生';
 									  ?> 
 				报告</h2>
 				</div>
@@ -103,7 +111,7 @@ height: 30px;
 								   
 					$school = array(0 => "1.中北中学",  1=>"2.中北小学", 2=>"3.中北第二小学", 3=>"4.星光路小学", 4=>"5.为明实验小学");
 					
-					$kindergarten = array(0 => "1-1.中北中心幼儿园",  1=>"1-2.中北第二幼儿园", 2=>"2-1.侯台为明幼儿园", 3=>"2-2.小金星幼儿园", 4=>"2-3.华亭幼儿园", 
+					$kindergarten = array(0 => "1-1.中北镇中心幼儿园",  1=>"1-2.中北镇第二幼儿园", 2=>"2-1.侯台为明幼儿园", 3=>"2-2.小金星幼儿园", 4=>"2-3.华亭幼儿园", 
 					               5=>"2-4.水语花城幼儿园",6=>"2-5.为明幼儿园",7=>"2-6.依丽幼儿园",8=>"2-7.启蒙顺通幼儿园",9=>"2-8.京师育成幼儿园",
 								   10=>"2-9.禾嘉幼儿园",11=>"2-10.凯斯云锦幼儿园",12=>"2-11.为明澜湾幼儿园",13=>"2-12.京师幼学幼儿园",14=>"2-13.蕰莎幼儿园",
 								   15=>"2-14.普纳荷幼儿园",16=>"2-15.和美婴童幼儿园",17=>"2-16.英博幼儿园",18=>"2-17.佳佑幼儿园",19=>"3-1.星艺托幼点",
@@ -123,7 +131,7 @@ height: 30px;
 									echo "<tr><td>请在右侧选择要查询的日期！</td></tr>";
 									echo "</table>";
 									echo "</br></br>";
-								} else {
+								} else if($report_type == 0 ){
                                 	echo "<table>";
                                 	echo "<tr>";
                                 	echo "<td>ID</td>";
@@ -168,6 +176,241 @@ height: 30px;
 										}
 									}
 							    echo "</table>";
+                                echo "<br/><br/>";
+								echo "<table>";
+								echo "<th>未上报机构名单</th>";
+								
+								$i=0;
+								foreach($train as $key=>$value) {
+									if ($i++%5 == 0) {
+										echo "<tr>";
+										echo "<td>";
+									}
+									
+									echo $value;
+									echo "&nbsp;";
+									if ($i%5 == 0) {
+										echo "</td>";
+										echo "</tr>";
+									}
+										
+								}
+								
+								echo "</table>";
+								 echo "<br/><br/>";
+                            
+							  
+                            }  else if($report_type == 2 ){
+                                	echo "<table>";
+                                	echo "<tr>";
+                                	echo "<td>ID</td>";
+									echo "<td>镇号</td>";
+                                	echo "<td>机构</td>";
+                                	echo "<td>NO3</td>";
+                                	echo "<td>NO4</td>";
+									echo "<td>NO5</td>";
+									echo "<td>NO6</td>";
+									echo "<td>NO7</td>";
+                                	echo "<td>NO8</td>";
+									echo "<td>NO9</td>";
+									echo "<td>NO10</td>";
+									echo "<td>NO11</td>";
+                                	echo "<td>NO12</td>";
+									echo "<td>NO13</td>";
+									echo "<td>NO14</td>";
+									echo "<td>上报日期</td>";
+                                	//$date=date("Y-m-d");
+                                	echo "</tr>";
+									list($errno, $data) = win_stu_query_by_date(strtotime($date), $type); 
+									
+                                	$i=0;
+									$j=1;
+										if ($type == '0') {
+											$train = $training;
+										}
+										if ($type == '1') {
+											$train = $school;
+										}
+										if ($type == '2') {
+											$train = $kindergarten;
+										}
+									$stu_3_to = 0;
+									$stu_4_to = 0;
+									$stu_5_to = 0;
+									$stu_6_to = 0;
+									$stu_7_to = 0;
+									$stu_8_to = 0;
+									$stu_10_to = 0;
+									$stu_11_to = 0;
+									$stu_12_to = 0;
+									$stu_13_to = 0;
+									for ($i; $i < count($data); $i++) {
+											echo "<td>".$j++."</td>";
+											echo "<td>".$data[$i]['stu_1']."</td>";
+											echo "<td>".$data[$i]['stu_2']."</td>";
+											echo "<td>".$data[$i]['stu_3']."</td>";
+											echo "<td>".$data[$i]['stu_4']."</td>";
+											echo "<td>".$data[$i]['stu_5']."</td>";
+											echo "<td>".$data[$i]['stu_6']."</td>";
+											echo "<td>".$data[$i]['stu_7']."</td>";
+											echo "<td>".$data[$i]['stu_8']."</td>";
+											echo "<td>".$data[$i]['stu_9']."</td>";
+											echo "<td>".$data[$i]['stu_10']."</td>";
+											echo "<td>".$data[$i]['stu_11']."</td>";
+											echo "<td>".$data[$i]['stu_12']."</td>";
+											echo "<td>".$data[$i]['stu_13']."</td>";
+											echo "<td>".$data[$i]['stu_14']."</td>";
+											echo "<td>".$data[$i]['date']."</td>";
+											$stu_3_to = $stu_3_to + (int)$data[$i]['stu_3'];		
+											$stu_4_to = $stu_4_to + (int)$data[$i]['stu_4'];
+											$stu_5_to = $stu_5_to + (int)$data[$i]['stu_5'];
+											$stu_6_to = $stu_6_to + (int)$data[$i]['stu_6'];		
+											$stu_7_to = $stu_7_to + (int)$data[$i]['stu_7'];
+											$stu_8_to = $stu_8_to + (int)$data[$i]['stu_8'];
+											$stu_10_to = $stu_10_to + (int)$data[$i]['stu_10'];		
+											$stu_11_to = $stu_11_to + (int)$data[$i]['stu_11'];
+											$stu_12_to = $stu_12_to + (int)$data[$i]['stu_12'];
+											$stu_13_to = $stu_13_to + (int)$data[$i]['stu_13'];		
+										
+											
+										echo "</tr>";
+									
+										foreach($train as $key=>$value) {
+											if (strcmp($data[$i]['stu_2'], $value) == 0) {
+											//if ($se == $tw) {
+												unset($train[$key]);
+											}
+										}
+									}
+							    echo "</table>";
+								echo "<br/><br/>";
+								echo "<table>";
+								echo "<th>已上报机构各项值求和</th>";
+								echo "<tr><td>";
+								echo "<br/>学生总数求和：".$stu_3_to;
+								echo "<br/><br/>外省市户籍学生人数求和：".$stu_4_to;
+								echo "<br/><br/>外省市户籍学生离开本市回老家学生人数求和：".$stu_5_to;
+								echo "<br/><br/>截止今日外省市户籍学生从老家返津学生人数求和：".$stu_6_to;
+								echo "<br/><br/>从湖北武汉地区返津学生人数（本地生+外地生）求和：".$stu_7_to;
+								echo "<br/><br/>截止今日新增从湖北武汉地区返津学生人数求和：".$stu_8_to;
+								echo "<br/><br/>滞留湖北武汉地区学生人数（本地生+外地生）求和：".$stu_10_to;
+								echo "<br/><br/>除湖北武汉以外地区返津学生人数（本地生+外地生）求和：".$stu_11_to;
+								echo "<br/><br/>滞留除湖北武汉以外地区学生人数（本地生+外地生）求和：".$stu_12_to;
+								echo "<br/><br/>今日发热学生人数求和：".$stu_13_to;
+								echo "</tr></td>";
+								echo "<table>";
+                                echo "<br/><br/>";
+							
+								echo "<th>未上报机构名单</th>";
+								
+								$i=0;
+								foreach($train as $key=>$value) {
+									if ($i++%5 == 0) {
+										echo "<tr>";
+										echo "<td>";
+									}
+									
+									echo $value;
+									echo "&nbsp;";
+									if ($i%5 == 0) {
+										echo "</td>";
+										echo "</tr>";
+									}
+										
+								}
+								
+								echo "</table>";
+								 echo "<br/><br/>";
+                            
+							  
+                            } if($report_type == 1 ){
+
+                                	echo "<table>";
+                                	echo "<tr>";
+                                	echo "<td>ID</td>";
+									echo "<td>镇号</td>";
+                                	echo "<td>机构</td>";
+                                	echo "<td>NO3</td>";
+                                	echo "<td>NO4</td>";
+									echo "<td>NO5</td>";
+									echo "<td>NO6</td>";
+									echo "<td>NO7</td>";
+                                	echo "<td>NO8</td>";
+									echo "<td>NO9</td>";
+									echo "<td>NO10</td>";
+									echo "<td>NO11</td>";
+									echo "<td>上报日期</td>";
+                                	//$date=date("Y-m-d");
+                                	echo "</tr>";
+									list($errno, $data) = win_teacher_query_by_date(strtotime($date), $type); 
+									
+                                	$i=0;
+									$j=1;
+										if ($type == '0') {
+											$train = $training;
+										}
+										if ($type == '1') {
+											$train = $school;
+										}
+										if ($type == '2') {
+											$train = $kindergarten;
+										}
+									$stu_3_to = 0;
+									$stu_4_to = 0;
+									$stu_5_to = 0;
+									
+									$stu_7_to = 0;
+									$stu_8_to = 0;
+									$stu_9_to = 0;
+									$stu_10_to = 0;
+									
+									for ($i; $i < count($data); $i++) {
+											echo "<td>".$j++."</td>";
+											echo "<td>".$data[$i]['tea_1']."</td>";
+											echo "<td>".$data[$i]['tea_2']."</td>";
+											echo "<td>".$data[$i]['tea_3']."</td>";
+											echo "<td>".$data[$i]['tea_4']."</td>";
+											echo "<td>".$data[$i]['tea_5']."</td>";
+											echo "<td>".$data[$i]['tea_6']."</td>";
+											echo "<td>".$data[$i]['tea_7']."</td>";
+											echo "<td>".$data[$i]['tea_8']."</td>";
+											echo "<td>".$data[$i]['tea_9']."</td>";
+											echo "<td>".$data[$i]['tea_10']."</td>";
+											echo "<td>".$data[$i]['tea_11']."</td>";
+											echo "<td>".$data[$i]['date']."</td>";
+											$stu_3_to = $stu_3_to + (int)$data[$i]['tea_3'];		
+											$stu_4_to = $stu_4_to + (int)$data[$i]['tea_4'];
+											$stu_5_to = $stu_5_to + (int)$data[$i]['tea_5'];
+											$stu_7_to = $stu_7_to + (int)$data[$i]['tea_7'];		
+											$stu_8_to = $stu_8_to + (int)$data[$i]['tea_8'];
+											$stu_9_to = $stu_9_to + (int)$data[$i]['tea_9'];
+											$stu_10_to = $stu_10_to + (int)$data[$i]['tea_10'];		
+	
+																				
+										echo "</tr>";
+									
+										foreach($train as $key=>$value) {
+											if (strcmp($data[$i]['tea_2'], $value) == 0) {
+											//if ($se == $tw) {
+												unset($train[$key]);
+											}
+										}
+									}
+							    echo "</table>";
+								echo "<br/><br/>";
+								echo "<table>";
+								echo "<th>已上报机构各项值求和</th>";
+								echo "<tr><td>";
+								echo "<br/>教职员工总数求和：".$stu_3_to;
+								echo "<br/><br/>从湖北武汉地区返津教职员工人数求和：".$stu_4_to;
+								echo "<br/><br/>截止今日新增从湖北武汉地区返津教职员工人数求和：".$stu_5_to;
+								echo "<br/><br/>滞留湖北武汉地区教职员工人数求和：".$stu_7_to;
+								echo "<br/><br/>除湖北武汉以外地区返津教职员工人数求和：".$stu_8_to;
+								echo "<br/><br/>滞留除湖北武汉以外地区教职员工人数求和：".$stu_9_to;
+								echo "<br/><br/>今日发热教职员工人数求和：".$stu_10_to;
+
+								echo "</tr></td>";
+								echo "<table>";
                                 echo "<br/><br/>";
 								echo "<table>";
 								echo "<th>未上报机构名单</th>";

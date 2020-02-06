@@ -18,7 +18,8 @@ function gotodis(){
 	var date=year.value+"-"+month.value+"-"+day.value;
 	//alert(date);
 	var type=document.getElementById("type");
-	window.location.href="win.php?date="+date+"&type="+type.value;
+	var report_type=document.getElementById("report_type");
+	window.location.href="win.php?date="+date+"&type="+type.value+"&report_type="+report_type.value;
 }
 </script>
 <body>
@@ -28,12 +29,20 @@ function gotodis(){
 
 <form action="win.php?action=display" method="post">
 <div class='sort'>
-<label>请选择报告时间:</label>
+<label>请选择机构类型:</label>
 </br></br>
 	<select class='field' name="type" id="type">
 		<option value='1'>中小学</option>
 		<option value='0'>培训机构</option>
 		<option value='2'>托幼机构</option>
+	</select>
+<br/><br/>
+<label>请选择报告类型:</label>
+</br></br>
+	<select class='field' name="report_type" id="report_type">
+		<option value='0'>零报告</option>
+		<option value='1'>教职工</option>
+		<option value='2'>学生</option>
 	</select>
 <br/><br/>
 <label>请选择报告时间:</label>
