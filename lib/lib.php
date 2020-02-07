@@ -698,7 +698,7 @@ function win_query_by_date ($date, $type_v) {
 	mysql_close($conn);
 }
 ########### functions for JiaoWei ###############
-function win_add_stu_report ($type_v, $date, $in1, $in2, $in3, $in4, $in5, $in6, $in7, $in8, $in9, $in10, $in11, $in12, $in13, $in14) {
+function win_add_stu_report ($type_v, $date, $in1, $in2, $in3, $in4, $in5, $in6, $in7, $in8, $in9, $in10, $in11, $in12, $in13, $in14, $in15) {
 	$conn=db_conn("daresay_db");
 	$sql="SELECT * FROM win_stu WHERE stu_2='$in2' and date='$date'";
 	$result=mysql_query($sql,$conn);
@@ -710,16 +710,23 @@ function win_add_stu_report ($type_v, $date, $in1, $in2, $in3, $in4, $in5, $in6,
 	} else {
 		$row = mysql_fetch_assoc($result);
         if ($row) {
-			$sql="UPDATE win_stu SET stu_1='$in1',stu_2='$in2',stu_3='$in3',stu_4='$in4',stu_5='$in5',stu_6='$in6',stu_7='$in7',stu_8='$in8',stu_9='$in9', stu_10='$in10',stu_11='$in11',stu_12='$in12',stu_13='$in13',stu_14='$in14' WHERE stu_2='$in2' AND date='$date'";
+			$sql="UPDATE win_stu SET stu_1='$in1',stu_2='$in2',stu_3='$in3',stu_4='$in4',stu_5='$in5',stu_6='$in6',stu_7='$in7',stu_8='$in8',stu_9='$in9', stu_10='$in10',stu_11='$in11',stu_12='$in12',stu_13='$in13',stu_14='$in14',stu_15='$in15' WHERE stu_2='$in2' AND date='$date'";
 			$result=mysql_query($sql,$conn);
-            $errmsg = "Success";
-			$return[] = DX_SUCCESS;
-			$return[] = $errmsg; 
-			return $return;
+            if (!$result) {
+				$errmsg = "Update report fail";
+				$return[] = DX_ERROR;
+				$return[] = $errmsg; 
+				return $return;
+			} else { 
+                $errmsg = "Success";
+				$return[] = DX_SUCCESS;
+				$return[] = $errmsg; 
+				return $return;
+			}
         } else {
 			//insert students to demo_students table
-			$sql="INSERT INTO win_stu (stu_1, stu_2, stu_3, stu_4, stu_5, stu_6, stu_7, stu_8, stu_9, stu_10, stu_11, stu_12, stu_13, stu_14, type_v, date)
-			      VALUES ('$in1', '$in2', '$in3','$in4', '$in5', '$in6', '$in7','$in8', '$in9', '$in10', '$in11','$in12', '$in13', '$in14', '$type_v', '$date');";
+			$sql="INSERT INTO win_stu (stu_1, stu_2, stu_3, stu_4, stu_5, stu_6, stu_7, stu_8, stu_9, stu_10, stu_11, stu_12, stu_13, stu_14, stu_15, type_v, date)
+			      VALUES ('$in1', '$in2', '$in3','$in4', '$in5', '$in6', '$in7','$in8', '$in9', '$in10', '$in11','$in12', '$in13', '$in14', '$in15', '$type_v', '$date');";
 			$result=mysql_query($sql,$conn);
 			if (!$result) {
 				$errmsg = "Add report fail";
@@ -762,7 +769,7 @@ function win_stu_query_by_date ($date, $type_v) {
 	mysql_close($conn);
 }
 ########### functions for JiaoWei ###############
-function win_add_teacher_report ($type_v, $date, $in1, $in2, $in3, $in4, $in5, $in6, $in7, $in8, $in9, $in10, $in11) {
+function win_add_teacher_report ($type_v, $date, $in1, $in2, $in3, $in4, $in5, $in6, $in7, $in8, $in9, $in10, $in11, $in12) {
 	$conn=db_conn("daresay_db");
 	$sql="SELECT * FROM win_teacher WHERE tea_2='$in2' and date='$date'";
 	$result=mysql_query($sql,$conn);
@@ -774,7 +781,7 @@ function win_add_teacher_report ($type_v, $date, $in1, $in2, $in3, $in4, $in5, $
 	} else {
 		$row = mysql_fetch_assoc($result);
         if ($row) {
-			$sql="UPDATE win_teacher SET tea_1='$in1',tea_2='$in2',tea_3='$in3',tea_4='$in4',tea_5='$in5',tea_6='$in6',tea_7='$in7',tea_8='$in8',tea_9='$in9', tea_10='$in10',tea_11='$in11' WHERE tea_2='$in2' AND date='$date'";
+			$sql="UPDATE win_teacher SET tea_1='$in1',tea_2='$in2',tea_3='$in3',tea_4='$in4',tea_5='$in5',tea_6='$in6',tea_7='$in7',tea_8='$in8',tea_9='$in9', tea_10='$in10',tea_11='$in11',tea_12='$in12' WHERE tea_2='$in2' AND date='$date'";
 			$result=mysql_query($sql,$conn);
             $errmsg = "Success";
 			$return[] = DX_SUCCESS;
@@ -782,8 +789,8 @@ function win_add_teacher_report ($type_v, $date, $in1, $in2, $in3, $in4, $in5, $
 			return $return;
         } else {
 			//insert students to demo_students table
-			$sql="INSERT INTO win_teacher (tea_1, tea_2, tea_3, tea_4, tea_5, tea_6, tea_7, tea_8, tea_9, tea_10, tea_11, type_v, date)
-			      VALUES ('$in1', '$in2', '$in3','$in4', '$in5', '$in6', '$in7','$in8', '$in9', '$in10', '$in11', '$type_v', '$date');";
+			$sql="INSERT INTO win_teacher (tea_1, tea_2, tea_3, tea_4, tea_5, tea_6, tea_7, tea_8, tea_9, tea_10, tea_11, tea_12, type_v, date)
+			      VALUES ('$in1', '$in2', '$in3','$in4', '$in5', '$in6', '$in7','$in8', '$in9', '$in10', '$in11', '$in12','$type_v', '$date');";
 			$result=mysql_query($sql,$conn);
 			if (!$result) {
 				$errmsg = "Add report fail";
@@ -824,5 +831,62 @@ function win_teacher_query_by_date ($date, $type_v) {
 		return $return;
 	}
 	mysql_close($conn);
+}
+
+/** 
+ * 创建(导出)Excel数据表格 
+ * @param  array   $list        要导出的数组格式的数据 
+ * @param  string  $filename    导出的Excel表格数据表的文件名 
+ * @param  array   $indexKey    $list数组中与Excel表格表头$header中每个项目对应的字段的名字(key值) 
+ * @param  array   $startRow    第一条数据在Excel表格中起始行 
+ * @param  [bool]  $excel2007   是否生成Excel2007(.xlsx)以上兼容的数据表 
+ * 比如: $indexKey与$list数组对应关系如下: 
+ *     $indexKey = array('id','username','sex','age'); 
+ *     $list = array(array('id'=>1,'username'=>'YQJ','sex'=>'男','age'=>24)); 
+ */  
+function exportExcel($list,$filename,$indexKey,$startRow=1,$excel2007=false){  
+	error_reporting(0);
+    //文件引入  
+    require_once 'excel/PHPExcel.php';  
+    require_once 'excel/PHPExcel/Writer/Excel2007.php';  
+      
+    if(empty($filename)) $filename = time();  
+    if( !is_array($indexKey)) return false;  
+      
+    $header_arr = array('A','B','C','D','E','F','G','H','I','J','K','L','M', 'N','O','P','Q','R','S','T','U','V','W','X','Y','Z');  
+    //初始化PHPExcel()  
+    $objPHPExcel = new PHPExcel();  
+      
+    //设置保存版本格式  
+    if($excel2007){  
+        $objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);  
+        $filename = $filename.'.xlsx';  
+    }else{  
+        $objWriter = new PHPExcel_Writer_Excel5($objPHPExcel);  
+        $filename = $filename.'.xls';  
+    }  
+      
+    //接下来就是写数据到表格里面去  
+    $objActSheet = $objPHPExcel->getActiveSheet();  
+    //$startRow = 1;  
+    foreach ($list as $row) {  
+        foreach ($indexKey as $key => $value){  
+            //这里是设置单元格的内容  
+            $objActSheet->setCellValue($header_arr[$key].$startRow,$row[$value]);  
+        }  
+        $startRow++;  
+    }  
+      
+    // 下载这个表格，在浏览器输出  
+    header("Pragma: public");  
+    header("Expires: 0");  
+    header("Cache-Control:must-revalidate, post-check=0, pre-check=0");  
+    header("Content-Type:application/force-download");  
+    header("Content-Type:application/vnd.ms-execl");  
+    header("Content-Type:application/octet-stream");  
+    header("Content-Type:application/download");;  
+    header('Content-Disposition:attachment;filename='.$filename.'');  
+    header("Content-Transfer-Encoding:binary");  
+    $objWriter->save('php://output');  
 }
 ?>

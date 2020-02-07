@@ -135,9 +135,10 @@ function test_encoding ($string) {
 			$in12=$_REQUEST["input12"];
 			$in13=$_REQUEST["input13"];
 			$in14=$_REQUEST["input14"];
+			$in15=$_REQUEST["input15"];
         	$date=date("Y-m-d");
     
-			list($errno, $data) = win_add_stu_report ($type_v, $date, $number, $school, $in3, $in4, $in5, $in6, $in7, $in8, $in9, $in10, $in11, $in12, $in13, $in14); 
+			list($errno, $data) = win_add_stu_report ($type_v, $date, $number, $school, $in3, $in4, $in5, $in6, $in7, $in8, $in9, $in10, $in11, $in12, $in13, $in14, $in15); 
 			//list($errno, $data) = win_add_stu_report ("1", "2020", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1"); 
 			if ($errno) {
 				//echo $data;
@@ -159,12 +160,13 @@ function test_encoding ($string) {
 			$in9=$_REQUEST["input9"];
 			$in10=$_REQUEST["input10"];
 			$in11=$_REQUEST["input11"];
+			$in12=$_REQUEST["input12"];
         	$date=date("Y-m-d");
     
-			list($errno, $data) = win_add_teacher_report ($type_v, $date, $number, $school, $in3, $in4, $in5, $in6, $in7, $in8, $in9, $in10, $in11); 
+			list($errno, $data) = win_add_teacher_report ($type_v, $date, $number, $school, $in3, $in4, $in5, $in6, $in7, $in8, $in9, $in10, $in11, $in12); 
 			//list($errno, $data) = win_add_teacher_report ("1", "2020", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1"); 
 			if ($errno) {
-				//echo $data;
+				echo $data;
 				return http_response_code(400);
 			} else {
 				return http_response_code(200);

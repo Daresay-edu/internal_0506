@@ -199,7 +199,7 @@ height: 30px;
 								echo "</table>";
 								 echo "<br/><br/>";
                             
-							  
+							//echo "<a href='win_download.php'><input class='submit' type='button' value='Modify'></a>";  
                             }  else if($report_type == 2 ){
                                 	echo "<table>";
                                 	echo "<tr>";
@@ -218,6 +218,7 @@ height: 30px;
                                 	echo "<td>NO12</td>";
 									echo "<td>NO13</td>";
 									echo "<td>NO14</td>";
+									echo "<td>NO15</td>";
 									echo "<td>上报日期</td>";
                                 	//$date=date("Y-m-d");
                                 	echo "</tr>";
@@ -244,6 +245,7 @@ height: 30px;
 									$stu_11_to = 0;
 									$stu_12_to = 0;
 									$stu_13_to = 0;
+									$stu_15_to = 0;
 									for ($i; $i < count($data); $i++) {
 											echo "<td>".$j++."</td>";
 											echo "<td>".$data[$i]['stu_1']."</td>";
@@ -260,6 +262,7 @@ height: 30px;
 											echo "<td>".$data[$i]['stu_12']."</td>";
 											echo "<td>".$data[$i]['stu_13']."</td>";
 											echo "<td>".$data[$i]['stu_14']."</td>";
+											echo "<td>".$data[$i]['stu_15']."</td>";
 											echo "<td>".$data[$i]['date']."</td>";
 											$stu_3_to = $stu_3_to + (int)$data[$i]['stu_3'];		
 											$stu_4_to = $stu_4_to + (int)$data[$i]['stu_4'];
@@ -271,6 +274,7 @@ height: 30px;
 											$stu_11_to = $stu_11_to + (int)$data[$i]['stu_11'];
 											$stu_12_to = $stu_12_to + (int)$data[$i]['stu_12'];
 											$stu_13_to = $stu_13_to + (int)$data[$i]['stu_13'];		
+											$stu_15_to = $stu_15_to + (int)$data[$i]['stu_15'];	
 										
 											
 										echo "</tr>";
@@ -291,12 +295,13 @@ height: 30px;
 								echo "<br/><br/>外省市户籍学生人数求和：".$stu_4_to;
 								echo "<br/><br/>外省市户籍学生离开本市回老家学生人数求和：".$stu_5_to;
 								echo "<br/><br/>截止今日外省市户籍学生从老家返津学生人数求和：".$stu_6_to;
-								echo "<br/><br/>从湖北武汉地区返津学生人数（本地生+外地生）求和：".$stu_7_to;
-								echo "<br/><br/>截止今日新增从湖北武汉地区返津学生人数求和：".$stu_8_to;
-								echo "<br/><br/>滞留湖北武汉地区学生人数（本地生+外地生）求和：".$stu_10_to;
-								echo "<br/><br/>除湖北武汉以外地区返津学生人数（本地生+外地生）求和：".$stu_11_to;
-								echo "<br/><br/>滞留除湖北武汉以外地区学生人数（本地生+外地生）求和：".$stu_12_to;
+								echo "<br/><br/>从湖北省地区返津学生人数（本地生+外地生）求和：".$stu_7_to;
+								echo "<br/><br/>截止今日新增从湖北省地区返津学生人数求和：".$stu_8_to;
+								echo "<br/><br/>滞留湖北省地区学生人数（本地生+外地生）求和：".$stu_10_to;
+								echo "<br/><br/>除湖北省以外地区返津学生人数（本地生+外地生）求和：".$stu_11_to;
+								echo "<br/><br/>滞留除湖北省以外地区学生人数（本地生+外地生）求和：".$stu_12_to;
 								echo "<br/><br/>今日发热学生人数求和：".$stu_13_to;
+								echo "<br/><br/>截止今日新增除湖北省以外地区返津学生人数求和：".$stu_15_to;
 								echo "</tr></td>";
 								echo "<table>";
                                 echo "<br/><br/>";
@@ -339,6 +344,7 @@ height: 30px;
 									echo "<td>NO9</td>";
 									echo "<td>NO10</td>";
 									echo "<td>NO11</td>";
+									echo "<td>NO12</td>";
 									echo "<td>上报日期</td>";
                                 	//$date=date("Y-m-d");
                                 	echo "</tr>";
@@ -363,7 +369,7 @@ height: 30px;
 									$stu_8_to = 0;
 									$stu_9_to = 0;
 									$stu_10_to = 0;
-									
+									$stu_12_to = 0;
 									for ($i; $i < count($data); $i++) {
 											echo "<td>".$j++."</td>";
 											echo "<td>".$data[$i]['tea_1']."</td>";
@@ -377,6 +383,7 @@ height: 30px;
 											echo "<td>".$data[$i]['tea_9']."</td>";
 											echo "<td>".$data[$i]['tea_10']."</td>";
 											echo "<td>".$data[$i]['tea_11']."</td>";
+											echo "<td>".$data[$i]['tea_12']."</td>";
 											echo "<td>".$data[$i]['date']."</td>";
 											$stu_3_to = $stu_3_to + (int)$data[$i]['tea_3'];		
 											$stu_4_to = $stu_4_to + (int)$data[$i]['tea_4'];
@@ -385,6 +392,7 @@ height: 30px;
 											$stu_8_to = $stu_8_to + (int)$data[$i]['tea_8'];
 											$stu_9_to = $stu_9_to + (int)$data[$i]['tea_9'];
 											$stu_10_to = $stu_10_to + (int)$data[$i]['tea_10'];		
+											$stu_12_to = $stu_12_to + (int)$data[$i]['tea_12'];	
 	
 																				
 										echo "</tr>";
@@ -402,12 +410,13 @@ height: 30px;
 								echo "<th>已上报机构各项值求和</th>";
 								echo "<tr><td>";
 								echo "<br/>教职员工总数求和：".$stu_3_to;
-								echo "<br/><br/>从湖北武汉地区返津教职员工人数求和：".$stu_4_to;
-								echo "<br/><br/>截止今日新增从湖北武汉地区返津教职员工人数求和：".$stu_5_to;
-								echo "<br/><br/>滞留湖北武汉地区教职员工人数求和：".$stu_7_to;
-								echo "<br/><br/>除湖北武汉以外地区返津教职员工人数求和：".$stu_8_to;
-								echo "<br/><br/>滞留除湖北武汉以外地区教职员工人数求和：".$stu_9_to;
+								echo "<br/><br/>从湖北省地区返津教职员工人数求和：".$stu_4_to;
+								echo "<br/><br/>截止今日新增从湖北省地区返津教职员工人数求和：".$stu_5_to;
+								echo "<br/><br/>滞留湖北省地区教职员工人数求和：".$stu_7_to;
+								echo "<br/><br/>除湖北省以外地区返津教职员工人数求和：".$stu_8_to;
+								echo "<br/><br/>滞留除湖北省以外地区教职员工人数求和：".$stu_9_to;
 								echo "<br/><br/>今日发热教职员工人数求和：".$stu_10_to;
+								echo "<br/><br/>截止今日新增除湖北省以外地区返津教职员工人数求和：".$stu_12_to;
 
 								echo "</tr></td>";
 								echo "<table>";
