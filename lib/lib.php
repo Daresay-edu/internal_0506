@@ -832,7 +832,83 @@ function win_teacher_query_by_date ($date, $type_v) {
 	}
 	mysql_close($conn);
 }
+########### functions for practise ###############
+function add_practise ($grade, $subject, $hour, $question, $pic_path, $choice, $answer, $anA, $anB, $anC, $anD) {
+	$conn=db_conn("daresay_db");
+	$sql="SELECT * FROM practise WHERE grade='$grade' and subject='$subject' and hour='$hour' and question='$question'";
+	$result=mysql_query($sql,$conn);
+	if (!$result) {
+		$errmsg = "Query practise failed.";
+		$return[] = DX_ERROR;
+		$return[] = $errmsg; 
+		return $return;
+	} else {
+		$row = mysql_fetch_assoc($result);
+        if ($row) {
+			$sql="UPDATE practise SET pic_path='$pic_path',choice='$choice',answer='$answer',choice_A='$anA',choice_B='$anB',choice_C='$anC',choice_D='$anD' WHERE grade='$grade' and subject='$subject' and hour='$hour' and question='$question'";
+			$result=mysql_query($sql,$conn);
+            $errmsg = "Update Success";
+			$return[] = DX_SUCCESS;
+			$return[] = $errmsg; 
+			return $return;
+        } else {
+			$sql="INSERT INTO practise (grade, subject, hour, question, pic_path, choice, answer, choice_A, choice_B, choice_C, choice_D)
+			      VALUES ('$grade', '$subject', '$hour','$question', '$pic_path', '$choice', '$answer','$anA', '$anB', '$anC', '$anD');";
+			$result=mysql_query($sql,$conn);
+			if (!$result) {
+				$errmsg = "Add practise fail";
+				$return[] = DX_ERROR;
+				$return[] = $errmsg; 
+				return $return;
+			} else { 
+				$errmsg = "Success";
+				$return[] = DX_SUCCESS;
+				$return[] = $errmsg; 
+				return $return;
+			}
+		}
+	}
 
+	mysql_close($conn);
+}
+function read_practise($grade, $subject, $from, $end) {
+	$conn=db_conn("daresay_db");
+	
+	$sql="SELECT * FROM practise WHERE grade='$grade' and subject='$subject'";
+	$result=mysql_query($sql,$conn);
+	if (!$result) {
+		$errmsg = "read practise fail";
+		$return[] = DX_ERROR;
+		$return[] = $errmsg; 
+		return $return;
+	}
+	$i=0;
+	$arr = array();
+	while ($row = mysql_fetch_assoc($result)) {
+		$tmp = explode("-", $row['hour']);
+		if ((int)$from <= (int)$tmp[0] && (int)$tmp[1] <= (int)$end) {
+			array_push($arr, $row);
+			$i++;
+		}
+	}
+	//echo $arr;
+	if ($i) {
+		$num = mt_rand(0, $i-1);
+		$errmsg = $arr[$num];
+		//echo $num;
+		//echo $errmsg;
+		$return[] = DX_SUCCESS;
+		$return[] = $errmsg; 
+		return $return;
+	} else {
+		$errmsg = 'No record.';
+		$return[] = DX_ERROR;
+		$return[] = $errmsg; 
+		return $return;
+	}
+	
+	mysql_close($conn);
+}
 /** 
  * 创建(导出)Excel数据表格 
  * @param  array   $list        要导出的数组格式的数据 
@@ -878,15 +954,32 @@ function exportExcel($list,$filename,$indexKey,$startRow=1,$excel2007=false){
     }  
       
     // 下载这个表格，在浏览器输出  
-    header("Pragma: public");  
-    header("Expires: 0");  
-    header("Cache-Control:must-revalidate, post-check=0, pre-check=0");  
-    header("Content-Type:application/force-download");  
-    header("Content-Type:application/vnd.ms-execl");  
-    header("Content-Type:application/octet-stream");  
-    header("Content-Type:application/download");;  
-    header('Content-Disposition:attachment;filename='.$filename.'');  
-    header("Content-Transfer-Encoding:binary");  
-    $objWriter->save('php://output');  
+    //header("Pragma: public");  
+    //header("Expires: 0");  
+    //header("Cache-Control:must-revalidate, post-check=0, pre-check=0");  
+    //header("Content-Type:application/force-download");  
+    //header("Content-Type:application/vnd.ms-execl");  
+    //header("Content-Type:application/octet-stream");  
+    //header("Content-Type:application/download");;  
+    //header('Content-Disposition:attachment;filename='.$filename.'');  
+    //header("Content-Transfer-Encoding:binary");  
+    //$objWriter->save('php://output');  
+	if (file_exists(CACHE_PATH . $filename)){
+//$this->logger->error('file realpath:'.realpath(CACHE_PATH . $file_name));
+header( 'Pragma: public' );
+header( 'Expires: 0' );
+header( 'Content-Encoding: none' );
+header( 'Cache-Control: must-revalidate, post-check=0, pre-check=0' );
+header( 'Cache-Control: public' );
+header( 'Content-Type: application/vnd.ms-excel');
+header( 'Content-Description: File Transfer' );
+header( 'Content-Disposition: attachment; filename=' . $filename );
+header( 'Content-Transfer-Encoding: binary' );
+header( 'Content-Length: ' . filesize ( CACHE_PATH . $filename ) );
+readfile ( CACHE_PATH . $filename );
+} else {
+$this->logger->error('export model :'.$id.' 错误：未生产文件');
+echo '';
+}
 }
 ?>

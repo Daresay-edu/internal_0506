@@ -8,6 +8,27 @@ function test_encoding ($string) {
 	echo $encode;
 
 }
+function success($data='') {
+	if ($data != '') {
+		$return=json_encode($data);
+		echo $return;
+	}
+	return http_response_code(200);
+}
+function error($data) {
+	if ($data != '') {
+		$res=array("errmsg"=>$data);
+		$return=json_encode($res);
+		echo $return;
+	}
+	return http_response_code(400);
+}
+function return_json($data) {
+	header('Content-Type: application/json');
+	//$res=array("classid"=>$row['classid'], "engname"=>$row['engname']);
+	$return=json_encode($row);
+	echo $return;
+}
 	//should add all server functions here
 	header("Content-type: text/html;charset=utf-8");
 	require 'public/Initialize.php';
@@ -171,6 +192,56 @@ function test_encoding ($string) {
 			} else {
 				return http_response_code(200);
 			}
+			break;
+		case "add_practise":
+			$grade = $_POST["grade"];
+			$subject = $_POST["subject"];
+			$hour = $_POST["hour"];
+			$question = $_POST["question"];
+			$has_pic = $_POST["has_pic"];
+			$choice = $_POST["choice"];
+			$answer = $_POST["answer"];
+			$anA = $_POST["anA"];
+			$anB = $_POST["anB"];
+			$anC = $_POST["anC"];
+			$anD = $_POST["anD"];
+			$filepath = 'nofile';
+			if ($has_pic == 'yes') {
+				$imgname = $_FILES['pic']['name'];
+				$tmp = $_FILES['pic']['tmp_name'];
+				$filepath = 'photo/'.$grade."-".$subject."-".$hour."-".$imgname;
+				if ($_FILES['pic']['error']!=0) {
+					return http_response_code(400);
+				}
+			
+				if(!move_uploaded_file($tmp, $filepath)){
+					return http_response_code(400);
+				}
+			}
+			
+			list($errno, $data) = add_practise($grade, $subject, $hour, $question, $filepath, $choice, $answer, $anA, $anB, $anC, $anD);
+			if ($errno) {
+				//echo $data;
+				error($data);
+			} else {
+				success('');
+			}
+			
+			break;
+			case "read_practise":
+			$grade = $_REQUEST["grade"];
+			$subject = $_REQUEST["subject"];
+			$from = $_REQUEST["from"];
+			$end = $_REQUEST["end"];
+			
+			list($errno, $data) = read_practise($grade, $subject, $from, $end);
+			if ($errno) {
+				//echo $data['question'];
+				error($data);
+			} else {
+				success($data);
+			}
+			
 			break;
 	}
 										
