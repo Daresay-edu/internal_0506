@@ -211,11 +211,13 @@ function return_json($data) {
 				$tmp = $_FILES['pic']['tmp_name'];
 				$filepath = 'photo/'.$grade."-".$subject."-".$hour."-".$imgname;
 				if ($_FILES['pic']['error']!=0) {
-					return http_response_code(400);
+					//return http_response_code(400);
+					error("Get file failed from client.");
 				}
 			
 				if(!move_uploaded_file($tmp, $filepath)){
-					return http_response_code(400);
+					//return http_response_code(400);
+					error("Save file failed.");
 				}
 			}
 			
