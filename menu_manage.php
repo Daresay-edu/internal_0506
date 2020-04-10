@@ -116,5 +116,61 @@
 			
 		</ul>
 	</li>
+	<li><a href="#"><span>Local e-Book</span></a><span class="dropBottom"></span>
+	
+	   
+		<ul>
+		    <li><a href="#">K3</a>
+			    <ul>
+					<li><a href="#">LA</a>
+					    <ul>
+							<li><a href="http://daresay.gz01.bdysite.com/dx_online/playpicture.php?source_dir=K3/LA/book1/&begin_page=9&end_page=158" target="_blank">Book1</a></li>
+							<li><a href="http://daresay.gz01.bdysite.com/dx_online/playpicture.php?source_dir=K3/LA/book2/&begin_page=11&end_page=281" target="_blank">Book2</a></li>
+						</ul>
+					</li>
+					<li><a href="http://daresay.gz01.bdysite.com/dx_online/playpicture.php?source_dir=K3/HSP/&begin_page=1&end_page=144" target="_blank">HSP</a>
+					</li>
+			    </ul>
+		    </li>
+			<li><a href="#">S1</a>
+			    <ul>
+					<li><a href="#">LA</a>
+						<ul>
+							<li><a href="http://daresay.gz01.bdysite.com/dx_online/playpicture.php?source_dir=S1/LA/book1/&begin_page=12&end_page=150" target="_blank">Book1</a></li>
+							<li><a href="http://daresay.gz01.bdysite.com/dx_online/playpicture.php?source_dir=S1/LA/book2/&begin_page=12&end_page=186" target="_blank">Book2</a></li>
+							<li><a href="http://daresay.gz01.bdysite.com/dx_online/playpicture.php?source_dir=S1/LA/book3/&begin_page=12&end_page=186" target="_blank">Book3</a></li>
+							<li><a href="http://daresay.gz01.bdysite.com/dx_online/playpicture.php?source_dir=S1/LA/book4/&begin_page=12&end_page=186" target="_blank">Book4</a></li>
+							<li><a href="http://daresay.gz01.bdysite.com/dx_online/playpicture.php?source_dir=S1/LA/book5/&begin_page=12&end_page=186" target="_blank">Book5</a></li>
+							<li><a href="http://daresay.gz01.bdysite.com/dx_online/playpicture.php?source_dir=S1/LA/book6/&begin_page=12&end_page=186" target="_blank">Book6</a></li>
+						</ul>
+					</li>
+					<li><a href="http://daresay.gz01.bdysite.com/dx_online/playpicture.php?source_dir=S1/HSP/&begin_page=1&end_page=404" target="_blank">HSP</a>
+					</li>
+			    </ul>
+			</li>
+			<li><a href="#">S2</a>
+			    <ul>
+					<li><a href="#">LA</a>
+						<ul>
+							<li><a href="http://daresay.gz01.bdysite.com/dx_online/playpicture.php?source_dir=S2/LA/book1/&begin_page=12&end_page=530" target="_blank">Book1</a></li>
+							<li><a href="http://daresay.gz01.bdysite.com/dx_online/playpicture.php?source_dir=S2/LA/book2/&begin_page=12&end_page=550" target="_blank">Book1</a></li>
+						</ul>
+					</li>
+					<li><a href="http://daresay.gz01.bdysite.com/dx_online/playpicture.php?source_dir=S2/HSP/&begin_page=17&end_page=390" target="_blank">HSP</a>
+					</li>
+			    </ul>
+			</li>
+		</ul>
+	</li>
+	<li><a href="#"><span>Practise</span></a><span class="dropBottom"></span>
+	
+	   
+		<ul>
+		    <li><a href="http://daresay.gz01.bdysite.com/practise/#!/create" target="_blank">录题</a>
+		    </li>
+			<li><a href="http://daresay.gz01.bdysite.com/practise/#!/choose" target="_blank">练题</a>
+			</li>
+		</ul>	   
+	</li>
 </ul>
 
