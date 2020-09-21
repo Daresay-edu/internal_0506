@@ -109,7 +109,7 @@
 									<?php
 								
 										require_once("lib/lib.php");
-										$classes = get_normal_class();
+										$classes = get_running_class();
 										echo $classes;
 										for ($i=0;$i<count($classes);$i++) {
 								            $tmp = $classes[$i];
