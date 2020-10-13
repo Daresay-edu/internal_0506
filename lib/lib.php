@@ -909,6 +909,120 @@ function read_practise($grade, $subject, $from, $end) {
 	
 	mysql_close($conn);
 }
+########### functions for HSS ###############
+function hss_add_src ($grade, $subject, $num, $name, $src, $filepath) {
+	$conn=db_conn("daresay_db");
+	$sql="SELECT * FROM hss_src WHERE grade='$grade' and subject='$subject' and name='$name'";
+	$result=mysql_query($sql,$conn);
+	if (!$result) {
+		$errmsg = "Query source failed.";
+		$return[] = DX_ERROR;
+		$return[] = $errmsg; 
+		return $return;
+	} else {
+		$row = mysql_fetch_assoc($result);
+        if ($row) {
+			$sql="UPDATE hss_src SET pic_path='$filepath',src='$src',num='$num' WHERE grade='$grade' and subject='$subject' and name='$name'";
+			$result=mysql_query($sql,$conn);
+            $errmsg = "Update Success";
+			$return[] = DX_SUCCESS;
+			$return[] = $errmsg; 
+			return $return;
+        } else {
+			$sql="INSERT INTO hss_src (grade, subject, num, name, src, pic_path)
+			      VALUES ('$grade', '$subject', '$num','$name','$src', '$filepath');";
+			$result=mysql_query($sql,$conn);
+			if (!$result) {
+				$errmsg = "Add source fail";
+				$return[] = DX_ERROR;
+				$return[] = $errmsg; 
+				return $return;
+			} else { 
+				$errmsg = "Success";
+				$return[] = DX_SUCCESS;
+				$return[] = $errmsg; 
+				return $return;
+			}
+		}
+	}
+
+	mysql_close($conn);
+}
+function hss_find_src ($grade, $subject) {
+	$conn=db_conn("daresay_db");
+	$sql="SELECT * FROM hss_src WHERE grade='$grade' and subject='$subject'";
+	$result=mysql_query($sql,$conn);
+	if (!$result) {
+		$errmsg = "read src fail";
+		$return[] = DX_ERROR;
+		$return[] = $errmsg; 
+		return $return;
+	}
+	$i=0;
+	$arr = array();
+	while ($row = mysql_fetch_assoc($result)) {
+		array_push($arr, $row);
+		$i++;
+		
+	}
+		
+	mysql_close($conn);
+	//echo $arr;
+	if ($i) {
+		$errmsg = $arr;
+		//echo $num;
+		//echo $errmsg;
+		$return[] = DX_SUCCESS;
+		$return[] = $errmsg; 
+		return $return;
+	} else {
+		$errmsg = 'No record.';
+		$return[] = DX_ERROR;
+		$return[] = $errmsg; 
+		return $return;
+	}
+
+}
+function hss_del_src($grade, $subject, $name) {
+	$conn=db_conn("daresay_db");
+	
+	$sql="SELECT * FROM hss_src WHERE grade='$grade' and subject='$subject' and name='$name'";
+	$result=mysql_query($sql,$conn);
+	if (!$result) {
+		$errmsg = "Query source failed.";
+		$return[] = DX_ERROR;
+		$return[] = $errmsg; 
+		return $return;
+	} else {
+		$row = mysql_fetch_assoc($result);
+        if ($row) {
+			//echo $row['name'];
+			//remove picture file
+			unlink($row['pic_path']);
+			//echo $grade;
+			$sql="DELETE  FROM hss_src WHERE grade='$grade' and subject='$subject' and name='$name'";
+			$result=mysql_query($sql, $conn);
+			if (!$result) {
+				$errmsg = "DELETE source fail";
+				$return[] = DX_ERROR;
+				$return[] = $errmsg; 
+				return $return;
+			} else { 
+				$errmsg = "Success";
+				$return[] = DX_SUCCESS;
+				$return[] = $errmsg; 
+				return $return;
+			}
+		} else {
+			$errmsg = "No record";
+			$return[] = DX_ERROR;
+			$return[] = $errmsg; 
+			return $return;
+		}
+	}
+	
+	mysql_close($conn);
+}
 /** 
  * 创建(导出)Excel数据表格 
  * @param  array   $list        要导出的数组格式的数据 

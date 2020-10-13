@@ -245,6 +245,74 @@ function return_json($data) {
 			}
 			
 			break;
+		case "hss_add_src":
+			$grade = $_POST["grade"];
+			$subject = $_POST["subject"];
+			$num = $_POST["num"];
+			$name = $_POST["name"];
+			$src = $_POST["src"];
+			
+			$imgname = $_FILES['pic']['name'];
+			$tmp = $_FILES['pic']['tmp_name'];
+			$filepath = 'photo/hss/'.$grade."-".$subject."-".$name."-".$imgname;
+			if ($_FILES['pic']['error']!=0) {
+					//return http_response_code(400);
+				error("Get file failed from client.");
+			}
+			
+			if(!move_uploaded_file($tmp, $filepath)){
+				//return http_response_code(400);
+				error("Save file failed.");
+			}
+			$root = "http://daresay.gz01.bdysite.com/internal_0506/server/";
+			list($errno, $data) = hss_add_src($grade, $subject, $num, $name, $src, $root.$filepath);
+			if ($errno) {
+				//echo $data;
+				error($data);
+			} else {
+				success('');
+			}
+			break;
+		case "hss_find_src":
+			$grade = $_REQUEST["grade"];
+			$subject = $_REQUEST["subject"];
+			if($grade=="primary")
+				$grade="小学";
+			else if($grade=="junior") 
+				$grade="初中";
+			else if($grade=="senior") 
+				$grade="高中";
+			
+			if($subject=="grammer")
+				$subject="语法";
+			else if($subject=="phonetic")
+				$subject="音标";
+			else if($subject=="listening")
+				$subject="53听力";
+			
+			list($errno, $data) = hss_find_src($grade, $subject);
+			if ($errno) {
+				//echo $data['question'];
+				error($data);
+			} else {
+				success($data);
+			}
+			
+			break;
+		case "hss_del_src":
+			$grade = $_POST["grade"];
+			$subject = $_POST["subject"];
+			$name = $_POST["name"];
+						
+			list($errno, $data) = hss_del_src($grade, $subject, $name);
+			if ($errno) {
+				//echo $data;
+				error($data);
+			} else {
+				success('');
+			}
+			
+			break;
 	}
 										
 	
