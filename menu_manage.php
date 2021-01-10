@@ -4,6 +4,7 @@
 			<li><a href="mail_index.php" target="">备课</a></li>
 			<li><a href="teacher_salary_record.php" target="">打卡</a></li>
 			<li><a href="absent_index.php" target="">出勤</a></li>
+			<li><a href="remind_index.php" target="">补课通知</a></li>
 			<li><a href="dollar_add.php" target="">Dollar</a></li>
 			<li><a href="lesson_record_index.php" target="">已上课程记录</a></li>
 		</ul>

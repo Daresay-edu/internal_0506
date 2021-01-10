@@ -46,7 +46,7 @@
 				<div class="box">
 					<!-- Box Head -->
 					<div class="box-head">
-						<h2 class="left">提醒/通知</h2>
+						<h2 class="left">补课通知</h2>
                     			</div>
 					<!-- End Box Head -->	
 
@@ -61,17 +61,13 @@
 							<td><select class='field' name="classid" id="classid" onchange="getClassnum(this.value)">
 									<option value="All">All</option>
 									<?php	
-										require_once("lib/db_opt.php");
-										$conn=db_conn("daresay_db");
-										$sql="SELECT * FROM class";							
-										$result=mysql_query($sql,$conn);
-										if (!$result)
-											die("SQL: {$sql}<br>Error:".mysql_error());	
-										while ($row = mysql_fetch_assoc($result)) {
-											$tmp=$row['classid'];
+										require_once("lib/lib.php");
+										$classes = get_running_class();
+										echo $classes;
+										for ($i=0;$i<count($classes);$i++) {
+								            $tmp = $classes[$i];
 											echo "<option value='$tmp'>".$tmp."</option>";	
-										}					
-										mysql_close($conn);
+										}	
 									?>
 							    </select>
 						

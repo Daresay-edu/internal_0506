@@ -203,19 +203,21 @@ function print_remind_by_classid($classid) {
 
 		list($fir_class,$sec_class) = array_pad(explode("-", $current_hour, 2), 2 , null);
 		//who need to pay
-		$sql="SELECT * FROM students where classid='$classid'";
-		$result=mysql_query($sql,$conn);
-		while ($row = mysql_fetch_assoc($result)) {
-			$need_pay=$row['hour_end'];
-			$engname=$row['engname'];
-			if ($need_pay - $sec_class <= 10) {
-				echo "<tr>";
+		
+		//$sql="SELECT * FROM students where classid='$classid'";
+		//$result=mysql_query($sql,$conn);
+		//while ($row = mysql_fetch_assoc($result)) {
+		//	$need_pay=$row['hour_end'];
+		//	$engname=$row['engname'];
+		//	if ($need_pay - $sec_class <= 10) {
+		//		echo "<tr>";
 					
-					echo "<td cellpadding='20' bgcolor='7ECD8C'><B>[缴费提醒]</B>".$row['engname']."缴费到第<B>".$need_pay."</B>课时</td>";
-					echo "<td><input type='button' id='makeup_finish' value='Pay' onClick=''/></td>";
-				echo "</tr>";
-			}
-		}
+		//			echo "<td cellpadding='20' bgcolor='7ECD8C'><B>[缴费提醒]</B>".$row['engname']."缴费到第<B>".$need_pay."</B>课时</td>";
+		//			echo "<td><input type='button' id='makeup_finish' value='Pay' onClick=''/></td>";
+		//		echo "</tr>";
+		//	}
+		//}
+		
 		//who need to make up
 		$sql="SELECT * FROM absent";
 		$result=mysql_query($sql,$conn);
