@@ -30,7 +30,7 @@ go_out:
 
 }
 ########### functions for class ###############
-function get_current_hour($classid, $sec_hour){
+function get_current_hour($classid, $return_sec_hour){
 	require_once("db_opt.php");
 	$conn=db_conn("daresay_db");
 	//read the class record info and get the hour
@@ -51,7 +51,7 @@ function get_current_hour($classid, $sec_hour){
 		}
 	}
 	mysql_close($conn);
-	if ($sec_hour) {
+	if ($return_sec_hour) {
 		return $record_hour_sec;
 	}else {
 		return $record_hour;

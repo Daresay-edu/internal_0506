@@ -158,7 +158,7 @@ height: 30px;
 							echo "<input type='hidden' name='note' value='$note'/>";
 							echo "</table>";
 
-							$current_hour = get_current_hour ($classid, false);
+							$current_hour = get_current_hour ($classid, False);
 							list($fir_hour, $sec_hour) = explode("-", $current_hour);
 		                                        list($tmp_fir,$tmp_sec) = explode("-",$class_num);
                                                         echo "<br/></br><div style='text-align:center; vertical-align:middel;'>";
