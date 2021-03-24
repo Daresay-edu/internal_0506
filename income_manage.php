@@ -74,6 +74,7 @@ height: 30px;
                       			<br/>
 					<?php
 					require_once("lib/db_opt.php");
+					require_once("lib/lib.php");
 						switch($_GET["action"]) {
 							case "display":
 								/*分如下步骤：
@@ -135,95 +136,143 @@ height: 30px;
 									echo "<h2>".$datefrom."至".$dateend."的收入总计: </h2>";
 								} else if (strcmp($type, "all") == 0) {
 									echo "<h2>从".$datefrom."至现在总共收取: </h2>";
+								} else if (strcmp($type, "left") == 0) {
+									echo "<h2>截至".$dateend."待消课时费: </h2>";
 								}
-								echo "<br/><br/>";
-								echo "<table>";
-								echo "<tr>";
-								echo "<td>班级</td>";
-								echo "<td>英文名</td>";
-								echo "<td>缴费课时</td>";
-								echo "<td>计入课时</td>";
-								echo "<td>课时费</td>";
-								echo "</tr>";
-								foreach ($class_arr as $classid_tmp) {
-									$find=0;
-									$table_name="class_info_record";
-									$sql="SELECT * FROM {$table_name} where classid='$classid_tmp'";
-									$result=mysql_query($sql,$conn);
-									if (!$result)
-										die("SQL: {$sql}<br>Error:".mysql_error());
-									$hour_begin=0;
-									$hour_end=0;
-									$small_date=strtotime($dateend);
-									$big_date=strtotime($datefrom);
-									//根据日期找到班级对应的课时范围
-									while ($row = mysql_fetch_assoc($result)) {
-										$tmp_date=explode("(",$row['date']);
-										$tmp_date=$tmp_date[0];
-										
-										if (strtotime($tmp_date) < strtotime($datefrom) || strtotime($tmp_date) > strtotime($dateend))
-											continue;
-										if ($small_date >= strtotime($tmp_date)){
-											$small_date = strtotime($tmp_date);
-											$hour_begin= explode("-",$row['hour']);
-											$hour_begin = $hour_begin[1];
-											$hour_begin = ($hour_begin == 2 ? 0 : $hour_begin - 2);
+								if (strcmp($type, "left") == 0) {
+							        	echo "<br/><br/>";
+							        	echo "<table>";
+							        	echo "<tr>";
+							        	echo "<td>班级</td>";
+							        	echo "<td>班级课时</td>";
+							        	echo "<td>英文名</td>";
+							        	echo "<td>缴费课时</td>";
+							        	echo "<td>缴费金额</td>";
+							        	echo "<td>待消课时</td>";
+							        	echo "<td>待消金额</td>";
+							        	echo "</tr>";
+									$total_left = 0;
+							        	foreach (get_running_class() as $classid_tmp) {
+							        		//找到当前班级的课时
+										$class_curr_hour = get_current_hour($classid_tmp, true);
+							        		$table_name="students";
+							        		$sql="SELECT * FROM {$table_name} where classid='$classid_tmp'";
+							        		$result=mysql_query($sql,$conn);
+							        		if (!$result)
+							        			die("SQL: {$sql}<br>Error:".mysql_error());
+							        		while ($row = mysql_fetch_assoc($result)) {
+										    $left = 0;
+										    if ($row['hour_end'] <= $class_curr_hour)
+											    continue;
+							        		    $charge_each_hour = $row['charge']/($row['hour_end']-$row['hour_begin']);
+										    $left = $charge_each_hour*($row['hour_end']-$class_curr_hour); 
+										    $total_left += $left;
+							        			echo "<tr>";
+							        			echo "<td>".$row['classid']."</td>";
+							        			echo "<td>".$class_curr_hour."</td>";
+							        			echo "<td>".$row['engname']."</td>";
+							        			echo "<td>".$row['hour_begin']."-".$row['hour_end']."</td>";
+							        			echo "<td>".$row['charge']."</td>";
+							        			echo "<td>".($row['hour_end']-$class_curr_hour)."</td>";
+							        			echo "<td>".$left."</td>";
+							        			echo "</tr>";
 										}
-										if ($big_date <= strtotime($tmp_date)) {
-											$big_date = strtotime($tmp_date);
-											$hour_end = explode("-",$row['hour']);
-											$hour_end = $hour_end[1];
-										}
-										$find=1;
 									}
-									if ($find==0)
-										continue;
-									//根据课时范围到students中找各个学生的课时
-									$table_name="students";
-									$sql="SELECT * FROM {$table_name} where classid='$classid_tmp'";
-									$result=mysql_query($sql,$conn);
-									if (!$result)
-										die("SQL: {$sql}<br>Error:".mysql_error());
-									while ($row = mysql_fetch_assoc($result)) {
-										if ($row['hour_end'] == 0)
-											continue;
-										$tmp_hour_begin=0;
-										$tmp_hour_end=0;
-										if ($row['hour_begin'] > $hour_end || $row['hour_end'] < $hour_begin)
-											continue;
-										// 获取每课时学费
-										$charge_each_hour = $row['charge']/($row['hour_end']-$row['hour_begin']);
-										
-										if ($row['hour_begin'] <= $hour_begin)
-											$tmp_hour_begin = $hour_begin;
-										else 
-											$tmp_hour_begin = $row['hour_begin'];
-										//如果是计算收入则按照以上课时为准，如果是计算收取则终止课时按学员缴费截止课时为准
-										if (strcmp($type, "income") == 0 ) {
-											$tmp_hour_end=($row['hour_end'] >= $hour_end ? $hour_end : $row['hour_end']);
-										} else if (strcmp($type, "all") == 0) {
-											$tmp_hour_end = $row['hour_end'];
-										}
-										$earned=$charge_each_hour*($tmp_hour_end-$tmp_hour_begin);
-										echo "<tr>";
-										echo "<td>".$row['classid']."</td>";
-										echo "<td>".$row['engname']."</td>";
-										echo "<td>".$row['hour_begin']."-".$row['hour_end']."</td>";
-										echo "<td>".$tmp_hour_begin."-".$tmp_hour_end."</td>";
-										
-										echo "<td>".$earned."</td>";
-										echo "</tr>";
-										$total_income +=$earned;
-											
-									}
-								}
+							        	echo "</table>";
+							        	echo "<br/><br/>";
+							        	
+							        	echo "<h2 style='color:orange'>待消总费用：".$total_left."元.</h2><br/>";
 								
-								echo "</table>";
-								echo "<br/><br/>";
-								
-								echo "<h2 style='color:orange'>总收入：".$total_income."元.</h2><br/>";
-								echo "<h2>收入还不错哦，继续加油！</h2>";
-								echo "<br/><br/>";
+								} else {
+							        	echo "<br/><br/>";
+							        	echo "<table>";
+							        	echo "<tr>";
+							        	echo "<td>班级</td>";
+							        	echo "<td>英文名</td>";
+							        	echo "<td>缴费课时</td>";
+							        	echo "<td>计入课时</td>";
+							        	echo "<td>课时费</td>";
+							        	echo "</tr>";
+							        	foreach ($class_arr as $classid_tmp) {
+							        		$find=0;
+							        		$table_name="class_info_record";
+							        		$sql="SELECT * FROM {$table_name} where classid='$classid_tmp'";
+							        		$result=mysql_query($sql,$conn);
+							        		if (!$result)
+							        			die("SQL: {$sql}<br>Error:".mysql_error());
+							        		$hour_begin=0;
+							        		$hour_end=0;
+							        		$small_date=strtotime($dateend);
+							        		$big_date=strtotime($datefrom);
+							        		//根据日期找到班级对应的课时范围
+							        		while ($row = mysql_fetch_assoc($result)) {
+							        			$tmp_date=explode("(",$row['date']);
+							        			$tmp_date=$tmp_date[0];
+							        			
+							        			if (strtotime($tmp_date) < strtotime($datefrom) || strtotime($tmp_date) > strtotime($dateend))
+							        				continue;
+							        			if ($small_date >= strtotime($tmp_date)){
+							        				$small_date = strtotime($tmp_date);
+							        				$hour_begin= explode("-",$row['hour']);
+							        				$hour_begin = $hour_begin[1];
+							        				$hour_begin = ($hour_begin == 2 ? 0 : $hour_begin - 2);
+							        			}
+							        			if ($big_date <= strtotime($tmp_date)) {
+							        				$big_date = strtotime($tmp_date);
+							        				$hour_end = explode("-",$row['hour']);
+							        				$hour_end = $hour_end[1];
+							        			}
+							        			$find=1;
+							        		}
+							        		if ($find==0)
+							        			continue;
+							        		//根据课时范围到students中找各个学生的课时
+							        		$table_name="students";
+							        		$sql="SELECT * FROM {$table_name} where classid='$classid_tmp'";
+							        		$result=mysql_query($sql,$conn);
+							        		if (!$result)
+							        			die("SQL: {$sql}<br>Error:".mysql_error());
+							        		while ($row = mysql_fetch_assoc($result)) {
+							        			if ($row['hour_end'] == 0)
+							        				continue;
+							        			$tmp_hour_begin=0;
+							        			$tmp_hour_end=0;
+							        			if ($row['hour_begin'] > $hour_end || $row['hour_end'] < $hour_begin)
+							        				continue;
+							        			// 获取每课时学费
+							        			$charge_each_hour = $row['charge']/($row['hour_end']-$row['hour_begin']);
+							        			
+							        			if ($row['hour_begin'] <= $hour_begin)
+							        				$tmp_hour_begin = $hour_begin;
+							        			else 
+							        				$tmp_hour_begin = $row['hour_begin'];
+							        			//如果是计算收入则按照以上课时为准，如果是计算收取则终止课时按学员缴费截止课时为准
+							        			if (strcmp($type, "income") == 0 ) {
+							        				$tmp_hour_end=($row['hour_end'] >= $hour_end ? $hour_end : $row['hour_end']);
+							        			} else if (strcmp($type, "all") == 0) {
+							        				$tmp_hour_end = $row['hour_end'];
+							        			}
+							        			$earned=$charge_each_hour*($tmp_hour_end-$tmp_hour_begin);
+							        			echo "<tr>";
+							        			echo "<td>".$row['classid']."</td>";
+							        			echo "<td>".$row['engname']."</td>";
+							        			echo "<td>".$row['hour_begin']."-".$row['hour_end']."</td>";
+							        			echo "<td>".$tmp_hour_begin."-".$tmp_hour_end."</td>";
+							        			
+							        			echo "<td>".$earned."</td>";
+							        			echo "</tr>";
+							        			$total_income +=$earned;
+							        				
+							        		}
+							        	}
+							        	
+							        	echo "</table>";
+							        	echo "<br/><br/>";
+							        	
+							        	echo "<h2 style='color:orange'>总收入：".$total_income."元.</h2><br/>";
+							        	echo "<h2>收入还不错哦，继续加油！</h2>";
+							        	echo "<br/><br/>";
+							    	   }
 
 							break;
 							case "add":

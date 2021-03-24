@@ -51,7 +51,7 @@ function get_current_hour($classid, $sec_hour){
 		}
 	}
 	mysql_close($conn);
-	if ($sec_hour === true) {
+	if ($sec_hour) {
 		return $record_hour_sec;
 	}else {
 		return $record_hour;

@@ -131,6 +131,7 @@ require_once("lib/db_opt.php");
 <label>类别</label>
 <select class='field' name="type">
 	<option value="income">已赚</option>
+	<option value="left">待消</option>
 	<option value="all">收取</option>
 </select>
 <br/><br/>
