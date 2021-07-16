@@ -160,7 +160,6 @@ function return_json($data) {
         	$date=date("Y-m-d");
     
 			list($errno, $data) = win_add_stu_report ($type_v, $date, $number, $school, $in3, $in4, $in5, $in6, $in7, $in8, $in9, $in10, $in11, $in12, $in13, $in14, $in15); 
-			//list($errno, $data) = win_add_stu_report ("1", "2020", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1"); 
 			if ($errno) {
 				//echo $data;
 				return http_response_code(400);
@@ -230,7 +229,7 @@ function return_json($data) {
 			}
 			
 			break;
-			case "read_practise":
+		case "read_practise":
 			$grade = $_REQUEST["grade"];
 			$subject = $_REQUEST["subject"];
 			$from = $_REQUEST["from"];
@@ -312,6 +311,20 @@ function return_json($data) {
 				success('');
 			}
 			
+			break;
+		case "hss_del_src":
+			$grade = $_POST["grade"];
+			$subject = $_POST["subject"];
+			$name = $_POST["name"];
+
+			list($errno, $data) = hss_del_src($grade, $subject, $name);
+			if ($errno) {
+				//echo $data;
+				error($data);
+			} else {
+				success('');
+			}
+
 			break;
 	}
 										
