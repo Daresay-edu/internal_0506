@@ -312,6 +312,11 @@ function return_json($data) {
 			}
 			
 			break;
+		case "class_current_hour":
+			$classid = $_REQUEST["classid"];
+		        $cur_hour = get_current_hour($classid, True);	
+			success($cur_hour);
+			break;
 		case "who_need_pay":
 		        $running_class = get_running_class();	
 			$cnt = count($running_class);
@@ -323,6 +328,23 @@ function return_json($data) {
 			    }
                         }
 			success($all);
+			break;
+		// tell me each monday
+		case "who_need_makeup_this_week":
+			$running_class = get_running_class();
+                        $cnt = count($running_class);
+                        $all = array();
+                        //$absents = get_all_stu_absents();
+                        //success($absents);
+			$j = 0;
+                        for($i=0;$i<$cnt;$i++){
+		            $each_makeup = who_need_makeup_thisweek($running_class[$i]);
+			    if (count($each_makeup)) {
+				$all[$running_class[$i]] = $each_makeup;
+			    }
+                        }
+			//sort by absent student classid
+                        success($all);
 			break;
 	}
 										

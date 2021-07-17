@@ -57,6 +57,13 @@ function get_current_hour($classid, $return_sec_hour){
 		return $record_hour;
 	}
 }	
+function is_same_level_class($classid, $classid1)
+{
+    if (!strcmp(substr($classid, 0, 2), substr($classid1, 0, 2)))
+	    return True;
+    else
+	    return False;
+}
 function who_need_pay($classid){
 	require_once("db_opt.php");
 	$conn=db_conn("daresay_db");
@@ -76,6 +83,75 @@ function who_need_pay($classid){
 	}
 	mysql_close($conn);
 	return $needpay_students;
+}	
+function get_stu_absent_by_classid($classid)
+{
+	$conn=db_conn("daresay_db");
+	$sql="SELECT * FROM absent where classid='$classid'";
+	$result=mysql_query($sql,$conn);
+	$absents = array();
+	$i = 0;
+	while ($row = mysql_fetch_assoc($result)) {
+		$absents[$i] = $row; 
+		$i++;
+	}
+	mysql_close($conn);
+	return $absents;
+}
+function get_all_stu_absents()
+{
+	require_once("db_opt.php");
+	$conn=db_conn("daresay_db");
+	$all_absents = array();
+	$sql="SELECT * FROM absent";
+	$result=mysql_query($sql,$conn);
+	$i = 0;
+	while ($row = mysql_fetch_assoc($result)) {
+		$all_absents[$i] = $row;
+		$i++;
+	}
+	mysql_close($conn);
+	return $all_absents;
+}
+function who_need_makeup_thisweek($target_classid){
+	# get all running class, makeup will happend in running class
+	$cur_hour = get_current_hour($target_classid, True);
+	require_once("db_opt.php");
+	$conn=db_conn("daresay_db");
+	$i=0;
+        
+	$class_info = get_class_info_byid($target_classid);
+	list($fir_tm,$sec_tm) = array_pad(explode(",", $class_info['class_time'], 2), 2 , null);
+        // get all absents
+	$all_absents = get_all_stu_absents(); 
+	$makeup_students=array();
+	$index = 0;
+	for ($i = 0; $i < count($all_absents); $i++){
+            $find = False;
+	    // filter the not same level classid and finished makeup.
+            if (!is_same_level_class($target_classid, $all_absents[$i]['classid']) || !strcmp($all_absents[$i]['finish'], 'yes'))
+	        continue; 
+
+	    list($fir_ab, $sec_ab) = array_pad(explode("-", $all_absents[$i]['ab_hour'], 2), 2 , null);
+	    if ($cur_hour + 2 == $sec_ab){
+		    $makeup_tm = $fir_tm;
+		    $find = True;
+	    }
+	    if ($cur_hour + 4 == $sec_ab){
+		    $makeup_tm = $sec_tm;
+		    $find = True;
+	    }
+	    if ($find) {
+	        $makeup_students[$index]['target_class'] = $target_classid; 
+	        $makeup_students[$index]['target_class_hour'] = $cur_hour; 
+	        $makeup_students[$index]['classid'] = $all_absents[$i]['classid']; 
+	        $makeup_students[$index]['engname'] = $all_absents[$i]['engname']; 
+	        $makeup_students[$index]['makeup_hour'] = $all_absents[$i]['ab_hour']; 
+	        $makeup_students[$index]['makeup_date'] = $makeup_tm; 
+	        $index++;
+	    }
+	}
+	return $makeup_students;
 }	
 function is_normal_class($classid) {
 		$ret=0;
@@ -153,6 +229,22 @@ function get_all_class() {
 	return $running_class;
 }
 
+function get_class_info_byid($classid){
+	require_once("db_opt.php");
+	$return = array ();
+	$conn=db_conn("daresay_db");
+	//read the class record info and get the hour
+	$table_name="class";
+	$sql="SELECT * FROM {$table_name} where classid='$classid'";
+	$result=mysql_query($sql,$conn);
+	if (!$result) {
+		return null;
+	}
+
+	$row = mysql_fetch_assoc($result);
+	return $row;
+}	
+
 function get_class_date($classid){
 	require_once("db_opt.php");
 	$return = array ();
@@ -178,6 +270,7 @@ go_out:
 	mysql_close($conn);
 	return $return;
 }	
+
 function print_remind_by_classid($classid) {
 	if (is_normal_class($classid)) {
 		static $num=1;
