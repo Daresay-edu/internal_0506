@@ -312,19 +312,17 @@ function return_json($data) {
 			}
 			
 			break;
-		case "hss_del_src":
-			$grade = $_POST["grade"];
-			$subject = $_POST["subject"];
-			$name = $_POST["name"];
-
-			list($errno, $data) = hss_del_src($grade, $subject, $name);
-			if ($errno) {
-				//echo $data;
-				error($data);
-			} else {
-				success('');
-			}
-
+		case "who_need_pay":
+		        $running_class = get_running_class();	
+			$cnt = count($running_class);
+			$all = array();
+                        for($i=0;$i<$cnt;$i++){
+		            $each_class = who_need_pay($running_class[$i]);
+			    if (count($each_class)) {
+				$all[$running_class[$i]] = $each_class;
+			    }
+                        }
+			success($all);
 			break;
 	}
 										

@@ -65,11 +65,11 @@ function who_need_pay($classid){
 
 	$sql="SELECT * FROM students where classid='$classid'";
 	$result=mysql_query($sql,$conn);
+	$cur_hour = get_current_hour($classid, True);
 	while ($row = mysql_fetch_assoc($result)) {
 		$need_pay=$row['hour_end'];
 		$engname=$row['engname'];
-		list($fir_class,$sec_class) = explode("-",$class_num);
-		if ($need_pay - $sec_class <= 10) {
+		if ($need_pay - $cur_hour<= 10) {
 			$needpay_students[$i]=$row["engname"];
 			$i++;
 		}
